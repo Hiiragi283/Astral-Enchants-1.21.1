@@ -5,6 +5,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.scratch221171.astralenchant.common.AstralEnchant;
+import net.scratch221171.astralenchant.common.enchantment.handler.*;
+import net.scratch221171.astralenchant.common.mixin.minecraft.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,9 @@ public class AEEnchantments {
     /**
      * 与えた攻撃に様々なダメージタイプタグを付与し、ダメージ軽減を貫通する。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.MitigationPiercingHandler}
+     * Handler : {@link MitigationPiercingHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.DamageSourceMixin}
+     * Mixin : {@link DamageSourceMixin}
      */
     public static final ResourceKey<Enchantment> MITIGATION_PIERCING = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "mitigation_piercing"));
@@ -25,7 +27,7 @@ public class AEEnchantments {
     /**
      * 経験値を消費して死亡イベントをキャンセルする。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.LastStandHandler}
+     * Handler : {@link LastStandHandler}
      * <p>
      * Mixin : none
      */
@@ -35,9 +37,9 @@ public class AEEnchantments {
     /**
      * 耐久力を除くアイテムのDataComponentを毎ティック置き換える。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.ItemProtectionHandler}
+     * Handler : {@link ItemProtectionHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.PlayerMixin}, {@link net.scratch221171.astralenchant.common.mixin.ItemStackMixin}
+     * Mixin : {@link PlayerMixin}, {@link ItemStackMixin}
      */
     public static final ResourceKey<Enchantment> ITEM_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "item_protection"));
@@ -45,7 +47,7 @@ public class AEEnchantments {
     /**
      * アイテムの合計エンチャントレベル(自身を除く)に応じて全てのAttributeModifierを上昇させる。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.EssenceOfEnchantmentHandler}, {@link net.scratch221171.astralenchant.compat.accessories.EssenceOfEnchantmentAccessoriesCompatHandler}
+     * Handler : {@link EssenceOfEnchantmentHandler}, {@link net.scratch221171.astralenchant.compat.accessories.EssenceOfEnchantmentAccessoriesCompatHandler}
      * <p>
      * Mixin : none
      */
@@ -55,9 +57,9 @@ public class AEEnchantments {
     /**
      * アイテム使用のクールダウンを短縮する。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.CooldownAttributeHandler}
+     * Handler : {@link CooldownAttributeHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.ItemCooldownsMixin}
+     * Mixin : {@link ItemCooldownsMixin}
      */
     public static final ResourceKey<Enchantment> COOLDOWN_REDUCTION = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "cooldown_reduction"));
@@ -65,9 +67,9 @@ public class AEEnchantments {
     /**
      * ブロック破壊時に必ずドロップするようにし、スニーク時はBlockStateやBlockEntityのコンポーネントを保持したままアイテム化させる。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.FeatherTouchHandler}
+     * Handler : {@link FeatherTouchHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.LocalPlayerMixin}, {@link net.scratch221171.astralenchant.common.mixin.PlayerMixin}
+     * Mixin : {@link LocalPlayerMixin}, {@link PlayerMixin}
      */
     public static final ResourceKey<Enchantment> FEATHER_TOUCH = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "feather_touch"));
@@ -75,7 +77,7 @@ public class AEEnchantments {
     /**
      * 総実績数に応じて運とブロック由来の経験値を増加させる。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.AdventurersLoreHandler}
+     * Handler : {@link AdventurersLoreHandler}
      * <p>
      * Mixin : none
      * */
@@ -87,7 +89,7 @@ public class AEEnchantments {
      * <p>
      * Handler : none
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.ItemStackMixin}, {@link net.scratch221171.astralenchant.common.mixin.IItemExtensionMixin}
+     * Mixin : {@link ItemStackMixin}, {@link IItemExtensionMixin}
      */
     public static final ResourceKey<Enchantment> COMPATIBILITY = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "compatibility"));
@@ -97,7 +99,7 @@ public class AEEnchantments {
      * <p>
      * Handler : none
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.FoodDataMixin}, {@link net.scratch221171.astralenchant.common.mixin.PlayerMixin}
+     * Mixin : {@link FoodDataMixin}, {@link PlayerMixin}
      */
     public static final ResourceKey<Enchantment> ENDLESS_APPETITE = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "endless_appetite"));
@@ -107,7 +109,7 @@ public class AEEnchantments {
      * <p>
      * Handler : none
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.LocalPlayerMixin}, {@link net.scratch221171.astralenchant.common.mixin.PlayerMixin}, {@link net.scratch221171.astralenchant.common.mixin.EntityMixin}
+     * Mixin : {@link LocalPlayerMixin}, {@link PlayerMixin}, {@link EntityMixin}
      */
     public static final ResourceKey<Enchantment> MOMENTUM = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "momentum"));
@@ -115,7 +117,7 @@ public class AEEnchantments {
     /**
      * エンダーパール使用時、瞬時に視線の先に真っ直ぐテレポートする。スニーク時はブロックを貫通する。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.InstantTeleportHandler}
+     * Handler : {@link InstantTeleportHandler}
      * <p>
      * Mixin : none
      */
@@ -125,9 +127,9 @@ public class AEEnchantments {
     /**
      * {@link net.scratch221171.astralenchant.common.registries.AEDataComponents#OVERLOAD} の値だけ全てのエンチャントのレベルを上昇させる。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.OverloadHandler}
+     * Handler : {@link OverloadHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.ItemStackMixin}, {@link net.scratch221171.astralenchant.common.mixin.IItemExtensionMixin}, {@link net.scratch221171.astralenchant.common.mixin.EnchantmentHelperMixin}
+     * Mixin : {@link ItemStackMixin}, {@link IItemExtensionMixin}, {@link EnchantmentHelperMixin}
      */
     public static final ResourceKey<Enchantment> OVERLOAD = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "overload"));
@@ -145,9 +147,9 @@ public class AEEnchantments {
     /**
      * 与えられた攻撃から防具貫通ダメージタイプタグを削除し、ダメージ貫通を無効化する。{@link #MITIGATION_PIERCING} より権限が低い。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.ReactiveArmorHandler}
+     * Handler : {@link ReactiveArmorHandler}
      * <p>
-     * Mixin : {@link net.scratch221171.astralenchant.common.mixin.DamageSourceMixin}
+     * Mixin : {@link DamageSourceMixin}
      */
     public static final ResourceKey<Enchantment> REACTIVE_ARMOR = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "reactive_armor"));
@@ -165,12 +167,22 @@ public class AEEnchantments {
     /**
      * ツールチップが呪われた文字に置き換わる。
      * <p>
-     * Handler : {@link net.scratch221171.astralenchant.common.enchantment.handler.CurseOfIgnoranceHandler}
+     * Handler : {@link CurseOfIgnoranceHandler}
      * <p>
      * Mixin : none
      */
     public static final ResourceKey<Enchantment> CURSE_OF_IGNORANCE = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "curse_of_ignorance"));
+
+    /**
+     * そのアイテムのエンチャントが変更できなくなる。
+     * <p>
+     * Handler : none
+     * <p>
+     * Mixin : {@link ItemStackMixin }
+     */
+    public static final ResourceKey<Enchantment> CURSE_OF_ENCHANTMENT = ResourceKey.create(Registries.ENCHANTMENT,
+            ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "curse_of_enchantment"));
 
     static {
         ENCHANTMENTS.add(MITIGATION_PIERCING);
@@ -189,5 +201,6 @@ public class AEEnchantments {
         ENCHANTMENTS.add(REACTIVE_ARMOR);
         ENCHANTMENTS.add(MYSTIC_REMNANTS);
         ENCHANTMENTS.add(CURSE_OF_IGNORANCE);
+        ENCHANTMENTS.add(CURSE_OF_ENCHANTMENT);
     }
 }

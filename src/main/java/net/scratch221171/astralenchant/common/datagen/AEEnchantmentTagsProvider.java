@@ -18,7 +18,7 @@ public class AEEnchantmentTagsProvider extends EnchantmentTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        tag(EnchantmentTags.CURSE).add(AEEnchantments.ITEM_PROTECTION, AEEnchantments.CURSE_OF_IGNORANCE).replace(false);
+        tag(EnchantmentTags.CURSE).add(AEEnchantments.CURSE_OF_IGNORANCE, AEEnchantments.CURSE_OF_ENCHANTMENT);
         tag(EnchantmentTags.ON_RANDOM_LOOT).add(AEEnchantments.CURSE_OF_IGNORANCE);
     }
 }

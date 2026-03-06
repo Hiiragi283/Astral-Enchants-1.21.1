@@ -1,4 +1,4 @@
-package net.scratch221171.astralenchant.common.mixin;
+package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Holder;

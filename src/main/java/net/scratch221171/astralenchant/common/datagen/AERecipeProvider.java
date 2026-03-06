@@ -64,7 +64,7 @@ public class AERecipeProvider extends RecipeProvider {
                     .pattern("323").pattern("212").pattern("323")
                     .add('1', EBIngredient(Enchantments.MENDING, 1, holderLookup))
                     .add('2', Items.ENDER_CHEST)
-                    .add('3', AEItems.ARCANE_QUARTZ)
+                    .add('3', AEItems.BUDDING_ARCANIUM_INGOT)
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.ESSENCE_OF_ENCHANTMENT, 1, holderLookup)

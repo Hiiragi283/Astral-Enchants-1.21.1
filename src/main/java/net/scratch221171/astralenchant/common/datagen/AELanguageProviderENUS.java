@@ -23,7 +23,7 @@ public class AELanguageProviderENUS extends LanguageProvider {
 
         addEnchantWithDesc(AEEnchantments.MITIGATION_PIERCING, "Mitigation Piercing", "Attacks penetrate various forms of damage mitigation.");
         addEnchantWithDesc(AEEnchantments.LAST_STAND, "Last Stand", "Consumes experience points to avoid death.");
-        addEnchantWithDesc(AEEnchantments.ITEM_PROTECTION, "Item Protection", "Dropped items will never disappear by any means. As a trade-off, the enchantments on the item can no longer be modified.");
+        addEnchantWithDesc(AEEnchantments.ITEM_PROTECTION, "Item Protection", "Disables the enchantment-disabling effect of the “Dispell” trait and the sealing effect of the “Ragnarok” trait added by L2Hostility.");
         addEnchantWithDesc(AEEnchantments.ESSENCE_OF_ENCHANTMENT, "Essence of Enchantment", "All item stats increase based on the total level of all enchantments other than this one.");
         addEnchantWithDesc(AEEnchantments.COOLDOWN_REDUCTION, "Cooldown Reduction", "Reduces the cooldown of all items, including shields and Ender Pearls.");
         addEnchantWithDesc(AEEnchantments.FEATHER_TOUCH, "Feather Touch", "All breakable blocks are collected as items. While sneaking, block states and components are preserved.");
@@ -39,6 +39,7 @@ public class AELanguageProviderENUS extends LanguageProvider {
         addEnchantWithDesc(AEEnchantments.REACTIVE_ARMOR, "Reactive Armor", "Negates effects that bypass armor and enchantments for certain types of damage.");
         addEnchantWithDesc(AEEnchantments.MYSTIC_REMNANTS, "Mystic Remnants", "Killed mobs will occasionally drop enchanted books.");
         addEnchantWithDesc(AEEnchantments.CURSE_OF_IGNORANCE, "Curse of Ignorance", "Replaces the tooltip with obscured text.");
+        addEnchantWithDesc(AEEnchantments.CURSE_OF_ENCHANTMENT, "Curse of Enchantment", "Prevents enchantments on the item from being modified.");
 
         // attribute
         add(AEAttributes.COOLDOWN_REDUCTION.unwrapKey().orElseThrow().location().toLanguageKey("attribute"), "Cooldown Reduction");

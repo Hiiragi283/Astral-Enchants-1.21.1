@@ -1,9 +1,7 @@
-package net.scratch221171.astralenchant.common.mixin;
+package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.core.Holder;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.scratch221171.astralenchant.common.Config;
@@ -39,19 +37,6 @@ public abstract class PlayerMixin {
         Player player = (Player)(Object)this;
         Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.MOMENTUM, player.level());
         if (EnchantmentHelper.getEnchantmentLevel(enchantment, player) > 0) {
-            ci.cancel();
-        }
-    }
-
-    /**
-     * {@link AEEnchantments#ITEM_PROTECTION} が付いている場合はそのアイテムがあるスロットの置き換えを無効化する。
-     */
-    @Inject(method = "setItemSlot", at = @At("HEAD"), cancellable = true)
-    private void astralEnchant$disableSetItemSlot(EquipmentSlot slot, ItemStack stack, CallbackInfo ci) {
-        if (Config.ITEM_PROTECTION.isFalse()) return;
-        Player player = (Player)(Object)this;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.ITEM_PROTECTION, player.level());
-        if (player.getItemBySlot(slot).getEnchantmentLevel(enchantment) > 0) {
             ci.cancel();
         }
     }

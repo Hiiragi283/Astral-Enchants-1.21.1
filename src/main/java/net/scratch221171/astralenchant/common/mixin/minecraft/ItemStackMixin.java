@@ -1,4 +1,4 @@
-package net.scratch221171.astralenchant.common.mixin;
+package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -94,14 +94,10 @@ public abstract class ItemStackMixin {
             ItemEnchantments enchantments,
             CallbackInfoReturnable<?> cir
     ) {
-        if (!Config.OVERLOAD.isTrue()) {
-            return false;
-        }
+        if (!Config.OVERLOAD.isTrue()) return false;
 
         int level = AEUtils.getEnchantmentLevelFromNBT(enchantments, AEEnchantments.OVERLOAD);
-        if (level <= 0) {
-            return false;
-        }
+        if (level <= 0) return false;
 
         ItemEnchantments.Mutable filtered =
                 new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
@@ -123,13 +119,8 @@ public abstract class ItemStackMixin {
             ItemStack stack,
             CallbackInfoReturnable<?> cir
     ) {
-        if (!Config.ITEM_PROTECTION.isTrue()) {
-            return false;
-        }
-
-        if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.ITEM_PROTECTION) <= 0) {
-            return false;
-        }
+        if (!Config.CURSE_OF_ENCHANTMENT.isTrue()) return false;
+        if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.CURSE_OF_ENCHANTMENT) <= 0) return false;
 
         cir.setReturnValue(null);
         return true;

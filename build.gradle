@@ -166,6 +166,10 @@ dependencies {
     compileOnly("dev.shadowsoffire:ApothicSpawners:${minecraft_version}-${project.apoth_spawners_version}")
     compileOnly("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${project.apoth_ench_version}")
     compileOnly("dev.shadowsoffire:Apotheosis:${minecraft_version}-${project.apoth_version}")
+
+    compileOnly(files("libs/l2library-3.0.8.jar"))
+    compileOnly(files("libs/l2complements-3.1.2.jar"))
+    compileOnly(files("libs/l2hostility-3.0.16.jar"))
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

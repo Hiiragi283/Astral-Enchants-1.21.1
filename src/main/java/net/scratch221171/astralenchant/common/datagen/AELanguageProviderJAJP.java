@@ -23,7 +23,7 @@ public class AELanguageProviderJAJP extends LanguageProvider {
 
         addEnchantWithDesc(AEEnchantments.MITIGATION_PIERCING, "軽減貫通", "攻撃が様々なダメージ軽減を貫通します。");
         addEnchantWithDesc(AEEnchantments.LAST_STAND, "ラストスタンド", "経験値を消費して死を回避します。");
-        addEnchantWithDesc(AEEnchantments.ITEM_PROTECTION, "アイテム保護", "ドロップしたアイテムがいかなる手段でも消えなくなります。代償としてエンチャントが変更できなくなります。");
+        addEnchantWithDesc(AEEnchantments.ITEM_PROTECTION, "アイテム保護", "L2HostilityのDispell特性によるエンチャント無効化とRagnarok特性による封印を無効化します。");
         addEnchantWithDesc(AEEnchantments.ESSENCE_OF_ENCHANTMENT, "エンチャントの極意", "このエンチャント以外のエンチャントのレベルの合計に応じて、アイテムの全ステータスに補正がかかります");
         addEnchantWithDesc(AEEnchantments.COOLDOWN_REDUCTION, "クールダウン削減", "盾やエンダーパールを含む、すべてのアイテムの使用クールダウンを短縮します。");
         addEnchantWithDesc(AEEnchantments.FEATHER_TOUCH, "フェザータッチ", "破壊可能なブロックが全てアイテムとして回収できます。スニークした場合はブロックステート及びコンポーネントが保存されます。");
@@ -39,6 +39,7 @@ public class AELanguageProviderJAJP extends LanguageProvider {
         addEnchantWithDesc(AEEnchantments.REACTIVE_ARMOR, "反応装甲", "一部のダメージタイプのアーマーおよびエンチャントを貫通する効果を無効化します。");
         addEnchantWithDesc(AEEnchantments.MYSTIC_REMNANTS, "神秘の残滓", "倒されたmobが稀にエンチャントの本をドロップするようになります。");
         addEnchantWithDesc(AEEnchantments.CURSE_OF_IGNORANCE, "無知の呪い", "ツールチップを呪われた文字に置き換えます。");
+        addEnchantWithDesc(AEEnchantments.CURSE_OF_ENCHANTMENT, "エンチャントの呪い", "アイテムのエンチャントを変更できなくなります。");
 
         // attribute
         add(AEAttributes.COOLDOWN_REDUCTION.unwrapKey().orElseThrow().location().toLanguageKey("attribute"), "クールダウン短縮率");

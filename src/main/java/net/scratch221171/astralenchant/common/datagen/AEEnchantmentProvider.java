@@ -29,6 +29,7 @@ public class AEEnchantmentProvider {
         conditions.clear();
 
         addCondition(AEEnchantments.SLOT_EXPANSION, new ModLoadedCondition("accessories"));
+        addCondition(AEEnchantments.ITEM_PROTECTION, new ModLoadedCondition("l2hostility"));
 
         return conditions;
     }
@@ -187,6 +188,15 @@ public class AEEnchantmentProvider {
                 EquipmentSlotGroup.MAINHAND)));
 
         register(context, AEEnchantments.CURSE_OF_IGNORANCE, Enchantment.enchantment(Enchantment.definition(
+                any,
+                1,
+                1,
+                Enchantment.constantCost(25),
+                Enchantment.constantCost(50),
+                4,
+                EquipmentSlotGroup.ANY)));
+
+        register(context, AEEnchantments.CURSE_OF_ENCHANTMENT, Enchantment.enchantment(Enchantment.definition(
                 any,
                 1,
                 1,
