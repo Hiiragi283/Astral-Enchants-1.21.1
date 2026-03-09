@@ -9,11 +9,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.scratch221171.astralenchant.common.AstralEnchant;
+import net.scratch221171.astralenchant.common.conditions.ConfigCondition;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.loot.EBLootModifier;
 import net.scratch221171.astralenchant.common.loot.predicates.LootItemConfigCondition;
 import net.scratch221171.astralenchant.common.loot.providers.AEEnchantmentLevelProvider;
-import net.scratch221171.astralenchant.common.conditions.ConfigCondition;
 
 import java.util.concurrent.CompletableFuture;
 

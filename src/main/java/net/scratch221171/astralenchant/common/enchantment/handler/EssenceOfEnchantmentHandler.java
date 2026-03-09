@@ -42,9 +42,9 @@ public class EssenceOfEnchantmentHandler {
 
         for (ItemAttributeModifiers.Entry entry : attributeModifiers.modifiers()) {
             ResourceLocation id = entry.modifier().id();
-                ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath() + "_" + entry.slot().getSerializedName());
-                AttributeModifier newBonusModifier = new AttributeModifier(newId, totalLevel * level * multiplier / 100f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-                event.addModifier(entry.attribute(), newBonusModifier, entry.slot());
+            ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath() + "_" + entry.slot().getSerializedName());
+            AttributeModifier newBonusModifier = new AttributeModifier(newId, totalLevel * level * multiplier / 100f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+            event.addModifier(entry.attribute(), newBonusModifier, entry.slot());
         }
     }
 }

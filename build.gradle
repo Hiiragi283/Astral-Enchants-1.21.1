@@ -26,6 +26,13 @@ repositories {
         url = "https://api.modrinth.com/maven"
     }
 
+    maven {
+        url = "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+
     // accessories
     maven { url 'https://maven.wispforest.io/releases' }
     maven { url 'https://maven.su5ed.dev/releases' }
@@ -167,15 +174,15 @@ dependencies {
     compileOnly("dev.shadowsoffire:ApothicEnchanting:${minecraft_version}-${project.apoth_ench_version}")
     compileOnly("dev.shadowsoffire:Apotheosis:${minecraft_version}-${project.apoth_version}")
 
-    compileOnly(files("libs/l2library-3.0.8.jar"))
-    compileOnly(files("libs/l2complements-3.1.2.jar"))
-    compileOnly(files("libs/l2hostility-3.0.16.jar"))
+    compileOnly("curse.maven:l2hostility-909207:7685921")
+    compileOnly("curse.maven:l2-complements-758349:7606344")
+    compileOnly("curse.maven:l2library-620203:7584599")
 
-    localRuntime(files("libs/l2library-3.0.8.jar"))
-    localRuntime(files("libs/l2complements-3.1.2.jar"))
-    localRuntime(files("libs/l2hostility-3.0.16.jar"))
-    localRuntime(files("libs/Patchouli-1.21.1-93-NEOFORGE.jar"))
-    localRuntime(files("libs/curios-neoforge-9.5.1+1.21.1.jar"))
+    localRuntime("curse.maven:l2hostility-909207:7685921")
+    localRuntime("curse.maven:l2-complements-758349:7606344")
+    localRuntime("curse.maven:l2library-620203:7584599")
+    localRuntime("maven.modrinth:patchouli:1.21.1-93-neoforge")
+    localRuntime("maven.modrinth:curios:9.5.1+1.21.1")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

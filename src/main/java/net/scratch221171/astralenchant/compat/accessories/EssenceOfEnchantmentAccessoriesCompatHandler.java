@@ -44,7 +44,7 @@ public class EssenceOfEnchantmentAccessoriesCompatHandler {
                     // スロット数増加のモディファイアは除外
                     .stream().filter(entry -> !(entry.getKey().value() instanceof SlotAttribute)).toList()) {
                 ResourceLocation id = entry.getValue().id();
-                ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath());
+                ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath() + reference.slotName());
                 AttributeModifier newBonusModifier = new AttributeModifier(newId, totalLevel * level * multiplier / 100f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
                 builder.addStackable(entry.getKey(), newBonusModifier);
             }

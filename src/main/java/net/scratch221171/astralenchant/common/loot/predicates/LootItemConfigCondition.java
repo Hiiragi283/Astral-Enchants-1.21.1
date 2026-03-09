@@ -6,8 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.scratch221171.astralenchant.common.registries.AELootItemConditions;
 import net.scratch221171.astralenchant.common.conditions.ConfigCondition;
+import net.scratch221171.astralenchant.common.registries.AELootItemConditions;
 import org.jetbrains.annotations.NotNull;
 
 public record LootItemConfigCondition(String config) implements LootItemCondition {
