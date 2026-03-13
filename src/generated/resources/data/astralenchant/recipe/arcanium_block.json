@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "1": {
+      "item": "astralenchant:arcanium_ingot"
+    }
+  },
+  "pattern": [
+    "111",
+    "111",
+    "111"
+  ],
+  "result": {
+    "count": 1,
+    "id": "astralenchant:arcanium_block"
+  }
+}

@@ -13,7 +13,6 @@ import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.registries.*;
 import net.scratch221171.astralenchant.compat.accessories.AccessoriesCompat;
-import net.scratch221171.astralenchant.compat.apotheosis.ApotheosisCompat;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
@@ -35,8 +34,6 @@ public class AstralEnchant {
         AEDataComponents.register(modEventBus);
         AELootModifiers.register(modEventBus);
         AEConditions.register(modEventBus);
-        AENumberProviders.register(modEventBus);
-        AELootItemConditions.register(modEventBus);
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -49,10 +46,6 @@ public class AstralEnchant {
         // 連携
         if (ModList.get().isLoaded("accessories")) {
             AccessoriesCompat.register(modEventBus);
-        }
-
-        if (ModList.get().isLoaded("apotheosis")) {
-            ApotheosisCompat.register(modEventBus);
         }
     }
 

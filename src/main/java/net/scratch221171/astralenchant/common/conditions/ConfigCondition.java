@@ -29,7 +29,7 @@ public record ConfigCondition(String key) implements ICondition {
     }
 
     public boolean test() {
-        return RuntimeConfigState.get(key);
+        return Boolean.TRUE.equals(RuntimeConfigState.get(key));
     }
 
     @Override
