@@ -69,6 +69,7 @@ public class AELanguageProviderENUS extends LanguageProvider {
         addConfigWithDesc(AEConfig.INSTANT_TELEPORT_MAX_DISTANCE, "Instant Teleport maximum distance", "Specifies the maximum teleport distance provided by this enchantment.");
         addConfigWithDesc(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS, "Damage type tags added by Mitigation Piercing", "Configures the damage type tags added by Mitigation Piercing. These take priority over Reactive Armor.");
         addConfigWithDesc(AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS, "Damage type tags disabled by Reactive Armor", "Configures the damage type tags that are disabled by Reactive Armor.");
+        addConfigWithDesc(AEConfig.DISTORTION_ANGLE_PER_LEVEL, "Allowed angle increase per Distortion level", "Specifies how many degrees the allowed difference between the entity's facing direction and the player's line of sight increases for each level of Distortion.");
 
         add(AstralEnchant.MOD_ID + ".configuration.misc", "Misc Settings");
         addConfigWithDesc(AEConfig.ENABLE_VANILLA_ITEM_RECIPES, "Enable vanilla item recipes", "Enables recipes for vanilla items that may be required for game progression (such as bundles).");
