@@ -30,6 +30,6 @@ public class CooldownDurationAttributeHandler {
         if (event.getEntity().level().isClientSide) return;
         Player player = event.getEntity();
         float value = (float) player.getAttributeValue(AEAttributes.COOLDOWN_DURATION);
-        ((IItemCooldownsExtension) player.getCooldowns()).astralenchant$setCooldownDurationMultiplier(value);
+        ((IItemCooldownsExtension) player.getCooldowns()).astralenchant$setMultiplier(value);
     }
 }

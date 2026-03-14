@@ -18,6 +18,7 @@ import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
+import net.scratch221171.astralenchant.common.util.IAttributeSentimentExtension;
 
 import java.util.Map;
 import java.util.Set;
@@ -45,7 +46,21 @@ public class EssenceOfEnchantmentAccessoriesCompatHandler {
                     .stream().filter(entry -> !(entry.getKey().value() instanceof SlotAttribute)).toList()) {
                 ResourceLocation id = entry.getValue().id();
                 ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath() + reference.slotName());
-                AttributeModifier newBonusModifier = new AttributeModifier(newId, totalLevel * level * multiplier / 100f, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+
+                Attribute.Sentiment sentiment = ((IAttributeSentimentExtension)entry.getKey().value()).astralenchant$getSentiment();
+                AttributeModifier newBonusModifier;
+
+                switch (sentiment) {
+                    // *(1 + a)
+                    case POSITIVE -> newBonusModifier = new AttributeModifier(newId, totalLevel * level * multiplier / 100f, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                    // /(1 + a)
+                    case NEGATIVE -> newBonusModifier = new AttributeModifier(newId, - 1 + 1 / (totalLevel * level * multiplier / 100f + 1), AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                    default -> {
+                        AstralEnchant.LOGGER.info("default");
+                        continue;
+                    }
+                }
+
                 builder.addStackable(entry.getKey(), newBonusModifier);
             }
         }

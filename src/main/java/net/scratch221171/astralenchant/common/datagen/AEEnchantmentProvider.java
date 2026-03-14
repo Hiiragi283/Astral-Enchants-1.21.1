@@ -94,7 +94,7 @@ public class AEEnchantmentProvider {
                         ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "cr_bonus"),
                         AEAttributes.COOLDOWN_DURATION,
                         LevelBasedValue.perLevel(-0.15f),
-                        AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 )));
 
         register(context, AEEnchantments.FEATHER_TOUCH, Enchantment.enchantment(Enchantment.definition(

@@ -25,7 +25,7 @@ public class SlotExpansionHandler {
         if (!stack.isEmpty() && level > 0) {
             builder.addStackable(
                     SlotAttribute.getAttributeHolder(reference.slotName()),
-                    ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "sp_bonus"),
+                    ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
                     level,
                     AttributeModifier.Operation.ADD_VALUE);
         }
