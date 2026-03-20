@@ -81,7 +81,7 @@ public class AEEnchantments {
      * Handler : {@link AdventurersLoreHandler}
      * <p>
      * Mixin : none
-     * */
+     */
     public static final ResourceKey<Enchantment> ADVENTURERS_LORE = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "adventurers_lore"));
 

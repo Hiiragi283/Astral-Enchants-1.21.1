@@ -144,6 +144,7 @@ public class InstantTeleportHandler {
         player.resetFallDistance();
         player.hurtMarked = true;
 
+        // levelがclientの時は既にonUsingEnderPearlでキャンセル済み
         ((ServerLevel) level).sendParticles(
                 ParticleTypes.PORTAL,
                 target.x, target.y, target.z,

@@ -39,8 +39,8 @@ public class LastStandHandler {
         if (totalLevel <= 0) return;
 
         // default: 2000
-        int baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
-        int required = Math.round((float) (baseXP / totalLevel));
+        float baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
+        int required = Math.round(baseXP / totalLevel);
         if (getTotalPoint(player.experienceProgress, player.experienceLevel) < required) return;
         player.giveExperiencePoints(-required);
 

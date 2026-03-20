@@ -40,6 +40,7 @@ public class RuntimeConfigState {
         }
     }
 
+    // Config Condition用
     @SuppressWarnings("unchecked")
     @Nullable
     public static <T> T get(String key) {

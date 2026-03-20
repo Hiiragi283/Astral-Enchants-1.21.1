@@ -14,22 +14,6 @@ import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class OverloadHandler {
 
-//    @SubscribeEvent
-//    private static void modifyTooltip(ItemTooltipEvent event) {
-//        if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
-//        ItemStack stack = event.getItemStack();
-//        int level = stack.getOrDefault(AEDataComponents.OVERLOAD, 0);
-//        if (level > 0) {
-//            event.getToolTip().add(Component.translatable("enchantment.astralenchant.overload.tooltip.text", level).withColor(getRainbowColor()));
-//        }
-//    }
-//
-//    // Shiny!!
-//    private static int getRainbowColor() {
-//        float hue = System.currentTimeMillis() % 1800 / 1800f;
-//        return java.awt.Color.HSBtoRGB(hue, 1.0f, 1.0f) & 0xFFFFFF;
-//    }
-
     @SubscribeEvent
     private static void modifyTooltip(ItemTooltipEvent event) {
         if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
