@@ -20,6 +20,7 @@ import java.util.List;
 
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class CurseOfIgnoranceHandler {
+
     @SubscribeEvent(priority = EventPriority.LOWEST)
     private static void onItemToolTip(ItemTooltipEvent event) {
         if (!RuntimeConfigState.get(AEConfig.CURSE_OF_IGNORANCE)) return;

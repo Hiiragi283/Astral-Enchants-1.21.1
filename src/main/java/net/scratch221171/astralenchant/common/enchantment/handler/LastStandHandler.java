@@ -29,19 +29,19 @@ public class LastStandHandler {
 
         Iterable<ItemStack> armorSlots = player.getArmorSlots();
         Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.LAST_STAND, player.level());
-        int totalLevel = 0;
+        int totalEnchantmentLevel = 0;
         for (ItemStack armor : armorSlots) {
             int level = armor.getEnchantmentLevel(enchantment);
             if (level > 0) {
-                totalLevel += level;
+                totalEnchantmentLevel += level;
             }
         }
-        if (totalLevel <= 0) return;
+        if (totalEnchantmentLevel <= 0) return;
 
         // default: 2000
         float baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
-        int required = Math.round(baseXP / totalLevel);
-        if (getTotalPoint(player.experienceProgress, player.experienceLevel) < required) return;
+        int required = Math.round(baseXP / totalEnchantmentLevel);
+        if (!hasEnoughPoint(player.experienceProgress, player.experienceLevel, required)) return;
         player.giveExperiencePoints(-required);
 
         event.setCanceled(true);
@@ -65,15 +65,18 @@ public class LastStandHandler {
             );
         }
     }
-    
-    private static int getTotalPoint(float progress, int level) {
-        int total = 0;
+
+    private static boolean hasEnoughPoint(float progress, int level, int required) {
+        long total = 0;
         for (int i = 0; i < level; i++) {
             total += getXpNeededForNextLevel(i);
+            if (total >= required) {
+                return true;
+            }
         }
         // ほぼintなのでround
         total += Math.round(progress * getXpNeededForNextLevel(level));
-        return total;
+        return total >= required;
     }
 
     private static int getXpNeededForNextLevel(int j) {
