@@ -1,3 +1,12 @@
+/*
+ * Based on code from Apotheosis
+ * https://github.com/Shadows-of-Fire/Apotheosis
+ *
+ * Licensed under the MIT License.
+ *
+ * Original copyright (c) 2018-2025 Stormraven Studios, LLC
+ */
+
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.tags.TagKey;
