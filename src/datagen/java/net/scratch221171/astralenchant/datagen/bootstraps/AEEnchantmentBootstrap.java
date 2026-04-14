@@ -6,6 +6,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
@@ -17,7 +18,6 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet;
 import net.scratch221171.astralenchant.common.AstralEnchant;
-import net.scratch221171.astralenchant.common.datagen.providers.AEItemTagsProvider;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEAttributes;
 
@@ -45,7 +45,7 @@ public class AEEnchantmentBootstrap {
         HolderSet<Item> foot = items.get().getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE);
         HolderSet<Item> weapon = items.get().getOrThrow(ItemTags.WEAPON_ENCHANTABLE);
         HolderSet<Item> mining = items.get().getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE);
-        HolderSet<Item> bundle = items.get().getOrThrow(AEItemTagsProvider.BUNDLE);
+        HolderSet<Item> bundle = items.get().getOrThrow(ItemTags.create(ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "bundle")));
 
         register(context, AEEnchantments.MITIGATION_PIERCING, Enchantment.enchantment(Enchantment.definition(
                 weapon,
