@@ -58,19 +58,26 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(21)
 }
 
+// 1. datagen ソースセットの定義
 sourceSets {
     val main = getByName("main")
     create("datagen") {
         java.srcDir("src/datagen/java")
+        // ここは「手動で作成するリソース（既存のファイルなど）」を置く場所
         resources.srcDir("src/datagen/resources")
 
-        compileClasspath += main.compileClasspath
-        runtimeClasspath += main.runtimeClasspath
-
-        compileClasspath += main.output
-        runtimeClasspath += main.output
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
     }
 }
+
+// 2. main ソースセットの設定
+// 「datagenが自動生成した場所」だけを main に取り込む
+sourceSets.main.get().resources {
+    srcDir("src/datagen/generated/resources")
+}
+
+val localRuntime by configurations.creating
 
 configurations {
     // datagen の構成が既存の implementation (NeoForge等を含む) を継承するように強制
@@ -80,9 +87,10 @@ configurations {
     named("datagenRuntimeOnly") {
         extendsFrom(runtimeOnly.get())
     }
+    named("runtimeClasspath") {
+        extendsFrom(localRuntime)
+    }
 }
-
-sourceSets.main.get().resources.srcDir("src/generated/resources")
 
 neoForge {
     version = neo_version
@@ -114,7 +122,11 @@ neoForge {
             data()
             gameDirectory = file("run-data")
             sourceSet = sourceSets.getByName("datagen")
-            programArguments.addAll("--mod", mod_id, "--all", "--output", file("src/generated/resources/").absolutePath, "--existing", file("src/main/resources/").absolutePath)
+            programArguments.addAll("--mod", mod_id, "--all",
+                "--output", file("src/datagen/generated/resources/").absolutePath,
+                "--existing", file("src/main/resources/").absolutePath,
+                "--existing", file("src/datagen/resources").absolutePath
+            )
         }
     }
 
@@ -124,12 +136,6 @@ neoForge {
             sourceSet(sourceSets.getByName("datagen"))
         }
     }
-}
-
-val localRuntime by configurations.creating
-
-configurations.named("runtimeClasspath") {
-    extendsFrom(localRuntime)
 }
 
 dependencies {
