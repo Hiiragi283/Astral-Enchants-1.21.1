@@ -64,7 +64,7 @@ sourceSets {
     create("datagen") {
         java.srcDir("src/datagen/java")
         // ここは「手動で作成するリソース（既存のファイルなど）」を置く場所
-        resources.srcDir("src/datagen/resources")
+        resources.srcDir("src/main/resources")
 
         compileClasspath += main.compileClasspath + main.output
         runtimeClasspath += main.runtimeClasspath + main.output
@@ -125,7 +125,6 @@ neoForge {
             programArguments.addAll("--mod", mod_id, "--all",
                 "--output", file("src/datagen/generated/resources/").absolutePath,
                 "--existing", file("src/main/resources/").absolutePath,
-                "--existing", file("src/datagen/resources").absolutePath
             )
         }
     }

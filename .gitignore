@@ -24,6 +24,7 @@ runs
 run-data
 run-server
 memo.md
+arcanium.aseprite
 
 src/generated/resources/.cache
 
