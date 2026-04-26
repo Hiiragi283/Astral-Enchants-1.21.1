@@ -194,4 +194,7 @@ public class AEEnchantments {
      */
     public static final ResourceKey<Enchantment> DISTORTION = ResourceKey.create(Registries.ENCHANTMENT,
             ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "distortion"));
+
+    public static final ResourceKey<Enchantment> OVER_MENDING = ResourceKey.create(Registries.ENCHANTMENT,
+            ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "over_mending"));
 }

@@ -39,6 +39,8 @@ public class AEConfig {
     public static final ModConfigSpec.IntValue INSTANT_TELEPORT_MAX_DISTANCE;
     public static final ModConfigSpec.ConfigValue<List<? extends String>> REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS;
     public static final ModConfigSpec.DoubleValue DISTORTION_ANGLE_PER_LEVEL;
+    public static final ModConfigSpec.IntValue OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED;
+    public static final ModConfigSpec.DoubleValue OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER;
 
     public static final ModConfigSpec.BooleanValue ENABLE_VANILLA_ITEM_RECIPES;
 
@@ -60,6 +62,7 @@ public class AEConfig {
     public static final ModConfigSpec.BooleanValue CURSE_OF_IGNORANCE;
     public static final ModConfigSpec.BooleanValue CURSE_OF_ENCHANTMENT;
     public static final ModConfigSpec.BooleanValue DISTORTION;
+    public static final ModConfigSpec.BooleanValue OVER_MENDING;
 
     static {
         BUILDER.push("settings");
@@ -111,6 +114,12 @@ public class AEConfig {
         DISTORTION_ANGLE_PER_LEVEL =
                 registerDouble("distortion_angle_per_level", 7.5, 0, Double.MAX_VALUE);
 
+        OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED =
+                registerInt("over_mending_total_experience_required", 100000, 0, Integer.MAX_VALUE);
+
+        OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER =
+                registerDouble("over_mending_lightning_damage_multiplier", 16, 0, Double.MAX_VALUE);
+
         BUILDER.pop();
 
         BUILDER.push("misc");
@@ -156,6 +165,8 @@ public class AEConfig {
             CURSE_OF_ENCHANTMENT = registerEnchantment(AEEnchantments.CURSE_OF_ENCHANTMENT);
 
             DISTORTION = registerEnchantment(AEEnchantments.DISTORTION);
+
+            OVER_MENDING = registerEnchantment(AEEnchantments.OVER_MENDING);
 
         BUILDER.pop();
     }

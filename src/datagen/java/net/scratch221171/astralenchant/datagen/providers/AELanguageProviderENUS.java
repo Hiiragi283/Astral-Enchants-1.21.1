@@ -42,6 +42,9 @@ public class AELanguageProviderENUS extends LanguageProvider {
         addEnchantWithDesc(AEEnchantments.CURSE_OF_IGNORANCE, "Curse of Ignorance", "Replaces the tooltip with obscured text.");
         addEnchantWithDesc(AEEnchantments.CURSE_OF_ENCHANTMENT, "Curse of Enchantment", "Prevents enchantments on the item from being modified.");
         addEnchantWithDesc(AEEnchantments.DISTORTION, "Distortion", "Missed attacks distort toward a nearby target.");
+        addEnchantWithDesc(AEEnchantments.OVER_MENDING, "Over Mending", "By consuming a large amount of experience points and being struck by lightning, the tool will become indestructible.");
+        add(AEEnchantments.OVER_MENDING.location().toLanguageKey("enchantment", "tooltip.text"), "Over Mending：%s %%");
+        add(AEEnchantments.OVER_MENDING.location().toLanguageKey("enchantment", "tooltip.hint"), "To complete Over Mending, you must be struck by lightning. Note: Lightning damage will be significantly increased.");
 
         // attribute
         add(AEAttributes.COOLDOWN_DURATION.unwrapKey().orElseThrow().location().toLanguageKey("attribute"), "Cooldown Duration");
@@ -70,6 +73,7 @@ public class AELanguageProviderENUS extends LanguageProvider {
         addConfigWithDesc(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS, "Damage type tags added by Mitigation Piercing", "Configures the damage type tags added by Mitigation Piercing. These take priority over Reactive Armor.");
         addConfigWithDesc(AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS, "Damage type tags disabled by Reactive Armor", "Configures the damage type tags that are disabled by Reactive Armor.");
         addConfigWithDesc(AEConfig.DISTORTION_ANGLE_PER_LEVEL, "Allowed angle increase per Distortion level", "Specifies how many degrees the allowed difference between the entity's facing direction and the player's line of sight increases for each level of Distortion.");
+        addConfigWithDesc(AEConfig.OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED, "Total experience points required for Over Mending", "By default, this is approximately 166 levels. It is recommended that you set it to a multiple of 100.");
 
         add(AstralEnchant.MOD_ID + ".configuration.misc", "Misc Settings");
         addConfigWithDesc(AEConfig.ENABLE_VANILLA_ITEM_RECIPES, "Enable vanilla item recipes", "Enables recipes for vanilla items that may be required for game progression (such as bundles).");

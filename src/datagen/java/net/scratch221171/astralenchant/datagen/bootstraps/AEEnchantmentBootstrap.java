@@ -14,11 +14,13 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
+import net.minecraft.world.item.enchantment.effects.EnchantmentEntityEffect;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
+import net.scratch221171.astralenchant.common.enchantment.effect.OverMendingEffect;
 import net.scratch221171.astralenchant.common.registries.AEAttributes;
 
 import java.util.HashMap;
@@ -46,6 +48,7 @@ public class AEEnchantmentBootstrap {
         HolderSet<Item> weapon = items.get().getOrThrow(ItemTags.WEAPON_ENCHANTABLE);
         HolderSet<Item> mining = items.get().getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE);
         HolderSet<Item> bundle = items.get().getOrThrow(ItemTags.create(ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "bundle")));
+        HolderSet<Item> durability = items.get().getOrThrow(ItemTags.DURABILITY_ENCHANTABLE);
 
         register(context, AEEnchantments.MITIGATION_PIERCING, Enchantment.enchantment(Enchantment.definition(
                 weapon,
@@ -214,6 +217,17 @@ public class AEEnchantmentBootstrap {
                 Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.HAND)));
+
+        register(context, AEEnchantments.OVER_MENDING, Enchantment.enchantment(Enchantment.definition(
+                durability,
+                1,
+                1,
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
+                16,
+                EquipmentSlotGroup.ANY))
+                .withEffect(EnchantmentEffectComponents.TICK, new OverMendingEffect()
+                ));
     }
 
     private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

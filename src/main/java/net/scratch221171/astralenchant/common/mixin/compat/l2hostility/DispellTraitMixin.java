@@ -26,7 +26,7 @@ public class DispellTraitMixin {
         ItemStack stack = (ItemStack) obj;
         if (RuntimeConfigState.get(AEConfig.ITEM_PROTECTION)) {
 
-            if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
+            if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
                 return false;
             }
         }

@@ -25,7 +25,7 @@ public interface IItemExtensionMixin {
     @Inject(method = "supportsEnchantment", at = @At("RETURN"), cancellable = true)
     private void astralenchant$bundleSupportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY)) return;
-        if (stack.is(Items.BUNDLE) && stack.get(DataComponents.BUNDLE_CONTENTS) != BundleContents.EMPTY && AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.COMPATIBILITY) > 0) {
+        if (stack.is(Items.BUNDLE) && stack.get(DataComponents.BUNDLE_CONTENTS) != BundleContents.EMPTY && AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
             stack.set(DataComponents.REPAIR_COST, 0);
             cir.setReturnValue(true);
         }

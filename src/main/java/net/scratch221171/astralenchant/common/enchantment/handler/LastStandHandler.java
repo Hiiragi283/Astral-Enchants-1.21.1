@@ -41,7 +41,7 @@ public class LastStandHandler {
         // default: 2000
         float baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
         int required = Math.round(baseXP / totalEnchantmentLevel);
-        if (!hasEnoughPoint(player.experienceProgress, player.experienceLevel, required)) return;
+        if (!AEUtils.hasEnoughXPPoint(player.experienceProgress, player.experienceLevel, required)) return;
         player.giveExperiencePoints(-required);
 
         event.setCanceled(true);
@@ -63,27 +63,6 @@ public class LastStandHandler {
                     1.0F,
                     1.0F
             );
-        }
-    }
-
-    private static boolean hasEnoughPoint(float progress, int level, int required) {
-        long total = 0;
-        for (int i = 0; i < level; i++) {
-            total += getXpNeededForNextLevel(i);
-            if (total >= required) {
-                return true;
-            }
-        }
-        // ほぼintなのでround
-        total += Math.round(progress * getXpNeededForNextLevel(level));
-        return total >= required;
-    }
-
-    private static int getXpNeededForNextLevel(int j) {
-        if (j >= 30) {
-            return 112 + (j - 30) * 9;
-        } else {
-            return j >= 15 ? 37 + (j - 15) * 5 : 7 + j * 2;
         }
     }
 }

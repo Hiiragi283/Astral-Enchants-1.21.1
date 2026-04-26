@@ -42,6 +42,10 @@ public class AELanguageProviderJAJP extends LanguageProvider {
         addEnchantWithDesc(AEEnchantments.CURSE_OF_IGNORANCE, "無知の呪い", "ツールチップを呪われた文字に置き換えます。");
         addEnchantWithDesc(AEEnchantments.CURSE_OF_ENCHANTMENT, "エンチャントの呪い", "アイテムのエンチャントを変更できなくなります。");
         addEnchantWithDesc(AEEnchantments.DISTORTION, "歪曲", "攻撃が外れた場合、近くの敵へ判定が歪められます。");
+        addEnchantWithDesc(AEEnchantments.OVER_MENDING, "過修繕", "経験値を大量に消費し、雷に撃たれることでツールが不可壊になります。");
+        add(AEEnchantments.OVER_MENDING.location().toLanguageKey("enchantment", "tooltip.text"), "過修繕：%s %%");
+        add(AEEnchantments.OVER_MENDING.location().toLanguageKey("enchantment", "tooltip.hint"), "過修繕を完了するには雷に撃たれる必要があります。注意：雷のダメージが大幅に強化されます。");
+
 
         // attribute
         add(AEAttributes.COOLDOWN_DURATION.unwrapKey().orElseThrow().location().toLanguageKey("attribute"), "クールダウン時間");
@@ -70,6 +74,7 @@ public class AELanguageProviderJAJP extends LanguageProvider {
         addConfigWithDesc(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS, "軽減貫通で付与されるダメージタイプタグ", "軽減貫通によって追加されるダメージタイプタグを設定します。反応装甲より優先されます。");
         addConfigWithDesc(AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS, "反応装甲で無効化されるダメージタイプタグ", "反応装甲によって無効化されるダメージタイプタグを設定します。");
         addConfigWithDesc(AEConfig.DISTORTION_ANGLE_PER_LEVEL, "歪曲のレベル毎の許容角度増加", "レベルが 1 上がるごとに、エンティティへの向きと視線の角度差の許容量が何度増加するか指定します。");
+        addConfigWithDesc(AEConfig.OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED, "過修繕の必要経験値ポイント（合計）", "デフォルトでは約 166 レベルです。100の倍数に設定することをおすすめします。");
 
         add(AstralEnchant.MOD_ID + ".configuration.misc", "その他の設定");
         addConfigWithDesc(AEConfig.ENABLE_VANILLA_ITEM_RECIPES, "バニラアイテムのレシピを有効化", "ゲーム進行に必要となる可能性のあるバニラアイテムのレシピを有効化します（バンドルなど）。");

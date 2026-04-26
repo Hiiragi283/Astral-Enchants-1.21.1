@@ -24,7 +24,7 @@ public class LootControllerMixin {
             name = "loaded")
     private static ItemAffixes modifyLoaded(ItemAffixes loaded, ItemStack stack, LootCategory cat, LootRarity rarity, GenContext ctx) {
         if (loaded.isEmpty()) return loaded;
-        int level = AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.MYSTIC_REMNANTS);
+        int level = AEUtils.getEnchantmentLevel(stack, AEEnchantments.MYSTIC_REMNANTS);
         if (level <= 0) return loaded;
         ItemAffixes.Builder modified = loaded.toBuilder();
 

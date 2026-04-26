@@ -23,7 +23,7 @@ public class EssenceOfEnchantmentHandler {
     public static void handle(ItemStack stack, Holder<Attribute> attribute, BiConsumer<Holder<Attribute>, AttributeModifier> consumer, ResourceLocation id, String slotName) {
         if (!RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANTMENT)) return;
 
-        int level = AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.ESSENCE_OF_ENCHANTMENT);
+        int level = AEUtils.getEnchantmentLevel(stack, AEEnchantments.ESSENCE_OF_ENCHANTMENT);
         if (stack.isEmpty() || level <= 0) return;
 
         int totalLevel = 0;

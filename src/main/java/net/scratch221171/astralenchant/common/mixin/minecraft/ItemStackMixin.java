@@ -98,7 +98,7 @@ public abstract class ItemStackMixin {
             CallbackInfoReturnable<?> cir
     ) {
         if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY) || !stack.is(Items.BUNDLE)) return false;
-        if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.COMPATIBILITY) <= 0) return false;
+        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) <= 0) return false;
 
         BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
         if (contents.isEmpty()) return false;
@@ -137,7 +137,7 @@ public abstract class ItemStackMixin {
     ) {
         if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return false;
 
-        int level = AEUtils.getEnchantmentLevelFromNBT(enchantments, AEEnchantments.OVERLOAD);
+        int level = AEUtils.getEnchantmentLevel(enchantments, AEEnchantments.OVERLOAD);
         if (level <= 0) return false;
 
         ItemEnchantments.Mutable filtered =
@@ -161,7 +161,7 @@ public abstract class ItemStackMixin {
             CallbackInfoReturnable<?> cir
     ) {
         if (!RuntimeConfigState.get(AEConfig.CURSE_OF_ENCHANTMENT)) return false;
-        if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.CURSE_OF_ENCHANTMENT) <= 0) return false;
+        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.CURSE_OF_ENCHANTMENT) <= 0) return false;
 
         cir.setReturnValue(null);
         return true;

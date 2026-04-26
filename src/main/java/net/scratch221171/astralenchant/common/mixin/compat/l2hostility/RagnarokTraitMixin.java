@@ -23,7 +23,7 @@ public class RagnarokTraitMixin {
     private static void preventBeingSealed(EntitySlotAccess access, CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.ITEM_PROTECTION)) return;
         ItemStack stack = access.get();
-        if (AEUtils.getEnchantmentLevelFromNBT(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
+        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
             cir.setReturnValue(false);
         }
     }

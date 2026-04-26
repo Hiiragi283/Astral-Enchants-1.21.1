@@ -94,7 +94,7 @@ public class FeatherTouchHandler {
     }
 
     @SubscribeEvent
-    public static void onTick(ServerTickEvent.Post event) {
+    private static void onTick(ServerTickEvent.Post event) {
         FeatherTouchCache.CACHE.clear();
     }
 
@@ -102,7 +102,7 @@ public class FeatherTouchHandler {
         return state.hasProperty(properties) && state.getValue(properties) == value;
     }
 
-    public static class FeatherTouchCache {
+    static class FeatherTouchCache {
         public static final Map<BlockPos, ItemStack> CACHE = new HashMap<>();
     }
 }

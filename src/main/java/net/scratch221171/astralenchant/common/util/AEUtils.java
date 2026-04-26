@@ -15,23 +15,30 @@ public class AEUtils {
         return level.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolderOrThrow(enchantment);
     }
 
-    public static int getEnchantmentLevelFromNBT(ItemStack stack, ResourceKey<Enchantment> enchantment) {
-        for (Object2IntMap.Entry<Holder<Enchantment>> entry : stack.getTagEnchantments().entrySet()) {
-            if (entry.getKey().is(enchantment)) {
+    public static int getEnchantmentLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
+        for (Holder<Enchantment> e : stack.getTagEnchantments().keySet()) {
+            if (e.unwrapKey().isPresent() && e.unwrapKey().get().equals(enchantment)) {
                 // 専用メソッドを尊重
-                return stack.getEnchantmentLevel(entry.getKey());
+                return stack.getEnchantmentLevel(e);
             }
         }
         return 0;
     }
 
-    public static int getEnchantmentLevelFromNBT(ItemEnchantments enchantments, ResourceKey<Enchantment> enchantment) {
-        for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments.entrySet()) {
-            if (entry.getKey().is(enchantment)) {
-                return entry.getIntValue();
+    public static int getEnchantmentLevel(ItemEnchantments enchantments, ResourceKey<Enchantment> enchantment) {
+        for (Holder<Enchantment> e : enchantments.keySet()) {
+            if (e.unwrapKey().isPresent() && e.unwrapKey().get().equals(enchantment)) {
+                // 専用メソッドを尊重
+                return enchantments.getLevel(e);
             }
         }
         return 0;
+    }
+
+    public static ItemEnchantments removeEnchantment(ItemEnchantments enchantments, Holder<Enchantment> enchantment) {
+        ItemEnchantments.Mutable newEnchantments = new ItemEnchantments.Mutable(enchantments);
+        newEnchantments.removeIf(holder -> holder.value() == enchantment.value());
+        return newEnchantments.toImmutable();
     }
 
     public static ItemEnchantments mergeItemEnchants(ItemEnchantments a, ItemEnchantments b) {
@@ -59,5 +66,26 @@ public class AEUtils {
         }
 
         return result.toImmutable();
+    }
+
+    public static boolean hasEnoughXPPoint(float progress, int level, int required) {
+        long total = 0;
+        for (int i = 0; i < level; i++) {
+            total += getXpNeededForNextLevel(i);
+            if (total >= required) {
+                return true;
+            }
+        }
+        // ほぼintなのでround
+        total += Math.round(progress * getXpNeededForNextLevel(level));
+        return total >= required;
+    }
+
+    public static int getXpNeededForNextLevel(int j) {
+        if (j >= 30) {
+            return 112 + (j - 30) * 9;
+        } else {
+            return j >= 15 ? 37 + (j - 15) * 5 : 7 + j * 2;
+        }
     }
 }
