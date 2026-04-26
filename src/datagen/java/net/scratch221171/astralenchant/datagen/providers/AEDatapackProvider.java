@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.scratch221171.astralenchant.common.AstralEnchant;
-import net.scratch221171.astralenchant.datagen.bootstraps.*;
+import net.scratch221171.astralenchant.datagen.bootstraps.AEEnchantmentBootstrap;
 
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
