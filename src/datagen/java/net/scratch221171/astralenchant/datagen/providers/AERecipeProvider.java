@@ -212,7 +212,7 @@ public class AERecipeProvider extends RecipeProvider {
                     .add('3', Items.EXPERIENCE_BOTTLE)
                     .add('4', EBIngredient(Enchantments.MENDING, 1, holderLookup))
                     .add('5', Items.LIGHTNING_ROD)
-                    .add('4', EBIngredient(Enchantments.UNBREAKING, 3, holderLookup))
+                    .add('6', EBIngredient(Enchantments.UNBREAKING, 3, holderLookup))
                     .save(output);
         }
 
