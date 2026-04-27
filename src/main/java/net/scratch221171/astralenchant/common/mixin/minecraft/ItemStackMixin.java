@@ -8,24 +8,16 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
-import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
+import net.neoforged.neoforge.common.NeoForge;
 import net.scratch221171.astralenchant.common.enchantment.handler.EssenceOfEnchantmentHandler;
-import net.scratch221171.astralenchant.common.registries.AEDataComponents;
-import net.scratch221171.astralenchant.common.util.AEUtils;
+import net.scratch221171.astralenchant.common.event.ItemEnchantmentSetEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.BiConsumer;
 
 @Mixin(ItemStack.class)
@@ -63,107 +55,20 @@ public abstract class ItemStackMixin {
         };
     }
 
+    @SuppressWarnings("unchecked")
     @Inject(method = "set", at = @At("HEAD"), cancellable = true)
     private <T> void astralenchant$onEnchanted(
             DataComponentType<? super T> component,
             T value,
             CallbackInfoReturnable<T> cir
     ) {
-        if (!astralenchant$isEnchantmentComponent(component, value)) {
-            return;
-        }
+        if (!(component == DataComponents.ENCHANTMENTS
+                && value instanceof ItemEnchantments enchantments)) return;
 
         ItemStack stack = (ItemStack) (Object) this;
 
-        ItemEnchantments enchantments = (ItemEnchantments) value;
-
-        if (astralenchant$tryHandleBundle(stack, enchantments, cir)) return;
-        if (astralenchant$tryHandleOverload(stack, enchantments, cir)) return;
-        if (astralenchant$tryHandleItemProtection(stack, cir)) return;
-    }
-
-    @Unique
-    private static boolean astralenchant$isEnchantmentComponent(
-            DataComponentType<?> component,
-            Object value
-    ) {
-        return component == DataComponents.ENCHANTMENTS
-                && value instanceof ItemEnchantments;
-    }
-
-    @Unique
-    private static boolean astralenchant$tryHandleBundle(
-            ItemStack stack,
-            ItemEnchantments enchantments,
-            CallbackInfoReturnable<?> cir
-    ) {
-        if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY) || !stack.is(Items.BUNDLE)) return false;
-        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) <= 0) return false;
-
-        BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        if (contents.isEmpty()) return false;
-
-        ItemEnchantments.Mutable added = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
-        enchantments.entrySet().stream()
-                .filter(e ->
-                        !e.getKey().is(AEEnchantments.COMPATIBILITY)
-                                && stack.getEnchantmentLevel(e.getKey()) <= 0
-                )
-                .forEach(e -> added.set(e.getKey(), e.getIntValue()));
-
-        List<ItemStack> newItems = new ArrayList<>();
-        for (ItemStack item : contents.items()) {
-            ItemStack copy = item.copy();
-            ItemEnchantments current = copy.get(DataComponents.ENCHANTMENTS);
-            if (current != null) {
-                copy.set(
-                        DataComponents.ENCHANTMENTS,
-                        AEUtils.mergeItemEnchants(added.toImmutable(), current)
-                );
-            }
-            newItems.add(copy);
+        if (NeoForge.EVENT_BUS.post(new ItemEnchantmentSetEvent(stack, enchantments)).isCanceled()) {
+            cir.setReturnValue((T)stack.get(DataComponents.ENCHANTMENTS));
         }
-
-        stack.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newItems));
-        cir.setReturnValue(null);
-        return true;
-    }
-
-    @Unique
-    private static boolean astralenchant$tryHandleOverload(
-            ItemStack stack,
-            ItemEnchantments enchantments,
-            CallbackInfoReturnable<?> cir
-    ) {
-        if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return false;
-
-        int level = AEUtils.getEnchantmentLevel(enchantments, AEEnchantments.OVERLOAD);
-        if (level <= 0) return false;
-
-        ItemEnchantments.Mutable filtered =
-                new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
-        enchantments.entrySet().stream()
-                .filter(e -> !e.getKey().is(AEEnchantments.OVERLOAD))
-                .forEach(e -> filtered.set(e.getKey(), e.getIntValue()));
-
-        stack.set(DataComponents.ENCHANTMENTS, filtered.toImmutable());
-        stack.set(
-                AEDataComponents.OVERLOAD,
-                stack.getOrDefault(AEDataComponents.OVERLOAD, 0) + level
-        );
-        cir.setReturnValue(null);
-        return true;
-    }
-
-    @Unique
-    private static boolean astralenchant$tryHandleItemProtection(
-            ItemStack stack,
-            CallbackInfoReturnable<?> cir
-    ) {
-        if (!RuntimeConfigState.get(AEConfig.CURSE_OF_ENCHANTMENT)) return false;
-        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.CURSE_OF_ENCHANTMENT) <= 0) return false;
-
-        cir.setReturnValue(null);
-        return true;
     }
 }

@@ -18,7 +18,7 @@ public record OverMendingEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<OverMendingEffect> CODEC = MapCodec.unit(OverMendingEffect::new);
 
     @Override
-    public void apply(@NotNull ServerLevel level, int enchantmentLevel, EnchantedItemInUse item, @NotNull Entity entity, @NotNull Vec3 origin) {
+    public void apply(@NotNull ServerLevel level, int enchantmentLevel, @NotNull EnchantedItemInUse item, @NotNull Entity entity, @NotNull Vec3 origin) {
         if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return;
         if (!(entity instanceof Player player)) return;
         ItemStack stack = item.itemStack();
