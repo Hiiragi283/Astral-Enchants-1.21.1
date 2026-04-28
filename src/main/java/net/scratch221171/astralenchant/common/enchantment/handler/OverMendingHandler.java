@@ -1,6 +1,7 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,14 @@ public class OverMendingHandler {
         if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return;
         ItemStack stack = event.getItemStack();
 
-        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.OVER_MENDING) > 0) {
+        HolderLookup.Provider provider = event.getContext().registries();
+        int overMendingLevel;
+        if (provider != null) {
+            overMendingLevel = AEUtils.getEnchantmentLevel(stack, provider, AEEnchantments.OVER_MENDING);
+        } else {
+            overMendingLevel = AEUtils.getEnchantmentLevel(stack, AEEnchantments.OVER_MENDING);
+        }
+        if (overMendingLevel > 0) {
             int progress = stack.getOrDefault(AEDataComponents.OVER_MENDING, 0);
             List<Component> tooltip = event.getToolTip();
 

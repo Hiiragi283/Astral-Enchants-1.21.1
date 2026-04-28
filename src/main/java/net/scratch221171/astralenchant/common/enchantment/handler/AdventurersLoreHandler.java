@@ -2,7 +2,6 @@ package net.scratch221171.astralenchant.common.enchantment.handler;
 
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.level.ServerLevel;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -84,7 +82,8 @@ public class AdventurersLoreHandler {
     }
 
     private static int getLevel(Player player) {
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.ADVENTURERS_LORE, player.level());
-        return EnchantmentHelper.getEnchantmentLevel(enchantment, player);
+        return AEUtils.getEnchantmentHolder1(AEEnchantments.ADVENTURERS_LORE, player.level())
+                .map(holder -> EnchantmentHelper.getEnchantmentLevel(holder, player))
+                .orElse(0);
     }
 }

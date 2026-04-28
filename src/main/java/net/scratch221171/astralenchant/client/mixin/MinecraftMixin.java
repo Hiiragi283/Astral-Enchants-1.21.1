@@ -3,12 +3,10 @@ package net.scratch221171.astralenchant.client.mixin;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
@@ -45,27 +43,25 @@ public abstract class MinecraftMixin {
      */
     @Inject(method = "startAttack()Z", at = @At("HEAD"))
     private void astralenchant$redirectMissAttack(CallbackInfoReturnable<Boolean> cir) {
-
-        // entityにヒットしたらリダイレクトしない
+        // entity にヒットしたらリダイレクトしない
         if (this.hitResult == null
             || this.hitResult.getType() == HitResult.Type.ENTITY) return;
 
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.DISTORTION, level);
-        int level = EnchantmentHelper.getEnchantmentLevel(enchantment, player);
-        if (level <= 0) return;
+        AEUtils.getEnchantmentHolder1(AEEnchantments.DISTORTION, level).ifPresent(holder -> {
+            int level = EnchantmentHelper.getEnchantmentLevel(holder, player);
+            if (level <= 0) return;
 
-        double radAnglePerLevel = RuntimeConfigState.get(AEConfig.DISTORTION_ANGLE_PER_LEVEL) * Math.PI / 180;
-        Entity target = astralenchant$findTarget(level * radAnglePerLevel);
-        if (target == null) return;
+            double radAnglePerLevel = RuntimeConfigState.get(AEConfig.DISTORTION_ANGLE_PER_LEVEL) * Math.PI / 180;
+            Entity target = astralenchant$findTarget(level * radAnglePerLevel);
+            if (target == null) return;
 
-        this.hitResult = new EntityHitResult(target);
+            this.hitResult = new EntityHitResult(target);
+        });
     }
 
     @Unique
     private Entity astralenchant$findTarget(double apexAngle) {
-
-        AttributeInstance ins =
-                player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
+        AttributeInstance ins = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
         if (ins == null) return null;
         double range = ins.getValue();
 
@@ -101,7 +97,6 @@ public abstract class MinecraftMixin {
 
     @Unique
     private Vec3 astralenchant$closestPointOnBoxToRay(Vec3 rayOrigin, Vec3 rayDir, AABB box) {
-
         Vec3 toCenter = box.getCenter().subtract(rayOrigin);
         double t = Math.max(0, toCenter.dot(rayDir));
 

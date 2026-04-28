@@ -22,7 +22,7 @@ import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.jetbrains.annotations.NotNull;
 
-public class XPbarDecorator implements IItemDecorator {
+public class XPBarDecorator implements IItemDecorator {
     @Override
     public boolean render(@NotNull GuiGraphics guiGraphics, @NotNull Font font, @NotNull ItemStack stack, int xOffset, int yOffset) {
         if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return false;

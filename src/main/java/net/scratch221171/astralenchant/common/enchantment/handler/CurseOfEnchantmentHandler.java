@@ -1,9 +1,7 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -32,12 +30,13 @@ public class CurseOfEnchantmentHandler {
     private static void onItemEntitySpawn(EntityJoinLevelEvent event) {
         if (!RuntimeConfigState.get(AEConfig.CURSE_OF_ENCHANTMENT)) return;
         if (!(event.getEntity() instanceof ItemEntity itemEntity)) return;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.CURSE_OF_ENCHANTMENT, event.getLevel());
-        if (itemEntity.getItem().getEnchantmentLevel(enchantment) > 0) {
-            itemEntity.setUnlimitedLifetime();
-            itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(0.1, 0.1, 0.1));
-            itemEntity.setNoGravity(true);
-            itemEntity.setInvulnerable(true);
-        }
+        AEUtils.getEnchantmentHolder1(AEEnchantments.CURSE_OF_ENCHANTMENT, event.getLevel()).ifPresent(holder -> {
+            if (itemEntity.getItem().getEnchantmentLevel(holder) > 0) {
+                itemEntity.setUnlimitedLifetime();
+                itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(0.1, 0.1, 0.1));
+                itemEntity.setNoGravity(true);
+                itemEntity.setInvulnerable(true);
+            }
+        });
     }
 }

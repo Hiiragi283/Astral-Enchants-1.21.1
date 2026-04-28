@@ -11,17 +11,13 @@ import net.scratch221171.astralenchant.common.AstralEnchant;
 import java.util.function.UnaryOperator;
 
 public class AEDataComponents {
-    public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
-            DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, AstralEnchant.MOD_ID);
+    public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, AstralEnchant.MOD_ID);
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVERLOAD = register("overload",
-            builder -> builder.persistent(Codec.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVERLOAD = register("overload", builder -> builder.persistent(Codec.INT));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVER_MENDING = register("over_mending",
-            builder -> builder.persistent(Codec.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVER_MENDING = register("over_mending", builder -> builder.persistent(Codec.INT));
 
-    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
-                                                                                           UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
+    private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {
         return DATA_COMPONENT_TYPES.register(name, () -> builderOperator.apply(DataComponentType.builder()).build());
     }
 

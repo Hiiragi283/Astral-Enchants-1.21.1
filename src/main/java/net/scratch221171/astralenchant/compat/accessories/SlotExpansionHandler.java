@@ -3,11 +3,9 @@ package net.scratch221171.astralenchant.compat.accessories;
 import io.wispforest.accessories.api.attributes.AccessoryAttributeBuilder;
 import io.wispforest.accessories.api.attributes.SlotAttribute;
 import io.wispforest.accessories.api.slot.SlotReference;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
@@ -20,14 +18,15 @@ public class SlotExpansionHandler {
      */
     public static void onAdjustAttributeModifier(ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
         if (!RuntimeConfigState.get(AEConfig.SLOT_EXPANSION)) return;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.SLOT_EXPANSION, reference.entity().level());
-        int  level = stack.getEnchantmentLevel(enchantment);
-        if (!stack.isEmpty() && level > 0) {
-            builder.addStackable(
-                    SlotAttribute.getAttributeHolder(reference.slotName()),
-                    ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
-                    level,
-                    AttributeModifier.Operation.ADD_VALUE);
-        }
+        AEUtils.getEnchantmentHolder1(AEEnchantments.SLOT_EXPANSION, reference.entity().level()).ifPresent(holder -> {
+            int level = stack.getEnchantmentLevel(holder);
+            if (!stack.isEmpty() && level > 0) {
+                builder.addStackable(
+                        SlotAttribute.getAttributeHolder(reference.slotName()),
+                        ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
+                        level,
+                        AttributeModifier.Operation.ADD_VALUE);
+            }
+        });
     }
 }
