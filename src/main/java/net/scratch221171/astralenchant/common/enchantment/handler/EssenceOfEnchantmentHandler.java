@@ -35,7 +35,7 @@ public class EssenceOfEnchantmentHandler {
 
         double multiplier = RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER);
 
-        ResourceLocation newId = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "eoe_bonus_" + id.getPath() + "_" + slotName);
+        ResourceLocation newId = AstralEnchant.id("eoe_bonus_" + id.getPath() + "_" + slotName);
 
         Attribute.Sentiment sentiment = ((IAttributeSentimentExtension)attribute.value()).astralenchant$getSentiment();
         AttributeModifier newModifier;

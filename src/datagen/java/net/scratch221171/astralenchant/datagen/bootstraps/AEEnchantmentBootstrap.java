@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.datagen.bootstraps;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -17,79 +18,74 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet;
 import net.scratch221171.astralenchant.common.AstralEnchant;
+import net.scratch221171.astralenchant.common.AstralEnchantmentTags;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.enchantment.effect.OverMendingEffect;
 import net.scratch221171.astralenchant.common.registries.AEAttributes;
 
-import java.util.HashMap;
+import java.util.function.BiConsumer;
 
 public class AEEnchantmentBootstrap {
-    private static final HashMap<ResourceKey<Enchantment>, ICondition> conditions = new HashMap<>();
-
-    public static HashMap<ResourceKey<Enchantment>, ICondition> getConditions() {
-        conditions.clear();
-
-        addCondition(AEEnchantments.SLOT_EXPANSION, new ModLoadedCondition("accessories"));
-        addCondition(AEEnchantments.ITEM_PROTECTION, new ModLoadedCondition("l2hostility"));
-
-        return conditions;
+    public static void applyConditions(BiConsumer<ResourceKey<?>, ICondition> consumer) {
+        consumer.accept(AEEnchantments.SLOT_EXPANSION, new ModLoadedCondition("accessories"));
+        consumer.accept(AEEnchantments.ITEM_PROTECTION, new ModLoadedCondition("l2hostility"));
     }
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
-        var items = context.registryLookup(Registries.ITEM);
+        HolderLookup.RegistryLookup<Item> itemLookup = context.registryLookup(Registries.ITEM).orElseThrow();
 
-        HolderSet<Item> any = new AnyHolderSet<>(items.orElseThrow());
-        HolderSet<Item> armor = items.get().getOrThrow(ItemTags.ARMOR_ENCHANTABLE);
-        HolderSet<Item> head = items.get().getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE);
-        HolderSet<Item> chest = items.get().getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE);
-        HolderSet<Item> foot = items.get().getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE);
-        HolderSet<Item> weapon = items.get().getOrThrow(ItemTags.WEAPON_ENCHANTABLE);
-        HolderSet<Item> mining = items.get().getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE);
-        HolderSet<Item> bundle = items.get().getOrThrow(ItemTags.create(ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "bundle")));
-        HolderSet<Item> durability = items.get().getOrThrow(ItemTags.DURABILITY_ENCHANTABLE);
+        HolderSet<Item> anyHolderSet = new AnyHolderSet<>(itemLookup);
+        HolderSet<Item> armorTag = itemLookup.getOrThrow(ItemTags.ARMOR_ENCHANTABLE);
+        HolderSet<Item> headTag = itemLookup.getOrThrow(ItemTags.HEAD_ARMOR_ENCHANTABLE);
+        HolderSet<Item> chestTag = itemLookup.getOrThrow(ItemTags.CHEST_ARMOR_ENCHANTABLE);
+        HolderSet<Item> footTag = itemLookup.getOrThrow(ItemTags.FOOT_ARMOR_ENCHANTABLE);
+        HolderSet<Item> weaponTag = itemLookup.getOrThrow(ItemTags.WEAPON_ENCHANTABLE);
+        HolderSet<Item> miningTag = itemLookup.getOrThrow(ItemTags.MINING_LOOT_ENCHANTABLE);
+        HolderSet<Item> bundleTag = itemLookup.getOrThrow(AstralEnchantmentTags.Items.BUNDLE);
+        HolderSet<Item> durabilityTag = itemLookup.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE);
 
         register(context, AEEnchantments.MITIGATION_PIERCING, Enchantment.enchantment(Enchantment.definition(
-                weapon,
+                weaponTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.MAINHAND)));
 
         register(context, AEEnchantments.LAST_STAND, Enchantment.enchantment(Enchantment.definition(
-                armor,
+                armorTag,
                 1,
                 3,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.ARMOR)));
 
         register(context, AEEnchantments.ITEM_PROTECTION, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.ESSENCE_OF_ENCHANTMENT, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 5,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.COOLDOWN_REDUCTION, Enchantment.enchantment(Enchantment.definition(
-                        chest,
+                        chestTag,
                         1,
                         3,
-                        Enchantment.dynamicCost(100,10),
-                        Enchantment.dynamicCost(150,10),
+                        Enchantment.dynamicCost(100, 10),
+                        Enchantment.dynamicCost(150, 10),
                         16,
                         EquipmentSlotGroup.CHEST))
                 .withEffect(EnchantmentEffectComponents.ATTRIBUTES, new EnchantmentAttributeEffect(
@@ -100,97 +96,97 @@ public class AEEnchantmentBootstrap {
                 )));
 
         register(context, AEEnchantments.FEATHER_TOUCH, Enchantment.enchantment(Enchantment.definition(
-                mining,
+                miningTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.MAINHAND)));
 
         register(context, AEEnchantments.ADVENTURERS_LORE, Enchantment.enchantment(Enchantment.definition(
-                foot,
+                footTag,
                 1,
                 3,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 8,
                 EquipmentSlotGroup.FEET)));
 
         register(context, AEEnchantments.COMPATIBILITY, Enchantment.enchantment(Enchantment.definition(
-                bundle,
+                bundleTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.ENDLESS_APPETITE, Enchantment.enchantment(Enchantment.definition(
-                chest,
+                chestTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.CHEST)));
 
         register(context, AEEnchantments.MOMENTUM, Enchantment.enchantment(Enchantment.definition(
-                chest,
+                chestTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.CHEST)));
 
         register(context, AEEnchantments.INSTANT_TELEPORT, Enchantment.enchantment(Enchantment.definition(
-                head,
+                headTag,
                 1,
                 4,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.HEAD)));
 
         register(context, AEEnchantments.OVERLOAD, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 5,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 32,
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.SLOT_EXPANSION, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 3,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.REACTIVE_ARMOR, Enchantment.enchantment(Enchantment.definition(
-                chest,
+                chestTag,
                 1,
                 1,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 16,
                 EquipmentSlotGroup.CHEST)));
 
         register(context, AEEnchantments.MYSTIC_REMNANTS, Enchantment.enchantment(Enchantment.definition(
-                weapon,
+                weaponTag,
                 1,
                 3,
-                Enchantment.dynamicCost(100,10),
-                Enchantment.dynamicCost(150,10),
+                Enchantment.dynamicCost(100, 10),
+                Enchantment.dynamicCost(150, 10),
                 4,
                 EquipmentSlotGroup.MAINHAND)));
 
         register(context, AEEnchantments.CURSE_OF_IGNORANCE, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 1,
                 Enchantment.constantCost(25),
@@ -199,7 +195,7 @@ public class AEEnchantmentBootstrap {
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.CURSE_OF_ENCHANTMENT, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 1,
                 Enchantment.constantCost(25),
@@ -208,7 +204,7 @@ public class AEEnchantmentBootstrap {
                 EquipmentSlotGroup.ANY)));
 
         register(context, AEEnchantments.DISTORTION, Enchantment.enchantment(Enchantment.definition(
-                any,
+                anyHolderSet,
                 1,
                 3,
                 Enchantment.dynamicCost(100, 10),
@@ -217,22 +213,18 @@ public class AEEnchantmentBootstrap {
                 EquipmentSlotGroup.HAND)));
 
         register(context, AEEnchantments.OVER_MENDING, Enchantment.enchantment(Enchantment.definition(
-                durability,
-                1,
-                1,
-                Enchantment.dynamicCost(100, 10),
-                Enchantment.dynamicCost(150, 10),
-                16,
-                EquipmentSlotGroup.ANY))
+                        durabilityTag,
+                        1,
+                        1,
+                        Enchantment.dynamicCost(100, 10),
+                        Enchantment.dynamicCost(150, 10),
+                        16,
+                        EquipmentSlotGroup.ANY))
                 .withEffect(EnchantmentEffectComponents.TICK, new OverMendingEffect()
                 ));
     }
 
     private static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {
         registry.register(key, builder.build(key.location()));
-    }
-
-    private static void addCondition(ResourceKey<Enchantment> key, ICondition condition) {
-        conditions.put(key, condition);
     }
 }

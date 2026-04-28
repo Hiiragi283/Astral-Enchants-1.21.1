@@ -36,7 +36,7 @@ public class AdventurersLoreHandler {
         int level = getLevel(player);
         if (level <= 0) return;
         int count = getAdvancementNumber(player, serverLevel);
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "al_bonus");
+        ResourceLocation id = AstralEnchant.id("al_bonus");
         AttributeModifier modifier = new AttributeModifier(id, 0.1 * count * level, AttributeModifier.Operation.ADD_VALUE);
         AttributeInstance instance = player.getAttributes().getInstance(Attributes.LUCK);
         if (instance != null) instance.addOrReplacePermanentModifier(modifier);

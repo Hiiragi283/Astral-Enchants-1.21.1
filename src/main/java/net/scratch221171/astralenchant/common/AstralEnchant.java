@@ -1,6 +1,7 @@
 package net.scratch221171.astralenchant.common;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -20,6 +21,14 @@ import org.slf4j.Logger;
 public class AstralEnchant {
     public static final String MOD_ID = "astralenchant";
     public static final Logger LOGGER = LogUtils.getLogger();
+    
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+    public static ResourceLocation id(String... path) {
+        return id(String.join("/", path));
+    }
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.

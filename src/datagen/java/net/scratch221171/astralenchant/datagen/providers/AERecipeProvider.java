@@ -226,7 +226,7 @@ public class AERecipeProvider extends RecipeProvider {
                             400
                     )
                     .unlockedBy("has_enchanted_book", has(Items.ENCHANTED_BOOK))
-                    .save(output, ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "enchantment_shard_smelting"));
+                    .save(output, AstralEnchant.id("enchantment_shard_smelting"));
 
             SimpleCookingRecipeBuilder.blasting(
                             Ingredient.of(Items.ENCHANTED_BOOK),
@@ -236,7 +236,7 @@ public class AERecipeProvider extends RecipeProvider {
                             200
                     )
                     .unlockedBy("has_enchanted_book", has(Items.ENCHANTED_BOOK))
-                    .save(output, ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "enchantment_shard_blasting"));
+                    .save(output, AstralEnchant.id("enchantment_shard_blasting"));
         }
 
         // 素材
@@ -260,12 +260,12 @@ public class AERecipeProvider extends RecipeProvider {
                     .add('2', Items.GOLD_INGOT)
                     .add('3', Items.IRON_INGOT)
                     .add('4', Items.LAPIS_LAZULI)
-                    .save(output, ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "arcanium_ingot_from_arcane_quartz"));
+                    .save(output, AstralEnchant.id("arcanium_ingot_from_arcane_quartz"));
 
             AERecipeBuildingHelper.shapedItem(RecipeCategory.BUILDING_BLOCKS, AEBlocks.ARCANIUM_BLOCK)
                     .pattern("111").pattern("111").pattern("111").add('1', AEItems.ARCANIUM_INGOT).save(output);
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AEItems.ARCANIUM_INGOT, 9)
-                    .requires(AEBlocks.ARCANIUM_BLOCK).unlockedBy("has_arcanium_block", has(AEBlocks.ARCANIUM_BLOCK)).save(output, ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "arcanium_ingot_from_arcanium_block"));
+                    .requires(AEBlocks.ARCANIUM_BLOCK).unlockedBy("has_arcanium_block", has(AEBlocks.ARCANIUM_BLOCK)).save(output, AstralEnchant.id("arcanium_ingot_from_arcanium_block"));
 
             AERecipeBuildingHelper.shapedItem(RecipeCategory.MISC, new ItemStack(AEItems.BUDDING_ARCANIUM_INGOT.get(), 4))
                     .pattern("323").pattern("212").pattern("323")
@@ -342,7 +342,7 @@ public class AERecipeProvider extends RecipeProvider {
             } else {
                 path = BuiltInRegistries.ITEM.getKey(getResult()).getPath();
             }
-            super.save(recipeOutput, ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, path));
+            super.save(recipeOutput, AstralEnchant.id(path));
         }
 
         private static AERecipeBuildingHelper shapedEB(ResourceKey<Enchantment> enchantment, int level, HolderLookup.@NotNull Provider holderLookup) {

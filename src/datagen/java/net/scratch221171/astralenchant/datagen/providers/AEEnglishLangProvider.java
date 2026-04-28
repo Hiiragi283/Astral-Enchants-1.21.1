@@ -12,8 +12,8 @@ import net.scratch221171.astralenchant.common.registries.AEAttributes;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import net.scratch221171.astralenchant.common.registries.AEItems;
 
-public class AELanguageProviderENUS extends LanguageProvider {
-    public AELanguageProviderENUS(PackOutput output) {
+public class AEEnglishLangProvider extends LanguageProvider {
+    public AEEnglishLangProvider(PackOutput output) {
         super(output, AstralEnchant.MOD_ID, "en_us");
     }
 

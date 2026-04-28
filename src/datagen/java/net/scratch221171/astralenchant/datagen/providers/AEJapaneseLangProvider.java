@@ -12,8 +12,8 @@ import net.scratch221171.astralenchant.common.registries.AEAttributes;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import net.scratch221171.astralenchant.common.registries.AEItems;
 
-public class AELanguageProviderJAJP extends LanguageProvider {
-    public AELanguageProviderJAJP(PackOutput output) {
+public class AEJapaneseLangProvider extends LanguageProvider {
+    public AEJapaneseLangProvider(PackOutput output) {
         super(output, AstralEnchant.MOD_ID, "ja_jp");
     }
 
