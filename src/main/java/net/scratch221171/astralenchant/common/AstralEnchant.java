@@ -11,7 +11,6 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.registries.*;
 import net.scratch221171.astralenchant.compat.accessories.AccessoriesCompat;
 import org.slf4j.Logger;
@@ -49,8 +48,6 @@ public class AstralEnchant {
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.SERVER, AEConfig.CONFIG_SPEC);
-        // RuntimeConfigStateを初期化
-        RuntimeConfigState.bootstrap();
 
         // 連携
         if (ModList.get().isLoaded("accessories")) {

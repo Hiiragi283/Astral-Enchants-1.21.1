@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -25,7 +24,7 @@ public class EssenceOfEnchantmentHandler {
             BiConsumer<Holder<Attribute>, AttributeModifier> consumer,
             ResourceLocation id,
             String slotName) {
-        if (!RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANTMENT)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.ESSENCE_OF_ENCHANTMENT)) return;
 
         int level = AEUtils.getEnchantmentLevel(stack, AEEnchantments.ESSENCE_OF_ENCHANTMENT);
         if (stack.isEmpty() || level <= 0) return;
@@ -36,10 +35,10 @@ public class EssenceOfEnchantmentHandler {
         for (Object2IntMap.Entry<Holder<Enchantment>> entry : enchantments) {
             if (!entry.getKey().is(AEEnchantments.ESSENCE_OF_ENCHANTMENT)) totalLevel += entry.getIntValue();
         }
-        if (RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANT_INCLUDE_OVERLOAD_IN_CALCULATION))
+        if (AEConfig.ESSENCE_OF_ENCHANT_INCLUDE_OVERLOAD_IN_CALCULATION.getAsBoolean())
             totalLevel += stack.getOrDefault(AEDataComponents.OVERLOAD, 0) * (enchantments.size() - 1);
 
-        double multiplier = RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER);
+        double multiplier = AEConfig.ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER.getAsDouble();
 
         ResourceLocation newId = AstralEnchant.id("eoe_bonus_" + id.getPath() + "_" + slotName);
 

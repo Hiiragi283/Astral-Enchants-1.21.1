@@ -13,7 +13,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,7 +42,7 @@ public abstract class MinecraftMixin {
         int level = AEUtils.getEnchantmentLevel(AEEnchantments.DISTORTION, player);
         if (level <= 0) return;
 
-        double radAnglePerLevel = RuntimeConfigState.get(AEConfig.DISTORTION_ANGLE_PER_LEVEL) * Math.PI / 180;
+        double radAnglePerLevel = AEConfig.DISTORTION_ANGLE_PER_LEVEL.getAsDouble() * Math.PI / 180;
         Entity target = astralenchant$findTarget(level * radAnglePerLevel);
         if (target == null) return;
 

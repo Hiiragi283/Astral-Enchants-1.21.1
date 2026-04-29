@@ -8,7 +8,6 @@ import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.extensions.IItemExtension;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -23,7 +22,7 @@ public interface IItemExtensionMixin {
     @Inject(method = "supportsEnchantment", at = @At("RETURN"), cancellable = true)
     private void astralenchant$bundleSupportsEnchantment(
             ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
-        if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.COMPATIBILITY)) return;
         if (stack.is(Items.BUNDLE)
                 && !stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
                         .isEmpty()
@@ -40,7 +39,7 @@ public interface IItemExtensionMixin {
     @Inject(method = "getEnchantmentLevel", at = @At("RETURN"), cancellable = true)
     private void astralenchant$getEnchantmentLevel(
             ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
-        if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
         if (enchantment.getKey() == AEEnchantments.OVERLOAD) return;
         int level = cir.getReturnValue();
         if (level > 0) {

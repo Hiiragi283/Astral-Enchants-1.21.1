@@ -10,7 +10,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.event.ItemEnchantmentSetEvent;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
@@ -21,7 +20,7 @@ public class OverloadHandler {
 
     @SubscribeEvent
     private static void applyOverload(ItemEnchantmentSetEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
 
         ItemStack stack = event.getStack();
         ItemEnchantments enchantments = event.getEnchantments();
@@ -41,7 +40,7 @@ public class OverloadHandler {
 
     @SubscribeEvent
     private static void modifyTooltip(ItemTooltipEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
 
         ItemStack stack = event.getItemStack();
         int level = stack.getOrDefault(AEDataComponents.OVERLOAD, 0);

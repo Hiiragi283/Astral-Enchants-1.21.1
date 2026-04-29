@@ -144,7 +144,7 @@ neoForge {
         // multi mod projects should define one per mod
         create(modId) {
             sourceSet(sourceSets.main.get())
-            sourceSet(sourceSets.getByName("datagen"))
+            sourceSet(datagenModule)
         }
     }
 }
@@ -153,8 +153,6 @@ dependencies {
     implementation(libs.bundles.mods.impl)
     compileOnly(libs.bundles.mods.compile)
     runtimeOnly(libs.bundles.mods.runtime)
-
-    "datagenCompileOnly"("org.jetbrains:annotations:26.0.2")
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -172,7 +170,7 @@ val generateModMetadata: TaskProvider<ProcessResources> =
             "mod_id" to modId,
             "mod_name" to "Astral Enchant",
             "mod_license" to "MIT",
-            "mod_version" to version.toString(),
+            "mod_version" to libs.versions.mod.version.get(),
             "mod_authors" to "scratch221171",
             "mod_description" to "Adds several unique enchantments",
             "accessories_version_range" to "[1.1.0-beta,)",
@@ -219,7 +217,9 @@ java {
 spotless {
     java {
         palantirJavaFormat().style("PALANTIR").formatJavadoc(true)
+        endWithNewline()
         formatAnnotations()
         importOrder()
+        removeUnusedImports()
     }
 }

@@ -12,7 +12,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import net.scratch221171.astralenchant.common.util.IDamageSourceExtension;
@@ -22,17 +21,16 @@ public class ReactiveArmorHandler {
 
     @SubscribeEvent
     private static void addDisabledDamageTag(EntityInvulnerabilityCheckEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.REACTIVE_ARMOR)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.REACTIVE_ARMOR)) return;
         DamageSource source = event.getSource();
         if (event.getEntity() instanceof LivingEntity entity) {
             if (AEUtils.getEnchantmentLevel(AEEnchantments.REACTIVE_ARMOR, entity) > 0) {
                 IDamageSourceExtension acc = (IDamageSourceExtension) source;
-                List<TagKey<DamageType>> tags =
-                        RuntimeConfigState.get(AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS).stream()
-                                .map(id -> TagKey.create(
-                                        Registries.DAMAGE_TYPE,
-                                        ResourceLocation.read(id).getOrThrow()))
-                                .toList();
+                List<TagKey<DamageType>> tags = AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS.get().stream()
+                        .map(id -> TagKey.create(
+                                Registries.DAMAGE_TYPE,
+                                ResourceLocation.read(id).getOrThrow()))
+                        .toList();
                 tags.forEach(acc::astralenchant$addDisabledTag);
             }
         }

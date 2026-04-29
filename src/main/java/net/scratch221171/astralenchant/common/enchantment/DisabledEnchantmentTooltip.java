@@ -31,6 +31,7 @@ public class DisabledEnchantmentTooltip {
 
                 String path = split[2];
 
+                // これどうしようか
                 Object value = RuntimeConfigState.get(path);
                 if (value instanceof Boolean enabled && !enabled) {
                     tooltip.set(i, createDisabledComponent(entry));

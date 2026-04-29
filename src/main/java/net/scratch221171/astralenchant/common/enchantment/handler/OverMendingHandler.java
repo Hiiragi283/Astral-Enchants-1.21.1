@@ -21,7 +21,6 @@ import net.neoforged.neoforge.event.entity.EntityStruckByLightningEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -31,14 +30,14 @@ public class OverMendingHandler {
 
     @SubscribeEvent
     private static void struckByLightning(EntityStruckByLightningEvent event) {
-        if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return;
+        if (!(AEConfig.isEnabled(AEEnchantments.OVER_MENDING))) return;
         if (!(event.getEntity() instanceof Player player)) return;
         ServerLevel level = (ServerLevel) player.level();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = player.getItemBySlot(slot);
             if (stack.getOrDefault(AEDataComponents.OVER_MENDING, 0) >= 100) {
                 level.playSound(null, player.getOnPos(), SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
-                double multiplier = RuntimeConfigState.get(AEConfig.OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER);
+                double multiplier = AEConfig.OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER.getAsDouble();
                 event.getLightning().setDamage((float) (event.getLightning().getDamage() * multiplier));
                 //                OverMendingCache.CACHE.put(player, slot);
                 stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
@@ -55,7 +54,7 @@ public class OverMendingHandler {
 
     @SubscribeEvent
     private static void tooltip(ItemTooltipEvent event) {
-        if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return;
+        if (!(AEConfig.isEnabled(AEEnchantments.OVER_MENDING))) return;
         ItemStack stack = event.getItemStack();
 
         HolderLookup.Provider provider = event.getContext().registries();

@@ -12,7 +12,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.event.ItemEnchantmentSetEvent;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -22,7 +21,7 @@ public class CompatibilityHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     private static void handleBundle(ItemEnchantmentSetEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.COMPATIBILITY)) return;
 
         ItemStack stack = event.getStack();
         ItemEnchantments enchantments = event.getEnchantments();

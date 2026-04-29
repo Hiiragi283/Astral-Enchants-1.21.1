@@ -20,7 +20,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
@@ -29,7 +28,7 @@ public class InstantTeleportHandler {
 
     @SubscribeEvent
     private static void onUsingEnderPearl(PlayerInteractEvent.RightClickItem event) {
-        if (!RuntimeConfigState.get(AEConfig.INSTANT_TELEPORT)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.INSTANT_TELEPORT)) return;
 
         ItemStack stack = event.getItemStack();
         if (!stack.is(Items.ENDER_PEARL)) return;
@@ -55,9 +54,9 @@ public class InstantTeleportHandler {
             int enchantmentLevel,
             ItemStack stack,
             PlayerInteractEvent.RightClickItem event) {
-        int distPerLevel = RuntimeConfigState.get(AEConfig.INSTANT_TELEPORT_DISTANCE_INCREASE_PER_LEVEL);
-        double maxDistance = Math.min(
-                distPerLevel * enchantmentLevel, RuntimeConfigState.get(AEConfig.INSTANT_TELEPORT_MAX_DISTANCE));
+        int distPerLevel = AEConfig.INSTANT_TELEPORT_DISTANCE_INCREASE_PER_LEVEL.getAsInt();
+        double maxDistance =
+                Math.min(distPerLevel * enchantmentLevel, AEConfig.INSTANT_TELEPORT_MAX_DISTANCE.getAsInt());
         Vec3 start = player.getEyePosition(1.0F);
         Vec3 direction = player.getLookAngle();
         Vec3 end = start.add(direction.scale(maxDistance));

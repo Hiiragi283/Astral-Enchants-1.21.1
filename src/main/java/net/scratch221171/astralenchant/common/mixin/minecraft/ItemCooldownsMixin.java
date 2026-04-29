@@ -2,7 +2,6 @@ package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.world.item.ItemCooldowns;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.IItemCooldownsExtension;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +28,7 @@ public abstract class ItemCooldownsMixin implements IItemCooldownsExtension {
     /** {@link AEEnchantments#COOLDOWN_REDUCTION} が付いている場合はクールダウンの終了時間を早める。 */
     @ModifyVariable(method = "addCooldown", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int astralenchant$modifyTicks(int ticks) {
-        if (!RuntimeConfigState.get(AEConfig.COOLDOWN_REDUCTION)) return ticks;
+        if (!AEConfig.isEnabled(AEEnchantments.COOLDOWN_REDUCTION)) return ticks;
 
         float m = astralenchant$getMultiplier();
         if (m <= 0f) return 0;

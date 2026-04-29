@@ -24,7 +24,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.common.loot.LootModifier;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +43,7 @@ public class MysticRemnantsLootModifier extends LootModifier {
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(
             @NotNull ObjectArrayList<ItemStack> generatedLoot, @NotNull LootContext context) {
-        if (!RuntimeConfigState.get(AEConfig.MYSTIC_REMNANTS)) return generatedLoot;
+        if (!AEConfig.isEnabled(AEEnchantments.MYSTIC_REMNANTS)) return generatedLoot;
 
         Entity attacker = context.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
         Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);

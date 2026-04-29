@@ -13,7 +13,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
@@ -22,9 +21,9 @@ public class LastStandHandler {
 
     @SubscribeEvent
     private static void onLivingDeath(LivingDeathEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.LAST_STAND)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.LAST_STAND)) return;
         if (!(event.getEntity() instanceof Player player)) return;
-        if (!RuntimeConfigState.get(AEConfig.LAST_STAND_IGNORE_BYPASSES_INVULNERABILITY_TAG)
+        if (!AEConfig.LAST_STAND_IGNORE_BYPASSES_INVULNERABILITY_TAG.getAsBoolean()
                 && event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
 
         Iterable<ItemStack> armorSlots = player.getArmorSlots();
@@ -40,7 +39,7 @@ public class LastStandHandler {
         if (totalEnchantmentLevel.get() <= 0) return;
 
         // default: 2000
-        float baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
+        float baseXP = AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE.get();
         int required = Math.round(baseXP / totalEnchantmentLevel.get());
         if (!AEUtils.hasEnoughXPPoint(player.experienceProgress, player.experienceLevel, required)) return;
         player.giveExperiencePoints(-required);

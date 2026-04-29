@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -27,7 +26,7 @@ public class EssenceOfEnchantmentAccessoriesCompatHandler {
 
     public static void onAdjustAttributeModifier(
             ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
-        if (!RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANTMENT)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.ESSENCE_OF_ENCHANTMENT)) return;
         LivingEntity entity = reference.entity();
         AEUtils.getEnchantmentHolder(AEEnchantments.ESSENCE_OF_ENCHANTMENT, entity)
                 .map(stack::getEnchantmentLevel)
@@ -41,12 +40,12 @@ public class EssenceOfEnchantmentAccessoriesCompatHandler {
                             if (!entry.getKey().is(AEEnchantments.ESSENCE_OF_ENCHANTMENT))
                                 totalLevel += entry.getIntValue();
                         }
-                        if (RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANT_INCLUDE_OVERLOAD_IN_CALCULATION))
+                        if (AEConfig.ESSENCE_OF_ENCHANT_INCLUDE_OVERLOAD_IN_CALCULATION.getAsBoolean())
                             totalLevel += stack.getOrDefault(AEDataComponents.OVERLOAD, 0) * (enchantments.size() - 1);
 
                         Multimap<Holder<Attribute>, AttributeModifier> attributeModifiers =
                                 builder.getAttributeModifiers(false);
-                        double multiplier = RuntimeConfigState.get(AEConfig.ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER);
+                        double multiplier = AEConfig.ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER.getAsDouble();
 
                         for (Map.Entry<Holder<Attribute>, AttributeModifier> entry : attributeModifiers
                                 .entries()

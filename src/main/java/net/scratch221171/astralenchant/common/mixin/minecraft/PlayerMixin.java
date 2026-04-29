@@ -2,7 +2,6 @@ package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.world.entity.player.Player;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +15,7 @@ public abstract class PlayerMixin {
     /** {@link AEEnchantments#ENDLESS_APPETITE} が付いている場合は常に食事可能になる。 */
     @Inject(method = "canEat", at = @At("RETURN"), cancellable = true)
     private void astralenchant$alwaysEdible(CallbackInfoReturnable<Boolean> cir) {
-        if (!RuntimeConfigState.get(AEConfig.ENDLESS_APPETITE)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.ENDLESS_APPETITE)) return;
         Player player = (Player) (Object) this;
         if (AEUtils.getEnchantmentLevel(AEEnchantments.ENDLESS_APPETITE, player) > 0) {
             cir.cancel();
@@ -26,7 +25,7 @@ public abstract class PlayerMixin {
     /** {@link AEEnchantments#MOMENTUM} が付いている場合はクモの巣などの効果を無効化する。 */
     @Inject(method = "makeStuckInBlock", at = @At("HEAD"), cancellable = true)
     private void astralenchant$disableStuckInBlock(CallbackInfo ci) {
-        if (!RuntimeConfigState.get(AEConfig.MOMENTUM)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.MOMENTUM)) return;
         Player player = (Player) (Object) this;
         if (AEUtils.getEnchantmentLevel(AEEnchantments.ENDLESS_APPETITE, player) > 0) {
             ci.cancel();

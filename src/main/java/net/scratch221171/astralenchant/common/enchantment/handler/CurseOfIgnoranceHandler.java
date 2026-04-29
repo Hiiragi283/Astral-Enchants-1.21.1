@@ -11,7 +11,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
@@ -20,7 +19,7 @@ public class CurseOfIgnoranceHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     private static void onItemToolTip(ItemTooltipEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.CURSE_OF_IGNORANCE)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.CURSE_OF_IGNORANCE)) return;
 
         Entity entity = event.getEntity();
         if (entity == null) return;

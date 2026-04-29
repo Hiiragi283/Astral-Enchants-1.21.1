@@ -25,6 +25,7 @@ import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.condition.ConfigCondition;
+import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import net.scratch221171.astralenchant.common.registries.AEItems;
@@ -352,7 +353,7 @@ public class AERecipeProvider extends RecipeProvider {
                     .pattern("222")
                     .add('1', Items.STRING)
                     .add('2', Items.RABBIT_HIDE)
-                    .save(output.withConditions(ConfigCondition.of("enable_vanilla_items_recipes")));
+                    .save(output.withConditions(new ConfigCondition(AEConfig.ENABLE_VANILLA_ITEM_RECIPES)));
         }
     }
 

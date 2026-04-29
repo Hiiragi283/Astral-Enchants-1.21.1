@@ -4,7 +4,6 @@ import dev.xkmc.l2hostility.compat.curios.EntitySlotAccess;
 import dev.xkmc.l2hostility.content.traits.legendary.RagnarokTrait;
 import net.minecraft.world.item.ItemStack;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +16,7 @@ public class RagnarokTraitMixin {
 
     @Inject(method = "allowSeal", at = @At("HEAD"), cancellable = true)
     private static void preventBeingSealed(EntitySlotAccess access, CallbackInfoReturnable<Boolean> cir) {
-        if (!RuntimeConfigState.get(AEConfig.ITEM_PROTECTION)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.ITEM_PROTECTION)) return;
         ItemStack stack = access.get();
         if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
             cir.setReturnValue(false);

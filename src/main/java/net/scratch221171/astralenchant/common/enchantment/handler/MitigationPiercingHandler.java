@@ -17,7 +17,6 @@ import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
-import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import net.scratch221171.astralenchant.common.util.IDamageSourceExtension;
@@ -27,7 +26,7 @@ public class MitigationPiercingHandler {
 
     @SubscribeEvent
     private static void addDamageTag(EntityInvulnerabilityCheckEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.MITIGATION_PIERCING)) return;
         Entity entity = event.getEntity();
         if (entity.level().isClientSide) return;
         DamageSource source = event.getSource();
@@ -38,7 +37,7 @@ public class MitigationPiercingHandler {
                                 && weapon.getEnchantmentLevel(holder) > 0) {
                             IDamageSourceExtension acc = (IDamageSourceExtension) source;
                             List<TagKey<DamageType>> tags =
-                                    RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS).stream()
+                                    AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS.get().stream()
                                             .map(id -> TagKey.create(
                                                     Registries.DAMAGE_TYPE,
                                                     ResourceLocation.read(id).getOrThrow()))
@@ -52,7 +51,7 @@ public class MitigationPiercingHandler {
     // パーティクル
     @SubscribeEvent
     private static void onDamage(LivingIncomingDamageEvent event) {
-        if (!RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING)) return;
+        if (!AEConfig.isEnabled(AEEnchantments.MITIGATION_PIERCING)) return;
         Entity entity = event.getEntity();
         AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, entity).ifPresent(holder -> {
             ItemStack weapon = event.getSource().getWeaponItem();

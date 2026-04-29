@@ -10,7 +10,6 @@ import net.scratch221171.astralenchant.common.mixin.compat.l2hostility.DispellTr
 import net.scratch221171.astralenchant.common.mixin.compat.l2hostility.RagnarokTraitMixin;
 import net.scratch221171.astralenchant.common.mixin.minecraft.*;
 import net.scratch221171.astralenchant.compat.accessories.EssenceOfEnchantmentAccessoriesCompatHandler;
-import net.scratch221171.astralenchant.compat.accessories.SlotExpansionHandler;
 
 public class AEEnchantments {
 
@@ -125,7 +124,7 @@ public class AEEnchantments {
     /**
      * Accessories連携：アイテムが装着されたスロットの数をエンチャントのレベルだけ増やす。
      *
-     * <p>Handler : {@link SlotExpansionHandler}
+     * <p>Handler : {@link AccessoriesCompat)}
      *
      * <p>Mixin : none
      */

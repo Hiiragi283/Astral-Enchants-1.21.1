@@ -1,5 +1,8 @@
 package net.scratch221171.astralenchant.common.config;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.mojang.serialization.Codec;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +67,10 @@ public class AEConfig {
     public static final ModConfigSpec.BooleanValue OVER_MENDING;
 
     static {
+        BiMap<String, ModConfigSpec.BooleanValue> biMap = HashBiMap.create();
+        BOOL_CONFIG_ENTRIES = biMap;
+        BOOL_CONFIG_CODEC = Codec.stringResolver(value -> biMap.inverse().get(value), biMap::get);
+
         BUILDER.push("settings");
 
         MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS = registerList(
@@ -166,36 +173,38 @@ public class AEConfig {
         BUILDER.pop();
     }
 
-    static ModConfigSpec.BooleanValue registerBool(String path, boolean defaultValue) {
+    private static final BiMap<String, ModConfigSpec.BooleanValue> BOOL_CONFIG_ENTRIES;
+
+    public static final Codec<ModConfigSpec.BooleanValue> BOOL_CONFIG_CODEC;
+
+    private static ModConfigSpec.BooleanValue registerBool(String path, boolean defaultValue) {
         ModConfigSpec.BooleanValue bool = BUILDER.define(path, defaultValue);
-        ConfigRegistry.register(path, bool, defaultValue);
+        BOOL_CONFIG_ENTRIES.put(path, bool);
         return bool;
     }
 
-    static ModConfigSpec.IntValue registerInt(String path, int defaultValue, int min, int max) {
-        ModConfigSpec.IntValue integer = BUILDER.defineInRange(path, defaultValue, min, max);
-        ConfigRegistry.register(path, integer, defaultValue);
-        return integer;
+    private static ModConfigSpec.IntValue registerInt(String path, int defaultValue, int min, int max) {
+        return BUILDER.defineInRange(path, defaultValue, min, max);
     }
 
-    static ModConfigSpec.DoubleValue registerDouble(String path, double defaultValue, double min, double max) {
-        ModConfigSpec.DoubleValue integer = BUILDER.defineInRange(path, defaultValue, min, max);
-        ConfigRegistry.register(path, integer, defaultValue);
-        return integer;
+    private static ModConfigSpec.DoubleValue registerDouble(String path, double defaultValue, double min, double max) {
+        return BUILDER.defineInRange(path, defaultValue, min, max);
     }
 
-    static <T> ModConfigSpec.ConfigValue<List<? extends T>> registerList(
+    private static <T> ModConfigSpec.ConfigValue<List<? extends T>> registerList(
             String path,
             Supplier<List<? extends T>> defaultSupplier,
             Supplier<T> supplier,
             Predicate<Object> elementValidator) {
-        ModConfigSpec.ConfigValue<List<? extends T>> list =
-                BUILDER.defineListAllowEmpty(path, defaultSupplier, supplier, elementValidator);
-        ConfigRegistry.register(path, list, defaultSupplier.get());
-        return list;
+        return BUILDER.defineListAllowEmpty(path, defaultSupplier, supplier, elementValidator);
     }
 
-    static ModConfigSpec.BooleanValue registerEnchantment(ResourceKey<Enchantment> key) {
+    @Deprecated
+    public static boolean isEnabled(ResourceKey<Enchantment> key) {
+        return false;
+    }
+
+    private static ModConfigSpec.BooleanValue registerEnchantment(ResourceKey<Enchantment> key) {
         return registerBool(key.location().getPath(), true);
     }
 
