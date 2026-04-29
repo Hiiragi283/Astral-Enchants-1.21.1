@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BlockItemStateProperties;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -45,8 +43,7 @@ public class FeatherTouchHandler {
         Level level = event.getPlayer().level();
         BlockState state = event.getState();
         BlockPos pos = event.getPos();
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.FEATHER_TOUCH, level);
-        if (player.getMainHandItem().getEnchantmentLevel(enchantment) <= 0) return;
+        if (AEUtils.getEnchantmentLevel(AEEnchantments.FEATHER_TOUCH, player) <= 0) return;
 
         // 複数ブロックのもの(ドアやベッド)を除外する
         if (checkBlockState(state, BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER)

@@ -44,9 +44,7 @@ public class OverMendingHandler {
                 stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
                 stack.set(
                         DataComponents.ENCHANTMENTS,
-                        AEUtils.removeEnchantment(
-                                stack.get(DataComponents.ENCHANTMENTS),
-                                AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level)));
+                        AEUtils.removeEnchantment(stack.get(DataComponents.ENCHANTMENTS), AEEnchantments.OVER_MENDING));
                 stack.remove(AEDataComponents.OVER_MENDING);
                 level.sendParticles(
                         ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 1000, 0f, 0f, 0f, 0.5f);

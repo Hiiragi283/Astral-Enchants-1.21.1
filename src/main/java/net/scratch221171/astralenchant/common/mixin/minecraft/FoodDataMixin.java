@@ -1,10 +1,7 @@
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -41,8 +38,7 @@ public abstract class FoodDataMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     private void astralenchant$onTick(Player player, CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.ENDLESS_APPETITE)) return;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.ENDLESS_APPETITE, player.level());
-        if (EnchantmentHelper.getEnchantmentLevel(enchantment, player) > 0) {
+        if (AEUtils.getEnchantmentLevel(AEEnchantments.ENDLESS_APPETITE, player) > 0) {
             if (this.getFoodLevel() > 0) this.tickTimer = 80;
             player.heal(this.astralenchant$overflowed);
             astralenchant$overflowed = 0;

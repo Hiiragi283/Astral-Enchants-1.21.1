@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -41,17 +40,14 @@ public abstract class MinecraftMixin {
     private void astralenchant$redirectMissAttack(CallbackInfoReturnable<Boolean> cir) {
         // entity にヒットしたらリダイレクトしない
         if (this.hitResult == null || this.hitResult.getType() == HitResult.Type.ENTITY) return;
+        int level = AEUtils.getEnchantmentLevel(AEEnchantments.DISTORTION, player);
+        if (level <= 0) return;
 
-        AEUtils.getEnchantmentHolder1(AEEnchantments.DISTORTION, level).ifPresent(holder -> {
-            int level = EnchantmentHelper.getEnchantmentLevel(holder, player);
-            if (level <= 0) return;
+        double radAnglePerLevel = RuntimeConfigState.get(AEConfig.DISTORTION_ANGLE_PER_LEVEL) * Math.PI / 180;
+        Entity target = astralenchant$findTarget(level * radAnglePerLevel);
+        if (target == null) return;
 
-            double radAnglePerLevel = RuntimeConfigState.get(AEConfig.DISTORTION_ANGLE_PER_LEVEL) * Math.PI / 180;
-            Entity target = astralenchant$findTarget(level * radAnglePerLevel);
-            if (target == null) return;
-
-            this.hitResult = new EntityHitResult(target);
-        });
+        this.hitResult = new EntityHitResult(target);
     }
 
     @Unique private Entity astralenchant$findTarget(double apexAngle) {

@@ -1,15 +1,12 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
 import java.util.List;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
@@ -28,9 +25,7 @@ public class ReactiveArmorHandler {
         if (!RuntimeConfigState.get(AEConfig.REACTIVE_ARMOR)) return;
         DamageSource source = event.getSource();
         if (event.getEntity() instanceof LivingEntity entity) {
-            Holder<Enchantment> enchantment =
-                    AEUtils.getEnchantmentHolder(AEEnchantments.REACTIVE_ARMOR, entity.level());
-            if (EnchantmentHelper.getEnchantmentLevel(enchantment, entity) > 0) {
+            if (AEUtils.getEnchantmentLevel(AEEnchantments.REACTIVE_ARMOR, entity) > 0) {
                 IDamageSourceExtension acc = (IDamageSourceExtension) source;
                 List<TagKey<DamageType>> tags =
                         RuntimeConfigState.get(AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS).stream()

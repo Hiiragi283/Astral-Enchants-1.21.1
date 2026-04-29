@@ -1,6 +1,6 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
-import net.minecraft.core.Holder;
+import java.util.concurrent.atomic.AtomicInteger;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
@@ -29,19 +28,20 @@ public class LastStandHandler {
                 && event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
 
         Iterable<ItemStack> armorSlots = player.getArmorSlots();
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.LAST_STAND, player.level());
-        int totalEnchantmentLevel = 0;
-        for (ItemStack armor : armorSlots) {
-            int level = armor.getEnchantmentLevel(enchantment);
-            if (level > 0) {
-                totalEnchantmentLevel += level;
+        AtomicInteger totalEnchantmentLevel = new AtomicInteger();
+        AEUtils.getEnchantmentHolder(AEEnchantments.LAST_STAND, player).ifPresent(holder -> {
+            for (ItemStack armor : armorSlots) {
+                int level = armor.getEnchantmentLevel(holder);
+                if (level > 0) {
+                    totalEnchantmentLevel.addAndGet(level);
+                }
             }
-        }
-        if (totalEnchantmentLevel <= 0) return;
+        });
+        if (totalEnchantmentLevel.get() <= 0) return;
 
         // default: 2000
         float baseXP = RuntimeConfigState.get(AEConfig.LAST_STAND_REQUIRED_BASE_EXPERIENCE);
-        int required = Math.round(baseXP / totalEnchantmentLevel);
+        int required = Math.round(baseXP / totalEnchantmentLevel.get());
         if (!AEUtils.hasEnoughXPPoint(player.experienceProgress, player.experienceLevel, required)) return;
         player.giveExperiencePoints(-required);
 

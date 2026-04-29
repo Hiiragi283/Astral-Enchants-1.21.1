@@ -1,7 +1,6 @@
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -19,12 +18,9 @@ public abstract class PlayerMixin {
     private void astralenchant$alwaysEdible(CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.ENDLESS_APPETITE)) return;
         Player player = (Player) (Object) this;
-        AEUtils.getEnchantmentHolder1(AEEnchantments.ENDLESS_APPETITE, player.level())
-                .ifPresent(holder -> {
-                    if (EnchantmentHelper.getEnchantmentLevel(holder, player) > 0) {
-                        cir.setReturnValue(true);
-                    }
-                });
+        if (AEUtils.getEnchantmentLevel(AEEnchantments.ENDLESS_APPETITE, player) > 0) {
+            cir.cancel();
+        }
     }
 
     /** {@link AEEnchantments#MOMENTUM} が付いている場合はクモの巣などの効果を無効化する。 */
@@ -32,11 +28,8 @@ public abstract class PlayerMixin {
     private void astralenchant$disableStuckInBlock(CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.MOMENTUM)) return;
         Player player = (Player) (Object) this;
-        AEUtils.getEnchantmentHolder1(AEEnchantments.ENDLESS_APPETITE, player.level())
-                .ifPresent(holder -> {
-                    if (EnchantmentHelper.getEnchantmentLevel(holder, player) > 0) {
-                        ci.cancel();
-                    }
-                });
+        if (AEUtils.getEnchantmentLevel(AEEnchantments.ENDLESS_APPETITE, player) > 0) {
+            ci.cancel();
+        }
     }
 }

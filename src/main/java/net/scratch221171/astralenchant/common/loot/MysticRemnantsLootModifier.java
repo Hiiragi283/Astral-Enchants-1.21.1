@@ -26,7 +26,6 @@ import net.neoforged.neoforge.common.loot.LootModifier;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
-import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.jetbrains.annotations.NotNull;
 
 public class MysticRemnantsLootModifier extends LootModifier {
@@ -54,7 +53,6 @@ public class MysticRemnantsLootModifier extends LootModifier {
             if (victim.getType().getCategory() == MobCategory.MONSTER) {
                 ServerLevel level = context.getLevel();
                 Registry<Enchantment> registry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-                AEUtils.getEnchantmentHolder(AEEnchantments.MYSTIC_REMNANTS, level);
                 registry.getHolder(AEEnchantments.MYSTIC_REMNANTS).ifPresent(holder -> {
                     int enchantmentLevel = EnchantmentHelper.getEnchantmentLevel(holder, player);
                     // (5 + level)%で成功

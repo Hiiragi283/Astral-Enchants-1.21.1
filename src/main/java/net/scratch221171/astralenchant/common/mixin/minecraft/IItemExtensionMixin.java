@@ -25,7 +25,8 @@ public interface IItemExtensionMixin {
             ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY)) return;
         if (stack.is(Items.BUNDLE)
-                && stack.get(DataComponents.BUNDLE_CONTENTS) != BundleContents.EMPTY
+                && !stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+                        .isEmpty()
                 && AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
             stack.set(DataComponents.REPAIR_COST, 0);
             cir.setReturnValue(true);

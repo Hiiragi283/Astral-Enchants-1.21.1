@@ -3,7 +3,6 @@ package net.scratch221171.astralenchant.compat.accessories;
 import io.wispforest.accessories.api.attributes.AccessoryAttributeBuilder;
 import io.wispforest.accessories.api.attributes.SlotAttribute;
 import io.wispforest.accessories.api.slot.SlotReference;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.scratch221171.astralenchant.common.AstralEnchant;
@@ -17,17 +16,13 @@ public class SlotExpansionHandler {
     public static void onAdjustAttributeModifier(
             ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
         if (!RuntimeConfigState.get(AEConfig.SLOT_EXPANSION)) return;
-        AEUtils.getEnchantmentHolder1(
-                        AEEnchantments.SLOT_EXPANSION, reference.entity().level())
-                .ifPresent(holder -> {
-                    int level = stack.getEnchantmentLevel(holder);
-                    if (!stack.isEmpty() && level > 0) {
-                        builder.addStackable(
-                                SlotAttribute.getAttributeHolder(reference.slotName()),
-                                ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
-                                level,
-                                AttributeModifier.Operation.ADD_VALUE);
-                    }
-                });
+        AEUtils.getEnchantmentHolder(AEEnchantments.SLOT_EXPANSION, reference.entity())
+                .map(stack::getEnchantmentLevel)
+                .filter(level -> !stack.isEmpty() && level > 0)
+                .ifPresent(level -> builder.addStackable(
+                        SlotAttribute.getAttributeHolder(reference.slotName()),
+                        AstralEnchant.id("se_bonus"),
+                        level,
+                        AttributeModifier.Operation.ADD_VALUE));
     }
 }

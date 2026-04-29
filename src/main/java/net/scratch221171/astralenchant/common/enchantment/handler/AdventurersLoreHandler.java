@@ -10,7 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
@@ -83,8 +82,6 @@ public class AdventurersLoreHandler {
     }
 
     private static int getLevel(Player player) {
-        return AEUtils.getEnchantmentHolder1(AEEnchantments.ADVENTURERS_LORE, player.level())
-                .map(holder -> EnchantmentHelper.getEnchantmentLevel(holder, player))
-                .orElse(0);
+        return AEUtils.getEnchantmentLevel(AEEnchantments.ADVENTURERS_LORE, player);
     }
 }

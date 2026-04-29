@@ -1,6 +1,5 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -11,8 +10,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -40,8 +37,7 @@ public class InstantTeleportHandler {
         Player player = event.getEntity();
         Level level = event.getLevel();
 
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.INSTANT_TELEPORT, level);
-        int levelValue = EnchantmentHelper.getEnchantmentLevel(enchantment, player);
+        int levelValue = AEUtils.getEnchantmentLevel(AEEnchantments.INSTANT_TELEPORT, player);
         if (levelValue <= 0) return;
 
         if (level.isClientSide) {

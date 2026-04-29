@@ -1,10 +1,7 @@
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
-import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -21,9 +18,10 @@ public abstract class EntityMixin {
     private void astralenchant$modifyJumpFactor(CallbackInfoReturnable<Float> cir) {
         if (!RuntimeConfigState.get(AEConfig.MOMENTUM)) return;
         Entity self = (Entity) (Object) this;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.MOMENTUM, self.level());
-        if (self instanceof Player player && EnchantmentHelper.getEnchantmentLevel(enchantment, player) > 0) {
-            cir.setReturnValue(1.0f);
+        if (self instanceof Player player) {
+            if (AEUtils.getEnchantmentLevel(AEEnchantments.MOMENTUM, player) > 0) {
+                cir.setReturnValue(1.0f);
+            }
         }
     }
 
@@ -32,9 +30,10 @@ public abstract class EntityMixin {
     private void astralenchant$modifySpeedFactor(CallbackInfoReturnable<Float> cir) {
         if (!RuntimeConfigState.get(AEConfig.MOMENTUM)) return;
         Entity self = (Entity) (Object) this;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.MOMENTUM, self.level());
-        if (self instanceof Player player && EnchantmentHelper.getEnchantmentLevel(enchantment, player) > 0) {
-            cir.setReturnValue(1.0f);
+        if (self instanceof Player player) {
+            if (AEUtils.getEnchantmentLevel(AEEnchantments.MOMENTUM, player) > 0) {
+                cir.setReturnValue(1.0f);
+            }
         }
     }
 }

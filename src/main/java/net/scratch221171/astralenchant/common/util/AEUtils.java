@@ -2,31 +2,60 @@ package net.scratch221171.astralenchant.common.util;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import java.util.Optional;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class AEUtils {
-    public static Holder<Enchantment> getEnchantmentHolder(ResourceKey<Enchantment> enchantment, Level level) {
-        return level.registryAccess().holderOrThrow(enchantment);
+    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder(
+            ResourceKey<Enchantment> key, Entity entity) {
+        return getEnchantmentHolder(key, entity.level());
     }
 
-    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder1(
-            ResourceKey<Enchantment> enchantment, Level level) {
-        return level.registryAccess().holder(enchantment);
+    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder(
+            ResourceKey<Enchantment> key, Level level) {
+        return getEnchantmentHolder(key, level.registryAccess());
+    }
+
+    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder(
+            ResourceKey<Enchantment> key, HolderLookup.Provider provider) {
+        return provider.holder(key);
+    }
+
+    public static int getEnchantmentLevel(ResourceKey<Enchantment> key, LivingEntity entity) {
+        return getEnchantmentHolder(key, entity.level())
+                .map(holder -> EnchantmentHelper.getEnchantmentLevel(holder, entity))
+                .orElse(0);
+    }
+
+    private static Optional<RegistryAccess> getRegistryAccess() {
+        Optional<RegistryAccess> access = Optional.empty();
+        switch (FMLEnvironment.dist) {
+            case CLIENT ->
+                access = Optional.ofNullable(Minecraft.getInstance().level).map(Level::registryAccess);
+            case DEDICATED_SERVER ->
+                access = Optional.ofNullable(ServerLifecycleHooks.getCurrentServer())
+                        .map(MinecraftServer::registryAccess);
+        }
+        return access;
     }
 
     // ServerLifecycleHooks.getCurrentServerからレジストリを取得し，エンチャントレベルを取得する
     public static int getEnchantmentLevel(ItemStack stack, ResourceKey<Enchantment> key) {
-        return Optional.ofNullable(ServerLifecycleHooks.getCurrentServer())
-                .map(MinecraftServer::registryAccess)
+        return getRegistryAccess()
                 .map(access -> getEnchantmentLevel(stack, access, key))
                 .orElse(0);
     }
@@ -58,9 +87,9 @@ public class AEUtils {
                 .orElse(0);
     }
 
-    public static ItemEnchantments removeEnchantment(ItemEnchantments enchantments, Holder<Enchantment> enchantment) {
+    public static ItemEnchantments removeEnchantment(ItemEnchantments enchantments, ResourceKey<Enchantment> key) {
         ItemEnchantments.Mutable newEnchantments = new ItemEnchantments.Mutable(enchantments);
-        newEnchantments.removeIf(holder -> holder.value() == enchantment.value());
+        newEnchantments.removeIf(holder -> holder.is(key));
         return newEnchantments.toImmutable();
     }
 
