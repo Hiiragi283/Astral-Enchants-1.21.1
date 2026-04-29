@@ -1,10 +1,9 @@
 package net.scratch221171.astralenchant.common.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ConfigRegistry {
 

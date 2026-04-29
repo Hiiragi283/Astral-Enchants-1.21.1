@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.common.mixin.compat.l2hostility;
 
+import java.util.List;
 import net.minecraft.world.item.ItemStack;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
@@ -9,19 +10,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import java.util.List;
-
 @Mixin(targets = "dev.xkmc.l2hostility.content.traits.legendary.DispellTrait")
 public class DispellTraitMixin {
 
     @Redirect(
             method = "postHurtImpl",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/util/List;add(Ljava/lang/Object;)Z",
-                    ordinal = 0
-            )
-    )
+            at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 0))
     private boolean preventEnchantmentsFromBeingDisabled(List<ItemStack> list, Object obj) {
         ItemStack stack = (ItemStack) obj;
         if (RuntimeConfigState.get(AEConfig.ITEM_PROTECTION)) {

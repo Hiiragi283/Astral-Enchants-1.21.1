@@ -24,16 +24,22 @@ import org.jetbrains.annotations.NotNull;
 
 public class XPBarDecorator implements IItemDecorator {
     @Override
-    public boolean render(@NotNull GuiGraphics guiGraphics, @NotNull Font font, @NotNull ItemStack stack, int xOffset, int yOffset) {
+    public boolean render(
+            @NotNull GuiGraphics guiGraphics, @NotNull Font font, @NotNull ItemStack stack, int xOffset, int yOffset) {
         if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return false;
         int progress = stack.getOrDefault(AEDataComponents.OVER_MENDING, 0);
         if (progress > 0 || AEUtils.getEnchantmentLevel(stack, AEEnchantments.OVER_MENDING) > 0) {
             // Calculate positions based on whether the power bar is visible
-            int XPBarY = stack.isBarVisible() ? yOffset + 11 : yOffset + 13; // Adjust Y position based on power bar visibility
-            int XPBarWidth = (int)Math.ceil(progress * 13F / 100f); //fluidContainingItem.getFluidBarWidth(stack);
+            int XPBarY = stack.isBarVisible()
+                    ? yOffset + 11
+                    : yOffset + 13; // Adjust Y position based on power bar visibility
+            int XPBarWidth = (int) Math.ceil(progress * 13F / 100f); // fluidContainingItem.getFluidBarWidth(stack);
 
             long time = System.currentTimeMillis();
-            int XPBarColor = Mth.color(0.4f, (float) (0.8f + 0.2f * Math.sin(time * 2 * Math.PI / 2048f)), 1); //fluidContainingItem.getFluidBarColor(stack);
+            int XPBarColor = Mth.color(
+                    0.4f,
+                    (float) (0.8f + 0.2f * Math.sin(time * 2 * Math.PI / 2048f)),
+                    1); // fluidContainingItem.getFluidBarColor(stack);
 
             // Render fluid bar
             renderBar(guiGraphics, xOffset + 2, XPBarY, XPBarWidth, XPBarColor);

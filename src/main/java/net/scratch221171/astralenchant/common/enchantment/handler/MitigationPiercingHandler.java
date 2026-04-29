@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -23,8 +24,6 @@ import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import net.scratch221171.astralenchant.common.util.IDamageSourceExtension;
 
-import java.util.List;
-
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class MitigationPiercingHandler {
 
@@ -35,11 +34,16 @@ public class MitigationPiercingHandler {
         if (entity.level().isClientSide) return;
         DamageSource source = event.getSource();
         if (source.getEntity() instanceof LivingEntity attacker) {
-            Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, attacker.level());
+            Holder<Enchantment> enchantment =
+                    AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, attacker.level());
             if ((source.getWeaponItem() instanceof ItemStack weapon) && weapon.getEnchantmentLevel(enchantment) > 0) {
                 IDamageSourceExtension acc = (IDamageSourceExtension) source;
-                List<TagKey<DamageType>> tags = RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS)
-                        .stream().map(id -> TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.read(id).getOrThrow())).toList();
+                List<TagKey<DamageType>> tags =
+                        RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS).stream()
+                                .map(id -> TagKey.create(
+                                        Registries.DAMAGE_TYPE,
+                                        ResourceLocation.read(id).getOrThrow()))
+                                .toList();
                 tags.forEach(acc::astralenchant$addExtraTag);
             }
         }
@@ -50,10 +54,14 @@ public class MitigationPiercingHandler {
     private static void onDamage(LivingIncomingDamageEvent event) {
         if (!RuntimeConfigState.get(AEConfig.MITIGATION_PIERCING)) return;
         Entity entity = event.getEntity();
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, entity.level());
+        Holder<Enchantment> enchantment =
+                AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, entity.level());
         ItemStack weapon = event.getSource().getWeaponItem();
-        if (weapon != null && weapon.getEnchantmentLevel(enchantment) > 0 && entity.level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.END_ROD, entity.getX(), entity.getY(), entity.getZ(), 10, 0f, 1f, 0f, 0.04f);
+        if (weapon != null
+                && weapon.getEnchantmentLevel(enchantment) > 0
+                && entity.level() instanceof ServerLevel serverLevel) {
+            serverLevel.sendParticles(
+                    ParticleTypes.END_ROD, entity.getX(), entity.getY(), entity.getZ(), 10, 0f, 1f, 0f, 0.04f);
         }
     }
 }

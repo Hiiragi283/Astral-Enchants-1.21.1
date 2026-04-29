@@ -30,13 +30,15 @@ public class CurseOfEnchantmentHandler {
     private static void onItemEntitySpawn(EntityJoinLevelEvent event) {
         if (!RuntimeConfigState.get(AEConfig.CURSE_OF_ENCHANTMENT)) return;
         if (!(event.getEntity() instanceof ItemEntity itemEntity)) return;
-        AEUtils.getEnchantmentHolder1(AEEnchantments.CURSE_OF_ENCHANTMENT, event.getLevel()).ifPresent(holder -> {
-            if (itemEntity.getItem().getEnchantmentLevel(holder) > 0) {
-                itemEntity.setUnlimitedLifetime();
-                itemEntity.setDeltaMovement(itemEntity.getDeltaMovement().multiply(0.1, 0.1, 0.1));
-                itemEntity.setNoGravity(true);
-                itemEntity.setInvulnerable(true);
-            }
-        });
+        AEUtils.getEnchantmentHolder1(AEEnchantments.CURSE_OF_ENCHANTMENT, event.getLevel())
+                .ifPresent(holder -> {
+                    if (itemEntity.getItem().getEnchantmentLevel(holder) > 0) {
+                        itemEntity.setUnlimitedLifetime();
+                        itemEntity.setDeltaMovement(
+                                itemEntity.getDeltaMovement().multiply(0.1, 0.1, 0.1));
+                        itemEntity.setNoGravity(true);
+                        itemEntity.setInvulnerable(true);
+                    }
+                });
     }
 }

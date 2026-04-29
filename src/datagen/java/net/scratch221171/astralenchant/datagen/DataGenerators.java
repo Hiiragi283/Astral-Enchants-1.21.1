@@ -18,10 +18,8 @@ public final class DataGenerators {
         ExistingFileHelper fileHelper = event.getExistingFileHelper();
         // Server
         event.createDatapackRegistryObjects(
-                new RegistrySetBuilder()
-                        .add(Registries.ENCHANTMENT, AEEnchantmentBootstrap::bootstrap),
-                AEEnchantmentBootstrap::applyConditions
-        );
+                new RegistrySetBuilder().add(Registries.ENCHANTMENT, AEEnchantmentBootstrap::bootstrap),
+                AEEnchantmentBootstrap::applyConditions);
         event.createProvider(AELootModifierProvider::new);
 
         event.createProvider(AERecipeProvider::new);

@@ -16,7 +16,8 @@ public final class AstralEnchantmentTags {
 
     // Block
     public static final class Blocks {
-        public static final TagKey<Block> STORAGE_BLOCKS_ARCANIUM = BlockTags.create(commonId("storage_blocks/arcanium"));
+        public static final TagKey<Block> STORAGE_BLOCKS_ARCANIUM =
+                BlockTags.create(commonId("storage_blocks/arcanium"));
     }
 
     // Item

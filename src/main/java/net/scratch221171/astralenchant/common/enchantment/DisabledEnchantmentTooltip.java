@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.common.enchantment;
 
+import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -10,8 +11,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
-
-import java.util.List;
 
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class DisabledEnchantmentTooltip {
@@ -43,7 +42,8 @@ public class DisabledEnchantmentTooltip {
     private static MutableComponent createDisabledComponent(Component original) {
         MutableComponent component = original.copy();
         component.setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_GRAY).withStrikethrough(true));
-        component.append(Component.translatable("astralenchant.enchantment.disabled").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY).withStrikethrough(false)));
+        component.append(Component.translatable("astralenchant.enchantment.disabled")
+                .setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY).withStrikethrough(false)));
         return component;
     }
 }

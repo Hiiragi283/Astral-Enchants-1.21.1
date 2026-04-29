@@ -10,10 +10,9 @@ import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import org.jetbrains.annotations.NotNull;
 
 public record ConfigCondition(String key) implements ICondition {
-    public static final MapCodec<ConfigCondition> CODEC =
-            RecordCodecBuilder.mapCodec(inst -> inst.group(
-                    Codec.STRING.fieldOf("key").forGetter(ConfigCondition::key)
-            ).apply(inst, ConfigCondition::new));
+    public static final MapCodec<ConfigCondition> CODEC = RecordCodecBuilder.mapCodec(
+            inst -> inst.group(Codec.STRING.fieldOf("key").forGetter(ConfigCondition::key))
+                    .apply(inst, ConfigCondition::new));
 
     public static ConfigCondition of(ResourceKey<Enchantment> enchantment) {
         return of(enchantment.location().getPath());
@@ -36,6 +35,4 @@ public record ConfigCondition(String key) implements ICondition {
     public @NotNull MapCodec<? extends ICondition> codec() {
         return CODEC;
     }
-
 }
-

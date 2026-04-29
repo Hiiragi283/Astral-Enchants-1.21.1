@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.Tags;
@@ -8,8 +9,6 @@ import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.AstralEnchantmentTags;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 public class AEBlockTagsProvider extends BlockTagsProvider {
     public AEBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {

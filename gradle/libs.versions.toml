@@ -8,6 +8,7 @@ parchment-map = "2024.11.17"
 
 neo-moddev = "2.0.141"
 neo-version = "21.1.228"
+spotless = "8.4.0"
 
 accessories = "1.1.0-beta.53+1.21.1"
 apoth-attributes = "1.21.1-2.9.1"
@@ -68,3 +69,4 @@ mods-runtime = [
 [plugins]
 
 neo-moddev = { id = "net.neoforged.moddev", version.ref = "neo-moddev" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }

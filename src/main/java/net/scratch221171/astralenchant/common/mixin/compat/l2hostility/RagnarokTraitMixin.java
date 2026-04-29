@@ -15,11 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(RagnarokTrait.class)
 public class RagnarokTraitMixin {
 
-    @Inject(
-            method = "allowSeal",
-            at = @At("HEAD"),
-            cancellable = true
-    )
+    @Inject(method = "allowSeal", at = @At("HEAD"), cancellable = true)
     private static void preventBeingSealed(EntitySlotAccess access, CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.ITEM_PROTECTION)) return;
         ItemStack stack = access.get();

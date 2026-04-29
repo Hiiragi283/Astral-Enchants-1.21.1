@@ -9,6 +9,8 @@
 
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
+import java.util.HashSet;
+import java.util.Set;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -20,21 +22,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Mixin(value = DamageSource.class, remap = false)
 public class DamageSourceMixin implements IDamageSourceExtension {
 
-    @Unique
-    private Set<TagKey<DamageType>> astralenchant$extraTags;
+    @Unique private Set<TagKey<DamageType>> astralenchant$extraTags;
 
-    @Unique
-    private Set<TagKey<DamageType>> astralenchant$disabledTags;
+    @Unique private Set<TagKey<DamageType>> astralenchant$disabledTags;
 
-    /**
-     * {@link AEEnchantments#MITIGATION_PIERCING} または {@link AEEnchantments#REACTIVE_ARMOR} によるタグ編集を反映する。
-     */
+    /** {@link AEEnchantments#MITIGATION_PIERCING} または {@link AEEnchantments#REACTIVE_ARMOR} によるタグ編集を反映する。 */
     @Inject(method = "is(Lnet/minecraft/tags/TagKey;)Z", at = @At("RETURN"), cancellable = true)
     private void astralenchant$isExtraTag(TagKey<DamageType> tag, CallbackInfoReturnable<Boolean> cir) {
         if (this.astralenchant$extraTags != null && this.astralenchant$extraTags.contains(tag)) {

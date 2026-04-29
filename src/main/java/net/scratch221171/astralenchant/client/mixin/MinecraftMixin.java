@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.client.mixin;
 
+import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -23,14 +24,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.annotation.Nullable;
-
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
 
     @Shadow
-    @Nullable
-    public HitResult hitResult;
+    @Nullable public HitResult hitResult;
 
     @Shadow
     public LocalPlayer player;
@@ -38,14 +36,11 @@ public abstract class MinecraftMixin {
     @Shadow
     public ClientLevel level;
 
-    /**
-     * {@link AEEnchantments#DISTORTION} が付いている場合は攻撃時hitResultを上書きする
-     */
+    /** {@link AEEnchantments#DISTORTION} が付いている場合は攻撃時hitResultを上書きする */
     @Inject(method = "startAttack()Z", at = @At("HEAD"))
     private void astralenchant$redirectMissAttack(CallbackInfoReturnable<Boolean> cir) {
         // entity にヒットしたらリダイレクトしない
-        if (this.hitResult == null
-            || this.hitResult.getType() == HitResult.Type.ENTITY) return;
+        if (this.hitResult == null || this.hitResult.getType() == HitResult.Type.ENTITY) return;
 
         AEUtils.getEnchantmentHolder1(AEEnchantments.DISTORTION, level).ifPresent(holder -> {
             int level = EnchantmentHelper.getEnchantmentLevel(holder, player);
@@ -59,8 +54,7 @@ public abstract class MinecraftMixin {
         });
     }
 
-    @Unique
-    private Entity astralenchant$findTarget(double apexAngle) {
+    @Unique private Entity astralenchant$findTarget(double apexAngle) {
         AttributeInstance ins = player.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
         if (ins == null) return null;
         double range = ins.getValue();
@@ -74,7 +68,9 @@ public abstract class MinecraftMixin {
         double bestCos = Math.cos(Math.min(apexAngle, Math.PI));
         Entity best = null;
 
-        for (Entity e : level.getEntities(player, searchBox,
+        for (Entity e : level.getEntities(
+                player,
+                searchBox,
                 entity -> entity instanceof LivingEntity le
                         && le.isAlive()
                         && le.isPickable()
@@ -95,8 +91,7 @@ public abstract class MinecraftMixin {
         return best;
     }
 
-    @Unique
-    private Vec3 astralenchant$closestPointOnBoxToRay(Vec3 rayOrigin, Vec3 rayDir, AABB box) {
+    @Unique private Vec3 astralenchant$closestPointOnBoxToRay(Vec3 rayOrigin, Vec3 rayDir, AABB box) {
         Vec3 toCenter = box.getCenter().subtract(rayOrigin);
         double t = Math.max(0, toCenter.dot(rayDir));
 

@@ -1,6 +1,7 @@
 package net.scratch221171.astralenchant.common.util;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import java.util.Optional;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -12,14 +13,13 @@ import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
-import java.util.Optional;
-
 public class AEUtils {
     public static Holder<Enchantment> getEnchantmentHolder(ResourceKey<Enchantment> enchantment, Level level) {
         return level.registryAccess().holderOrThrow(enchantment);
     }
 
-    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder1(ResourceKey<Enchantment> enchantment, Level level) {
+    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder1(
+            ResourceKey<Enchantment> enchantment, Level level) {
         return level.registryAccess().holder(enchantment);
     }
 
@@ -35,15 +35,15 @@ public class AEUtils {
         return getEnchantmentLevel(stack, level.registryAccess(), key);
     }
 
-    public static int getEnchantmentLevel(ItemStack stack, HolderLookup.Provider provider, ResourceKey<Enchantment> key) {
+    public static int getEnchantmentLevel(
+            ItemStack stack, HolderLookup.Provider provider, ResourceKey<Enchantment> key) {
         return getEnchantmentLevel(stack, provider.lookupOrThrow(Registries.ENCHANTMENT), key);
     }
 
     // ItemStack.getAllEnchantmentsに基づいてエンチャントレベルを取得する
-    public static int getEnchantmentLevel(ItemStack stack, HolderLookup.RegistryLookup<Enchantment> lookup, ResourceKey<Enchantment> key) {
-        return stack.getAllEnchantments(lookup)
-                .entrySet()
-                .stream()
+    public static int getEnchantmentLevel(
+            ItemStack stack, HolderLookup.RegistryLookup<Enchantment> lookup, ResourceKey<Enchantment> key) {
+        return stack.getAllEnchantments(lookup).entrySet().stream()
                 .filter(entry -> entry.getKey().is(key))
                 .findFirst()
                 .map(Object2IntMap.Entry::getIntValue)
@@ -51,9 +51,7 @@ public class AEUtils {
     }
 
     public static int getEnchantmentLevel(ItemEnchantments enchantments, ResourceKey<Enchantment> key) {
-        return enchantments
-                .entrySet()
-                .stream()
+        return enchantments.entrySet().stream()
                 .filter(entry -> entry.getKey().is(key))
                 .findFirst()
                 .map(Object2IntMap.Entry::getIntValue)

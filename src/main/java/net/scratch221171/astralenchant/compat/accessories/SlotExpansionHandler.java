@@ -13,20 +13,21 @@ import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
 public class SlotExpansionHandler {
-    /**
-     * {@link AEEnchantments#SLOT_EXPANSION} が付いていた場合スロット数を増やす。
-     */
-    public static void onAdjustAttributeModifier(ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
+    /** {@link AEEnchantments#SLOT_EXPANSION} が付いていた場合スロット数を増やす。 */
+    public static void onAdjustAttributeModifier(
+            ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
         if (!RuntimeConfigState.get(AEConfig.SLOT_EXPANSION)) return;
-        AEUtils.getEnchantmentHolder1(AEEnchantments.SLOT_EXPANSION, reference.entity().level()).ifPresent(holder -> {
-            int level = stack.getEnchantmentLevel(holder);
-            if (!stack.isEmpty() && level > 0) {
-                builder.addStackable(
-                        SlotAttribute.getAttributeHolder(reference.slotName()),
-                        ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
-                        level,
-                        AttributeModifier.Operation.ADD_VALUE);
-            }
-        });
+        AEUtils.getEnchantmentHolder1(
+                        AEEnchantments.SLOT_EXPANSION, reference.entity().level())
+                .ifPresent(holder -> {
+                    int level = stack.getEnchantmentLevel(holder);
+                    if (!stack.isEmpty() && level > 0) {
+                        builder.addStackable(
+                                SlotAttribute.getAttributeHolder(reference.slotName()),
+                                ResourceLocation.fromNamespaceAndPath(AstralEnchant.MOD_ID, "se_bonus"),
+                                level,
+                                AttributeModifier.Operation.ADD_VALUE);
+                    }
+                });
     }
 }

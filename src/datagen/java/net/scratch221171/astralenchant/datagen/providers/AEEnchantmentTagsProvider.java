@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
@@ -7,8 +8,6 @@ import net.minecraft.tags.EnchantmentTags;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.CompletableFuture;
 
 public class AEEnchantmentTagsProvider extends EnchantmentTagsProvider {
     public AEEnchantmentTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {

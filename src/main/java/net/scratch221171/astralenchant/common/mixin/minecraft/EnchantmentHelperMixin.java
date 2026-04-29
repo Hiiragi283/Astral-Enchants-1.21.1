@@ -21,15 +21,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
-    /***
-     * {@link AEEnchantments#OVERLOAD} が付いている場合にパッシブエフェクト（ダメージ増加など）のエンチャントのレベルを変更する、
-     */
-    @Inject(method = "runIterationOnItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V", at = @At("HEAD"), cancellable = true)
-    private static void astralenchant$modifyLevel(ItemStack stack, EnchantmentHelper.EnchantmentVisitor visitor, CallbackInfo ci) {
+    /** * {@link AEEnchantments#OVERLOAD} が付いている場合にパッシブエフェクト（ダメージ増加など）のエンチャントのレベルを変更する、 */
+    @Inject(
+            method =
+                    "runIterationOnItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;)V",
+            at = @At("HEAD"),
+            cancellable = true)
+    private static void astralenchant$modifyLevel(
+            ItemStack stack, EnchantmentHelper.EnchantmentVisitor visitor, CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
         ItemEnchantments itemenchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
 
-        var lookup = net.neoforged.neoforge.common.CommonHooks.resolveLookup(net.minecraft.core.registries.Registries.ENCHANTMENT);
+        var lookup = net.neoforged.neoforge.common.CommonHooks.resolveLookup(
+                net.minecraft.core.registries.Registries.ENCHANTMENT);
         int level = stack.getOrDefault(AEDataComponents.OVERLOAD, 0);
         if (lookup != null) {
             itemenchantments = stack.getAllEnchantments(lookup);
@@ -41,14 +45,22 @@ public class EnchantmentHelperMixin {
         ci.cancel();
     }
 
-    /***
-     * {@link AEEnchantments#OVERLOAD} が付いている場合にパッシブエフェクト（ダメージ増加など）のエンチャントのレベルを変更する、
-     */
-    @Inject(method = "runIterationOnItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentInSlotVisitor;)V", at = @At("HEAD"), cancellable = true)
-    private static void astralenchant$modifyLevel(ItemStack stack, EquipmentSlot slot, LivingEntity entity, EnchantmentHelper.EnchantmentInSlotVisitor visitor, CallbackInfo ci) {
+    /** * {@link AEEnchantments#OVERLOAD} が付いている場合にパッシブエフェクト（ダメージ増加など）のエンチャントのレベルを変更する、 */
+    @Inject(
+            method =
+                    "runIterationOnItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/EquipmentSlot;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentInSlotVisitor;)V",
+            at = @At("HEAD"),
+            cancellable = true)
+    private static void astralenchant$modifyLevel(
+            ItemStack stack,
+            EquipmentSlot slot,
+            LivingEntity entity,
+            EnchantmentHelper.EnchantmentInSlotVisitor visitor,
+            CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
         if (!stack.isEmpty()) {
-            ItemEnchantments itemenchantments = stack.getAllEnchantments(entity.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT));
+            ItemEnchantments itemenchantments = stack.getAllEnchantments(
+                    entity.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT));
 
             if (!itemenchantments.isEmpty()) {
                 EnchantedItemInUse enchantediteminuse = new EnchantedItemInUse(stack, slot, entity);

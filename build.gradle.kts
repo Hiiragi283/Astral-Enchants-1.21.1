@@ -3,6 +3,7 @@ import org.slf4j.event.Level
 plugins {
     idea
     alias(libs.plugins.neo.moddev)
+    alias(libs.plugins.spotless)
 }
 
 val modId = "astralenchant"
@@ -213,4 +214,12 @@ java {
     withSourcesJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+spotless {
+    java {
+        palantirJavaFormat().style("PALANTIR").formatJavadoc(true)
+        formatAnnotations()
+        importOrder()
+    }
 }

@@ -6,6 +6,7 @@ import net.neoforged.bus.api.IEventBus;
 public class AccessoriesCompat {
     public static void register(IEventBus eventBus) {
         AdjustAttributeModifierCallback.EVENT.register(SlotExpansionHandler::onAdjustAttributeModifier);
-        AdjustAttributeModifierCallback.EVENT.register(EssenceOfEnchantmentAccessoriesCompatHandler::onAdjustAttributeModifier);
+        AdjustAttributeModifierCallback.EVENT.register(
+                EssenceOfEnchantmentAccessoriesCompatHandler::onAdjustAttributeModifier);
     }
 }

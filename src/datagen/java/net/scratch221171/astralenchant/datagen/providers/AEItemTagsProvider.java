@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -11,10 +12,11 @@ import net.scratch221171.astralenchant.common.AstralEnchantmentTags;
 import net.scratch221171.astralenchant.common.registries.AEItems;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.CompletableFuture;
-
 public class AEItemTagsProvider extends ItemTagsProvider {
-    public AEItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags) {
+    public AEItemTagsProvider(
+            PackOutput output,
+            CompletableFuture<HolderLookup.Provider> lookupProvider,
+            CompletableFuture<TagLookup<Block>> blockTags) {
         super(output, lookupProvider, blockTags, AstralEnchant.MOD_ID, null);
     }
 

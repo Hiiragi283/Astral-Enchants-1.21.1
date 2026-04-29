@@ -1,5 +1,7 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,9 +31,6 @@ import net.scratch221171.astralenchant.common.registries.AEItems;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
 public class AERecipeProvider extends RecipeProvider {
     public AERecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
@@ -42,39 +41,63 @@ public class AERecipeProvider extends RecipeProvider {
         // AEエンチャントの本レシピ
         {
             AERecipeBuildingHelper.shapedEB(AEEnchantments.MITIGATION_PIERCING, 1, holderLookup)
-                    .pattern("262").pattern("515").pattern("434")
+                    .pattern("262")
+                    .pattern("515")
+                    .pattern("434")
                     .add('1', EBIngredient(Enchantments.BREACH, 4, holderLookup))
                     .add('2', Items.DIAMOND)
-                    .add('3', DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_STRENGTH), Items.POTION))
+                    .add(
+                            '3',
+                            DataComponentIngredient.of(
+                                    true,
+                                    DataComponents.POTION_CONTENTS,
+                                    new PotionContents(Potions.STRONG_STRENGTH),
+                                    Items.POTION))
                     .add('4', Items.NETHERITE_SCRAP)
                     .add('5', AEItems.BUDDING_ARCANIUM_INGOT)
                     .add('6', Items.HEAVY_CORE)
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.LAST_STAND, 1, holderLookup)
-                    .pattern("242").pattern("313").pattern("536")
+                    .pattern("242")
+                    .pattern("313")
+                    .pattern("536")
                     .add('1', EBIngredient(Enchantments.PROTECTION, 4, holderLookup))
                     .add('2', Items.EXPERIENCE_BOTTLE)
                     .add('3', Items.TOTEM_OF_UNDYING)
                     .add('4', Items.DRAGON_HEAD)
-                    .add('5', DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_REGENERATION), Items.POTION))
-                    .add('6', DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.LONG_FIRE_RESISTANCE), Items.POTION))
+                    .add(
+                            '5',
+                            DataComponentIngredient.of(
+                                    true,
+                                    DataComponents.POTION_CONTENTS,
+                                    new PotionContents(Potions.STRONG_REGENERATION),
+                                    Items.POTION))
+                    .add(
+                            '6',
+                            DataComponentIngredient.of(
+                                    true,
+                                    DataComponents.POTION_CONTENTS,
+                                    new PotionContents(Potions.LONG_FIRE_RESISTANCE),
+                                    Items.POTION))
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.ITEM_PROTECTION, 1, holderLookup)
-                    .pattern("323").pattern("415").pattern("626")
+                    .pattern("323")
+                    .pattern("415")
+                    .pattern("626")
                     .add('1', EBIngredient(Enchantments.MENDING, 1, holderLookup))
                     .add('2', Items.ENDER_CHEST)
                     .add('3', AEItems.BUDDING_ARCANIUM_INGOT)
                     .add('4', getFromRegistry("l2hostility", "reprint"))
                     .add('5', getFromRegistry("l2hostility", "dispell"))
                     .add('6', getFromRegistry("l2hostility", "hostility_essence"))
-                    .save(output.withConditions(
-                            new ModLoadedCondition("l2hostility")
-                    ));
+                    .save(output.withConditions(new ModLoadedCondition("l2hostility")));
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.ESSENCE_OF_ENCHANTMENT, 1, holderLookup)
-                    .pattern("353").pattern("323").pattern("414")
+                    .pattern("353")
+                    .pattern("323")
+                    .pattern("414")
                     .add('1', Items.BOOK)
                     .add('2', Items.ENCHANTING_TABLE)
                     .add('3', Items.BOOKSHELF)
@@ -83,7 +106,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.COOLDOWN_REDUCTION, 1, holderLookup)
-                    .pattern("636").pattern("412").pattern("656")
+                    .pattern("636")
+                    .pattern("412")
+                    .pattern("656")
                     .add('1', EBIngredient(Enchantments.EFFICIENCY, 5, holderLookup))
                     .add('2', Items.CHORUS_FRUIT)
                     .add('3', Items.ENDER_PEARL)
@@ -93,7 +118,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.FEATHER_TOUCH, 1, holderLookup)
-                    .pattern("515").pattern("623").pattern("545")
+                    .pattern("515")
+                    .pattern("623")
+                    .pattern("545")
                     .add('1', Items.AMETHYST_SHARD)
                     .add('2', EBIngredient(Enchantments.SILK_TOUCH, 1, holderLookup))
                     .add('3', Items.DEEPSLATE)
@@ -103,7 +130,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.ADVENTURERS_LORE, 1, holderLookup)
-                    .pattern("823").pattern("517").pattern("496")
+                    .pattern("823")
+                    .pattern("517")
+                    .pattern("496")
                     .add('1', Items.BOOK)
                     .add('2', Items.BRAIN_CORAL)
                     .add('3', Items.GLOW_BERRIES)
@@ -116,7 +145,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.COMPATIBILITY, 1, holderLookup)
-                    .pattern("313").pattern("525").pattern("414")
+                    .pattern("313")
+                    .pattern("525")
+                    .pattern("414")
                     .add('1', Items.ANVIL)
                     .add('2', Items.BOOK)
                     .add('3', Items.CONDUIT)
@@ -125,7 +156,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.ENDLESS_APPETITE, 1, holderLookup)
-                    .pattern("635").pattern("124").pattern("897")
+                    .pattern("635")
+                    .pattern("124")
+                    .pattern("897")
                     .add('1', Items.GOLDEN_APPLE)
                     .add('2', Items.BOOK)
                     .add('3', Items.GOLDEN_CARROT)
@@ -139,16 +172,26 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.MOMENTUM, 1, holderLookup)
-                    .pattern("434").pattern("212").pattern("535")
+                    .pattern("434")
+                    .pattern("212")
+                    .pattern("535")
                     .add('1', EBIngredient(Enchantments.SWIFT_SNEAK, 3, holderLookup))
-                    .add('2', DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_SWIFTNESS), Items.POTION))
+                    .add(
+                            '2',
+                            DataComponentIngredient.of(
+                                    true,
+                                    DataComponents.POTION_CONTENTS,
+                                    new PotionContents(Potions.STRONG_SWIFTNESS),
+                                    Items.POTION))
                     .add('3', Items.COBWEB)
                     .add('4', Items.RABBIT_FOOT)
                     .add('5', Items.SOUL_SAND)
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.INSTANT_TELEPORT, 1, holderLookup)
-                    .pattern("353").pattern("212").pattern("646")
+                    .pattern("353")
+                    .pattern("212")
+                    .pattern("646")
                     .add('1', EBIngredient(Enchantments.RIPTIDE, 3, holderLookup))
                     .add('2', Items.AMETHYST_SHARD)
                     .add('3', Items.ENDER_PEARL)
@@ -158,7 +201,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.OVERLOAD, 1, holderLookup)
-                    .pattern("121").pattern("345").pattern("161")
+                    .pattern("121")
+                    .pattern("345")
+                    .pattern("161")
                     .add('1', Items.ENCHANTING_TABLE)
                     .add('2', EBIngredient(AEEnchantments.MITIGATION_PIERCING, 1, holderLookup))
                     .add('3', EBIngredient(AEEnchantments.COMPATIBILITY, 1, holderLookup))
@@ -168,19 +213,27 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.SLOT_EXPANSION, 1, holderLookup)
-                    .pattern("434").pattern("212").pattern("434")
+                    .pattern("434")
+                    .pattern("212")
+                    .pattern("434")
                     .add('1', EBIngredient(Enchantments.BINDING_CURSE, 1, holderLookup))
                     .add('2', Items.SHULKER_SHELL)
                     .add('3', Items.BUNDLE)
                     .add('4', Items.CHAIN)
-                    .save(output.withConditions(new AndCondition(List.of(
-                            new ModLoadedCondition("accessories")
-                    ))));
+                    .save(output.withConditions(new AndCondition(List.of(new ModLoadedCondition("accessories")))));
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.REACTIVE_ARMOR, 1, holderLookup)
-                    .pattern("121").pattern("347").pattern("565")
+                    .pattern("121")
+                    .pattern("347")
+                    .pattern("565")
                     .add('1', Items.WITHER_ROSE)
-                    .add('2', DataComponentIngredient.of(true, DataComponents.POTION_CONTENTS, new PotionContents(Potions.STRONG_HARMING), Items.SPLASH_POTION))
+                    .add(
+                            '2',
+                            DataComponentIngredient.of(
+                                    true,
+                                    DataComponents.POTION_CONTENTS,
+                                    new PotionContents(Potions.STRONG_HARMING),
+                                    Items.SPLASH_POTION))
                     .add('3', Items.SCULK_CATALYST)
                     .add('4', EBIngredient(Enchantments.PROTECTION, 4, holderLookup))
                     .add('5', AEItems.ARCANE_QUARTZ)
@@ -189,7 +242,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.MYSTIC_REMNANTS, 1, holderLookup)
-                    .pattern(" 1 ").pattern("232").pattern(" 4 ")
+                    .pattern(" 1 ")
+                    .pattern("232")
+                    .pattern(" 4 ")
                     .add('1', Ingredient.of(Tags.Items.GEMS))
                     .add('2', Items.AMETHYST_SHARD)
                     .add('3', Items.BOOK)
@@ -197,7 +252,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.DISTORTION, 1, holderLookup)
-                    .pattern("121").pattern("343").pattern("151")
+                    .pattern("121")
+                    .pattern("343")
+                    .pattern("151")
                     .add('1', Items.FISHING_ROD)
                     .add('2', Items.FEATHER)
                     .add('3', Items.WIND_CHARGE)
@@ -206,7 +263,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedEB(AEEnchantments.OVER_MENDING, 1, holderLookup)
-                    .pattern("123").pattern("454").pattern("361")
+                    .pattern("123")
+                    .pattern("454")
+                    .pattern("361")
                     .add('1', AEItems.BUDDING_ARCANIUM_INGOT)
                     .add('2', EBIngredient(Enchantments.CHANNELING, 1, holderLookup))
                     .add('3', Items.EXPERIENCE_BOTTLE)
@@ -223,8 +282,7 @@ public class AERecipeProvider extends RecipeProvider {
                             RecipeCategory.MISC,
                             new ItemStack(AEItems.ENCHANTMENT_SHARD.get(), 3),
                             0.0f,
-                            400
-                    )
+                            400)
                     .unlockedBy("has_enchanted_book", has(Items.ENCHANTED_BOOK))
                     .save(output, AstralEnchant.id("enchantment_shard_smelting"));
 
@@ -233,8 +291,7 @@ public class AERecipeProvider extends RecipeProvider {
                             RecipeCategory.MISC,
                             new ItemStack(AEItems.ENCHANTMENT_SHARD.get(), 3),
                             0.0f,
-                            200
-                    )
+                            200)
                     .unlockedBy("has_enchanted_book", has(Items.ENCHANTED_BOOK))
                     .save(output, AstralEnchant.id("enchantment_shard_blasting"));
         }
@@ -255,7 +312,9 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output);
 
             AERecipeBuildingHelper.shapedItem(AEItems.ARCANIUM_INGOT)
-                    .pattern("323").pattern("414").pattern("323")
+                    .pattern("323")
+                    .pattern("414")
+                    .pattern("323")
                     .add('1', AEItems.ARCANE_QUARTZ)
                     .add('2', Items.GOLD_INGOT)
                     .add('3', Items.IRON_INGOT)
@@ -263,12 +322,21 @@ public class AERecipeProvider extends RecipeProvider {
                     .save(output, AstralEnchant.id("arcanium_ingot_from_arcane_quartz"));
 
             AERecipeBuildingHelper.shapedItem(RecipeCategory.BUILDING_BLOCKS, AEBlocks.ARCANIUM_BLOCK)
-                    .pattern("111").pattern("111").pattern("111").add('1', AEItems.ARCANIUM_INGOT).save(output);
+                    .pattern("111")
+                    .pattern("111")
+                    .pattern("111")
+                    .add('1', AEItems.ARCANIUM_INGOT)
+                    .save(output);
             ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, AEItems.ARCANIUM_INGOT, 9)
-                    .requires(AEBlocks.ARCANIUM_BLOCK).unlockedBy("has_arcanium_block", has(AEBlocks.ARCANIUM_BLOCK)).save(output, AstralEnchant.id("arcanium_ingot_from_arcanium_block"));
+                    .requires(AEBlocks.ARCANIUM_BLOCK)
+                    .unlockedBy("has_arcanium_block", has(AEBlocks.ARCANIUM_BLOCK))
+                    .save(output, AstralEnchant.id("arcanium_ingot_from_arcanium_block"));
 
-            AERecipeBuildingHelper.shapedItem(RecipeCategory.MISC, new ItemStack(AEItems.BUDDING_ARCANIUM_INGOT.get(), 4))
-                    .pattern("323").pattern("212").pattern("323")
+            AERecipeBuildingHelper.shapedItem(
+                            RecipeCategory.MISC, new ItemStack(AEItems.BUDDING_ARCANIUM_INGOT.get(), 4))
+                    .pattern("323")
+                    .pattern("212")
+                    .pattern("323")
                     .add('1', Items.BUDDING_AMETHYST)
                     .add('2', AEItems.ARCANIUM_INGOT)
                     .add('3', AEItems.ARCANE_QUARTZ)
@@ -279,39 +347,38 @@ public class AERecipeProvider extends RecipeProvider {
         {
             // バンドル救済
             AERecipeBuildingHelper.shapedItem(Items.BUNDLE)
-                .pattern("121").pattern("2 2").pattern("222")
-                .add('1', Items.STRING).add('2', Items.RABBIT_HIDE)
-                .save(output.withConditions(
-                        ConfigCondition.of("enable_vanilla_items_recipes")
-                ));
+                    .pattern("121")
+                    .pattern("2 2")
+                    .pattern("222")
+                    .add('1', Items.STRING)
+                    .add('2', Items.RABBIT_HIDE)
+                    .save(output.withConditions(ConfigCondition.of("enable_vanilla_items_recipes")));
         }
     }
 
-    private static ItemStack EBItemStack(ResourceKey<Enchantment> enchantment, int level, HolderLookup.Provider holderLookup) {
+    private static ItemStack EBItemStack(
+            ResourceKey<Enchantment> enchantment, int level, HolderLookup.Provider holderLookup) {
         ItemStack stack = new ItemStack(Items.ENCHANTED_BOOK);
         stack.enchant(holderLookup.holderOrThrow(enchantment), level);
         return stack;
     }
 
-    private static Ingredient EBIngredient(ResourceKey<Enchantment> enchantment, int level, HolderLookup.Provider holderLookup) {
+    private static Ingredient EBIngredient(
+            ResourceKey<Enchantment> enchantment, int level, HolderLookup.Provider holderLookup) {
         ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
         mutable.set(holderLookup.holderOrThrow(enchantment), level);
         return DataComponentIngredient.of(
-                false,
-                DataComponents.STORED_ENCHANTMENTS,
-                mutable.toImmutable(),
-                Items.ENCHANTED_BOOK);
+                false, DataComponents.STORED_ENCHANTMENTS, mutable.toImmutable(), Items.ENCHANTED_BOOK);
     }
 
     private static Item getFromRegistry(String namespace, String path) {
-        return BuiltInRegistries.ITEM.get(
-                ResourceLocation.fromNamespaceAndPath(namespace, path)
-        ).asItem();
+        return BuiltInRegistries.ITEM
+                .get(ResourceLocation.fromNamespaceAndPath(namespace, path))
+                .asItem();
     }
 
     private static class AERecipeBuildingHelper extends ShapedRecipeBuilder {
-        @Nullable
-        private static String enchantmentName;
+        @Nullable private static String enchantmentName;
 
         public AERecipeBuildingHelper(RecipeCategory category, ItemStack result) {
             super(category, result);
@@ -334,7 +401,7 @@ public class AERecipeProvider extends RecipeProvider {
         }
 
         @Override
-        public void save(@NotNull RecipeOutput recipeOutput){
+        public void save(@NotNull RecipeOutput recipeOutput) {
             String path;
             if (this.getResult().asItem() == Items.ENCHANTED_BOOK) {
                 // エンチャントの本の場合は必ずenchantmentNameがNotNull
@@ -345,7 +412,8 @@ public class AERecipeProvider extends RecipeProvider {
             super.save(recipeOutput, AstralEnchant.id(path));
         }
 
-        private static AERecipeBuildingHelper shapedEB(ResourceKey<Enchantment> enchantment, int level, HolderLookup.@NotNull Provider holderLookup) {
+        private static AERecipeBuildingHelper shapedEB(
+                ResourceKey<Enchantment> enchantment, int level, HolderLookup.@NotNull Provider holderLookup) {
             enchantmentName = enchantment.location().getPath();
             return new AERecipeBuildingHelper(RecipeCategory.MISC, EBItemStack(enchantment, level, holderLookup));
         }

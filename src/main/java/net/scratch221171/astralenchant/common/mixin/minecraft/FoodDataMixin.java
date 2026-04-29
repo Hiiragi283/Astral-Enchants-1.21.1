@@ -25,24 +25,19 @@ public abstract class FoodDataMixin {
     @Shadow
     public abstract int getFoodLevel();
 
-    @Unique
-    private float astralenchant$overflowed = 0;
+    @Unique private float astralenchant$overflowed = 0;
 
-    /**
-     * {@link AEEnchantments#ENDLESS_APPETITE} が付いている場合は溢れた(隠し)満腹度分だけ回復する。
-     */
+    /** {@link AEEnchantments#ENDLESS_APPETITE} が付いている場合は溢れた(隠し)満腹度分だけ回復する。 */
     @Inject(method = "add", at = @At("HEAD"))
     private void astralenchant$onAdd(int foodLevel, float saturationLevel, CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.ENDLESS_APPETITE)) return;
-        FoodData self = (FoodData)(Object)this;
+        FoodData self = (FoodData) (Object) this;
         int newFoodLevel = Math.clamp(foodLevel + self.getFoodLevel(), 0, 20);
         astralenchant$overflowed += Math.max(0, foodLevel + self.getFoodLevel() - 20);
         astralenchant$overflowed += Math.max(0, saturationLevel + self.getSaturationLevel() - newFoodLevel);
     }
 
-    /**
-     * {@link AEEnchantments#ENDLESS_APPETITE} が付いている場合は自然治癒を加速する。
-     */
+    /** {@link AEEnchantments#ENDLESS_APPETITE} が付いている場合は自然治癒を加速する。 */
     @Inject(method = "tick", at = @At("HEAD"))
     private void astralenchant$onTick(Player player, CallbackInfo ci) {
         if (!RuntimeConfigState.get(AEConfig.ENDLESS_APPETITE)) return;

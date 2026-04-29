@@ -18,14 +18,19 @@ public record OverMendingEffect() implements EnchantmentEntityEffect {
     public static final MapCodec<OverMendingEffect> CODEC = MapCodec.unit(OverMendingEffect::new);
 
     @Override
-    public void apply(@NotNull ServerLevel level, int enchantmentLevel, @NotNull EnchantedItemInUse item, @NotNull Entity entity, @NotNull Vec3 origin) {
+    public void apply(
+            @NotNull ServerLevel level,
+            int enchantmentLevel,
+            @NotNull EnchantedItemInUse item,
+            @NotNull Entity entity,
+            @NotNull Vec3 origin) {
         if (!(RuntimeConfigState.get(AEConfig.OVER_MENDING))) return;
         if (!(entity instanceof Player player)) return;
 
         ItemStack stack = item.itemStack();
 
         // 100の倍数じゃない値に設定する天邪鬼に備えてround
-        int XPPerTick = Math.round(RuntimeConfigState.get(AEConfig.OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED) / 100f) ;
+        int XPPerTick = Math.round(RuntimeConfigState.get(AEConfig.OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED) / 100f);
 
         if (stack.getOrDefault(AEDataComponents.OVER_MENDING, 0) >= 100) return;
         if (!AEUtils.hasEnoughXPPoint(player.experienceProgress, player.experienceLevel, XPPerTick)) return;

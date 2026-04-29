@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 public class AstralEnchant {
     public static final String MOD_ID = "astralenchant";
     public static final Logger LOGGER = LogUtils.getLogger();
-    
+
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
@@ -58,9 +58,7 @@ public class AstralEnchant {
         }
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-
-    }
+    private void commonSetup(FMLCommonSetupEvent event) {}
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {

@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
+import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -25,8 +26,6 @@ import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
-import java.util.List;
-
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class OverMendingHandler {
 
@@ -38,14 +37,19 @@ public class OverMendingHandler {
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = player.getItemBySlot(slot);
             if (stack.getOrDefault(AEDataComponents.OVER_MENDING, 0) >= 100) {
-                level.playSound(null , player.getOnPos(), SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
+                level.playSound(null, player.getOnPos(), SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
                 double multiplier = RuntimeConfigState.get(AEConfig.OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER);
                 event.getLightning().setDamage((float) (event.getLightning().getDamage() * multiplier));
-//                OverMendingCache.CACHE.put(player, slot);
+                //                OverMendingCache.CACHE.put(player, slot);
                 stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
-                stack.set(DataComponents.ENCHANTMENTS, AEUtils.removeEnchantment(stack.get(DataComponents.ENCHANTMENTS), AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level)));
+                stack.set(
+                        DataComponents.ENCHANTMENTS,
+                        AEUtils.removeEnchantment(
+                                stack.get(DataComponents.ENCHANTMENTS),
+                                AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level)));
                 stack.remove(AEDataComponents.OVER_MENDING);
-                level.sendParticles(ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 1000, 0f, 0f, 0f, 0.5f);
+                level.sendParticles(
+                        ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 1000, 0f, 0f, 0f, 0.5f);
                 return;
             }
         }
@@ -75,11 +79,14 @@ public class OverMendingHandler {
 
                 if (key.equals("enchantment.astralenchant.over_mending")) {
                     {
-                        tooltip.add(i + 1,
-                                    (progress < 100 ?
-                                            Component.translatable("enchantment.astralenchant.over_mending.tooltip.text", progress)
-                                            : Component.translatable("enchantment.astralenchant.over_mending.tooltip.hint"))
-                                    .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_AQUA)));
+                        tooltip.add(
+                                i + 1,
+                                (progress < 100
+                                                ? Component.translatable(
+                                                        "enchantment.astralenchant.over_mending.tooltip.text", progress)
+                                                : Component.translatable(
+                                                        "enchantment.astralenchant.over_mending.tooltip.hint"))
+                                        .setStyle(Style.EMPTY.withColor(ChatFormatting.DARK_AQUA)));
                     }
                     return;
                 }
@@ -87,27 +94,30 @@ public class OverMendingHandler {
         }
     }
 
-//    @SubscribeEvent
-//    private static void survivedLightning(LivingDamageEvent.Post event) {
-//        if (!(event.getEntity() instanceof Player player)
-//            || !player.isAlive()
-//            || !(event.getSource() == player.damageSources().lightningBolt())) return;
-//        if (OverMendingCache.CACHE.containsKey(player)) {
-//            ServerLevel level = (ServerLevel) player.level();
-//            ItemStack stack = player.getItemBySlot(OverMendingCache.CACHE.get(player));
-//            stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
-//            stack.set(DataComponents.ENCHANTMENTS, AEUtils.removeEnchantment(stack.get(DataComponents.ENCHANTMENTS), AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level)));
-//            stack.remove(AEDataComponents.OVER_MENDING);
-//            level.sendParticles(ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 1000, 0f, 0f, 0f, 0.5f);
-//            OverMendingCache.CACHE.remove(player);}
-//    }
+    //    @SubscribeEvent
+    //    private static void survivedLightning(LivingDamageEvent.Post event) {
+    //        if (!(event.getEntity() instanceof Player player)
+    //            || !player.isAlive()
+    //            || !(event.getSource() == player.damageSources().lightningBolt())) return;
+    //        if (OverMendingCache.CACHE.containsKey(player)) {
+    //            ServerLevel level = (ServerLevel) player.level();
+    //            ItemStack stack = player.getItemBySlot(OverMendingCache.CACHE.get(player));
+    //            stack.set(DataComponents.UNBREAKABLE, new Unbreakable(true));
+    //            stack.set(DataComponents.ENCHANTMENTS,
+    // AEUtils.removeEnchantment(stack.get(DataComponents.ENCHANTMENTS),
+    // AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level)));
+    //            stack.remove(AEDataComponents.OVER_MENDING);
+    //            level.sendParticles(ParticleTypes.END_ROD, player.getX(), player.getY() + 1, player.getZ(), 1000, 0f,
+    // 0f, 0f, 0.5f);
+    //            OverMendingCache.CACHE.remove(player);}
+    //    }
 
-//    @SubscribeEvent
-//    private static void onTick(ServerTickEvent.Post event) {
-//        OverMendingCache.CACHE.clear();
-//    }
-//
-//    static class OverMendingCache {
-//        public static final Map<Player, EquipmentSlot> CACHE = new HashMap<>();
-//    }
+    //    @SubscribeEvent
+    //    private static void onTick(ServerTickEvent.Post event) {
+    //        OverMendingCache.CACHE.clear();
+    //    }
+    //
+    //    static class OverMendingCache {
+    //        public static final Map<Player, EquipmentSlot> CACHE = new HashMap<>();
+    //    }
 }

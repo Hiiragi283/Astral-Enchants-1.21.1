@@ -25,7 +25,8 @@ public class LastStandHandler {
     private static void onLivingDeath(LivingDeathEvent event) {
         if (!RuntimeConfigState.get(AEConfig.LAST_STAND)) return;
         if (!(event.getEntity() instanceof Player player)) return;
-        if (!RuntimeConfigState.get(AEConfig.LAST_STAND_IGNORE_BYPASSES_INVULNERABILITY_TAG) && event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
+        if (!RuntimeConfigState.get(AEConfig.LAST_STAND_IGNORE_BYPASSES_INVULNERABILITY_TAG)
+                && event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) return;
 
         Iterable<ItemStack> armorSlots = player.getArmorSlots();
         Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.LAST_STAND, player.level());
@@ -50,19 +51,15 @@ public class LastStandHandler {
         if (player.level() instanceof ServerLevel serverLevel) {
             serverLevel.sendParticles(
                     ParticleTypes.TOTEM_OF_UNDYING,
-                    player.getX(), player.getY() + 1.0D, player.getZ(),
+                    player.getX(),
+                    player.getY() + 1.0D,
+                    player.getZ(),
                     30,
-                    0.5, 0.5, 0.5,
-                    0.1
-            );
-            serverLevel.playSound(
-                    null,
-                    player.blockPosition(),
-                    SoundEvents.TOTEM_USE,
-                    SoundSource.PLAYERS,
-                    1.0F,
-                    1.0F
-            );
+                    0.5,
+                    0.5,
+                    0.5,
+                    0.1);
+            serverLevel.playSound(null, player.blockPosition(), SoundEvents.TOTEM_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 }

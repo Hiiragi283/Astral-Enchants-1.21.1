@@ -1,5 +1,7 @@
 package net.scratch221171.astralenchant.common.enchantment.handler;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -15,9 +17,6 @@ import net.scratch221171.astralenchant.common.config.RuntimeConfigState;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class CurseOfIgnoranceHandler {
 
@@ -27,17 +26,24 @@ public class CurseOfIgnoranceHandler {
 
         Entity entity = event.getEntity();
         if (entity == null) return;
-        Holder<Enchantment> enchantment = AEUtils.getEnchantmentHolder(AEEnchantments.CURSE_OF_IGNORANCE, entity.level());
+        Holder<Enchantment> enchantment =
+                AEUtils.getEnchantmentHolder(AEEnchantments.CURSE_OF_IGNORANCE, entity.level());
         if (event.getItemStack().getEnchantmentLevel(enchantment) > 0) {
 
             List<Component> tooltip = new ArrayList<>();
             for (Component entry : event.getToolTip()) {
                 tooltip.add(
                         entry.getContents() instanceof TranslatableContents contents
-                                && (contents.getKey().equals(AEEnchantments.CURSE_OF_IGNORANCE.location().toLanguageKey("enchantment"))
-                                    || contents.getKey().equals(AEEnchantments.CURSE_OF_IGNORANCE.location().toLanguageKey("enchantment", "desc"))) ?
-                                entry.copy() : entry.copy().setStyle(entry.getStyle().withObfuscated(true))
-                        );
+                                        && (contents.getKey()
+                                                        .equals(AEEnchantments.CURSE_OF_IGNORANCE
+                                                                .location()
+                                                                .toLanguageKey("enchantment"))
+                                                || contents.getKey()
+                                                        .equals(AEEnchantments.CURSE_OF_IGNORANCE
+                                                                .location()
+                                                                .toLanguageKey("enchantment", "desc")))
+                                ? entry.copy()
+                                : entry.copy().setStyle(entry.getStyle().withObfuscated(true)));
             }
             event.getToolTip().clear();
             event.getToolTip().addAll(tooltip);

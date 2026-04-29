@@ -13,19 +13,20 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ItemCooldowns.class)
 public abstract class ItemCooldownsMixin implements IItemCooldownsExtension {
 
-    @Unique
-    private float astralenchant$cooldownDurationMultiplier = 1;
+    @Unique private float astralenchant$cooldownDurationMultiplier = 1;
 
     @Override
-    public void astralenchant$setMultiplier(float f) { this.astralenchant$cooldownDurationMultiplier = f; }
+    public void astralenchant$setMultiplier(float f) {
+        this.astralenchant$cooldownDurationMultiplier = f;
+    }
 
     @Override
-    public float astralenchant$getMultiplier() { return this.astralenchant$cooldownDurationMultiplier; }
+    public float astralenchant$getMultiplier() {
+        return this.astralenchant$cooldownDurationMultiplier;
+    }
 
     // astralenchant$cooldownDurationMultiplier更新時にConfigチェック済みだが、付けたまま設定を切るとmultiplierが固定されて大変なので設定チェック
-    /**
-     * {@link AEEnchantments#COOLDOWN_REDUCTION} が付いている場合はクールダウンの終了時間を早める。
-     */
+    /** {@link AEEnchantments#COOLDOWN_REDUCTION} が付いている場合はクールダウンの終了時間を早める。 */
     @ModifyVariable(method = "addCooldown", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private int astralenchant$modifyTicks(int ticks) {
         if (!RuntimeConfigState.get(AEConfig.COOLDOWN_REDUCTION)) return ticks;
@@ -33,6 +34,6 @@ public abstract class ItemCooldownsMixin implements IItemCooldownsExtension {
         float m = astralenchant$getMultiplier();
         if (m <= 0f) return 0;
 
-        return (int)(ticks * m);
+        return (int) (ticks * m);
     }
 }

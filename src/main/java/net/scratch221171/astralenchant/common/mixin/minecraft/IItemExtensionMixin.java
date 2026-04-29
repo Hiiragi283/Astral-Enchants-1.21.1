@@ -19,23 +19,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IItemExtension.class)
 public interface IItemExtensionMixin {
-    /**
-     * {@link AEEnchantments#COMPATIBILITY} が付いている場合はバンドルに任意のエンチャントを付与可能できるようにする。
-     */
+    /** {@link AEEnchantments#COMPATIBILITY} が付いている場合はバンドルに任意のエンチャントを付与可能できるようにする。 */
     @Inject(method = "supportsEnchantment", at = @At("RETURN"), cancellable = true)
-    private void astralenchant$bundleSupportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
+    private void astralenchant$bundleSupportsEnchantment(
+            ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
         if (!RuntimeConfigState.get(AEConfig.COMPATIBILITY)) return;
-        if (stack.is(Items.BUNDLE) && stack.get(DataComponents.BUNDLE_CONTENTS) != BundleContents.EMPTY && AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
+        if (stack.is(Items.BUNDLE)
+                && stack.get(DataComponents.BUNDLE_CONTENTS) != BundleContents.EMPTY
+                && AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
             stack.set(DataComponents.REPAIR_COST, 0);
             cir.setReturnValue(true);
         }
     }
 
     /**
-     * {@link AEEnchantments#OVERLOAD} が付いている場合は {@link net.scratch221171.astralenchant.common.registries.AEDataComponents#OVERLOAD} の分だけ他のエンチャントのレベルに上乗せする。
+     * {@link AEEnchantments#OVERLOAD} が付いている場合は
+     * {@link net.scratch221171.astralenchant.common.registries.AEDataComponents#OVERLOAD} の分だけ他のエンチャントのレベルに上乗せする。
      */
     @Inject(method = "getEnchantmentLevel", at = @At("RETURN"), cancellable = true)
-    private void astralenchant$getEnchantmentLevel(ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
+    private void astralenchant$getEnchantmentLevel(
+            ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
         if (!RuntimeConfigState.get(AEConfig.OVERLOAD)) return;
         if (enchantment.getKey() == AEEnchantments.OVERLOAD) return;
         int level = cir.getReturnValue();

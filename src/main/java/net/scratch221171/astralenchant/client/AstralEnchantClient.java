@@ -24,7 +24,7 @@ public class AstralEnchantClient {
                 }
             }
         });
-        
-        modContainer.registerExtensionPoint(IConfigScreenFactory .class, ConfigurationScreen::new);
+
+        modContainer.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 }
