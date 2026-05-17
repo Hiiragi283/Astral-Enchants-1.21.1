@@ -25,6 +25,8 @@ public final class DataGenerators {
         event.createProvider(AERecipeProvider::new);
 
         event.createProvider(AEEnchantmentTagsProvider::new);
+        event.createProvider(
+                (output, future) -> new AEDamageTypeTagsProvider(output, future, event.getExistingFileHelper()));
         event.createBlockAndItemTags(AEBlockTagsProvider::new, AEItemTagsProvider::new);
         // Client
         event.createProvider(output -> new AEBlockStateProvider(output, fileHelper));

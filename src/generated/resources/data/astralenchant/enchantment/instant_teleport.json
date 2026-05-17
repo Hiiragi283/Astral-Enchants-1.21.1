@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "astralenchant:config_condition",
+      "key": "instant_teleport"
+    }
+  ],
   "anvil_cost": 16,
   "description": {
     "translate": "enchantment.astralenchant.instant_teleport"

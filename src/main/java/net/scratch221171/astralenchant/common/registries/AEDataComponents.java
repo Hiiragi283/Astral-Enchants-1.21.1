@@ -14,13 +14,13 @@ public class AEDataComponents {
     public static final DeferredRegister<DataComponentType<?>> REGISTER =
             DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, AstralEnchant.MOD_ID);
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVERLOAD =
-            register("overload", builder -> builder.persistent(ExtraCodecs.POSITIVE_INT)
-                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVERLOAD = register(
+            "overload",
+            builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVER_MENDING =
-            register("over_mending", builder -> builder.persistent(ExtraCodecs.POSITIVE_INT)
-                    .networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> OVER_MENDING = register(
+            "over_mending",
+            builder -> builder.persistent(ExtraCodecs.POSITIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(
             String name, UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

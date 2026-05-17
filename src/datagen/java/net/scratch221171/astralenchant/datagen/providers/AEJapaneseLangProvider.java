@@ -1,10 +1,6 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -12,7 +8,7 @@ import net.scratch221171.astralenchant.common.registries.AEAttributes;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import net.scratch221171.astralenchant.common.registries.AEItems;
 
-public class AEJapaneseLangProvider extends LanguageProvider {
+public class AEJapaneseLangProvider extends AELangProvider {
     public AEJapaneseLangProvider(PackOutput output) {
         super(output, AstralEnchant.MOD_ID, "ja_jp");
     }
@@ -103,14 +99,6 @@ public class AEJapaneseLangProvider extends LanguageProvider {
                 "レベルが 1 上がるごとに、テレポート可能距離の上限がどれほど増加するかを指定します。");
         addConfigWithDesc(AEConfig.INSTANT_TELEPORT_MAX_DISTANCE, "即時テレポートの最大距離", "このエンチャントによるテレポートの距離の上限を指定します。");
         addConfigWithDesc(
-                AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS,
-                "軽減貫通で付与されるダメージタイプタグ",
-                "軽減貫通によって追加されるダメージタイプタグを設定します。反応装甲より優先されます。");
-        addConfigWithDesc(
-                AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS,
-                "反応装甲で無効化されるダメージタイプタグ",
-                "反応装甲によって無効化されるダメージタイプタグを設定します。");
-        addConfigWithDesc(
                 AEConfig.DISTORTION_ANGLE_PER_LEVEL,
                 "歪曲のレベル毎の許容角度増加",
                 "レベルが 1 上がるごとに、エンティティへの向きと視線の角度差の許容量が何度増加するか指定します。");
@@ -126,17 +114,5 @@ public class AEJapaneseLangProvider extends LanguageProvider {
                 "ゲーム進行に必要となる可能性のあるバニラアイテムのレシピを有効化します（バンドルなど）。");
 
         add(AstralEnchant.MOD_ID + ".configuration.enchantment_toggling", "エンチャントの切り替え");
-    }
-
-    private void addEnchantWithDesc(ResourceKey<Enchantment> key, String name, String desc) {
-        add(key.location().toLanguageKey("enchantment"), name);
-        add(key.location().toLanguageKey("enchantment", "desc"), desc);
-        // configのidはエンチャントpath参照なのでここもpath参照でええやろ
-        add(AstralEnchant.MOD_ID + ".configuration." + key.location().getPath(), name);
-    }
-
-    private void addConfigWithDesc(ModConfigSpec.ConfigValue<?> key, String name, String desc) {
-        add(AstralEnchant.MOD_ID + ".configuration." + key.getPath().getLast(), name);
-        add(AstralEnchant.MOD_ID + ".configuration." + key.getPath().getLast() + ".tooltip", desc);
     }
 }

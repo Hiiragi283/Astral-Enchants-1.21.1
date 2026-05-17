@@ -6,7 +6,6 @@
     "compat.l2hostility.DispellTraitMixin",
     "compat.l2hostility.RagnarokTraitMixin",
     "minecraft.AttributeMixin",
-    "minecraft.DamageSourceMixin",
     "minecraft.EnchantmentHelperMixin",
     "minecraft.EntityMixin",
     "minecraft.FoodDataMixin",

@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -32,14 +28,12 @@ public class AEConfig {
         KEYS.put(configValue, value);
     }
 
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS;
     public static final ModConfigSpec.IntValue LAST_STAND_REQUIRED_BASE_EXPERIENCE;
     public static final ModConfigSpec.BooleanValue LAST_STAND_IGNORE_BYPASSES_INVULNERABILITY_TAG;
     public static final ModConfigSpec.BooleanValue ESSENCE_OF_ENCHANT_INCLUDE_OVERLOAD_IN_CALCULATION;
     public static final ModConfigSpec.DoubleValue ESSENCE_OF_ENCHANT_LEVEL_MULTIPLIER;
     public static final ModConfigSpec.IntValue INSTANT_TELEPORT_DISTANCE_INCREASE_PER_LEVEL;
     public static final ModConfigSpec.IntValue INSTANT_TELEPORT_MAX_DISTANCE;
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS;
     public static final ModConfigSpec.DoubleValue DISTORTION_ANGLE_PER_LEVEL;
     public static final ModConfigSpec.IntValue OVER_MENDING_TOTAL_EXPERIENCE_REQUIRED;
     public static final ModConfigSpec.DoubleValue OVER_MENDING_LIGHTNING_DAMAGE_MULTIPLIER;
@@ -73,21 +67,6 @@ public class AEConfig {
 
         BUILDER.push("settings");
 
-        MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS = registerList(
-                "mitigation_piercing_added_damage_type_tags",
-                () -> Stream.of(
-                                DamageTypeTags.BYPASSES_ARMOR,
-                                DamageTypeTags.BYPASSES_COOLDOWN,
-                                DamageTypeTags.BYPASSES_EFFECTS,
-                                DamageTypeTags.BYPASSES_ENCHANTMENTS,
-                                DamageTypeTags.BYPASSES_INVULNERABILITY,
-                                DamageTypeTags.BYPASSES_SHIELD)
-                        .map(TagKey::location)
-                        .map(ResourceLocation::toString)
-                        .toList(),
-                () -> DamageTypeTags.BYPASSES_ARMOR.location().toString(),
-                obj -> obj instanceof String s && ResourceLocation.tryParse(s) != null);
-
         LAST_STAND_REQUIRED_BASE_EXPERIENCE =
                 registerInt("last_stand_required_base_experience", 2000, 0, Integer.MAX_VALUE);
 
@@ -104,15 +83,6 @@ public class AEConfig {
                 registerInt("instant_teleport_distance_increase_per_level", 32, 0, Integer.MAX_VALUE);
 
         INSTANT_TELEPORT_MAX_DISTANCE = registerInt("instant_teleport_max_distance", 256, 0, Integer.MAX_VALUE);
-
-        REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS = registerList(
-                "reactive_armor_disabled_damage_type_tags",
-                () -> Stream.of(DamageTypeTags.BYPASSES_ARMOR, DamageTypeTags.BYPASSES_ENCHANTMENTS)
-                        .map(TagKey::location)
-                        .map(ResourceLocation::toString)
-                        .toList(),
-                () -> DamageTypeTags.BYPASSES_ARMOR.location().toString(),
-                obj -> obj instanceof String s && s.contains(":"));
 
         DISTORTION_ANGLE_PER_LEVEL = registerDouble("distortion_angle_per_level", 7.5, 0, Double.MAX_VALUE);
 

@@ -9,7 +9,7 @@ import net.scratch221171.astralenchant.common.enchantment.handler.*;
 import net.scratch221171.astralenchant.common.mixin.compat.l2hostility.DispellTraitMixin;
 import net.scratch221171.astralenchant.common.mixin.compat.l2hostility.RagnarokTraitMixin;
 import net.scratch221171.astralenchant.common.mixin.minecraft.*;
-import net.scratch221171.astralenchant.compat.accessories.EssenceOfEnchantmentAccessoriesCompatHandler;
+import net.scratch221171.astralenchant.compat.accessories.*;
 
 public class AEEnchantments {
 
@@ -18,7 +18,7 @@ public class AEEnchantments {
      *
      * <p>Handler : {@link MitigationPiercingHandler}
      *
-     * <p>Mixin : {@link DamageSourceMixin}
+     * <p>Mixin : none
      */
     public static final ResourceKey<Enchantment> MITIGATION_PIERCING = create("mitigation_piercing");
 

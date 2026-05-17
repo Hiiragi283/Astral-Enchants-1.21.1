@@ -1,10 +1,6 @@
 package net.scratch221171.astralenchant.datagen.providers;
 
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
@@ -12,7 +8,7 @@ import net.scratch221171.astralenchant.common.registries.AEAttributes;
 import net.scratch221171.astralenchant.common.registries.AEBlocks;
 import net.scratch221171.astralenchant.common.registries.AEItems;
 
-public class AEEnglishLangProvider extends LanguageProvider {
+public class AEEnglishLangProvider extends AELangProvider {
     public AEEnglishLangProvider(PackOutput output) {
         super(output, AstralEnchant.MOD_ID, "en_us");
     }
@@ -94,31 +90,19 @@ public class AEEnglishLangProvider extends LanguageProvider {
         add(
                 AEEnchantments.OVER_MENDING.location().toLanguageKey("enchantment", "tooltip.hint"),
                 "To complete Over Mending, you must be struck by lightning. Note: Lightning damage will be significantly increased.");
-
-        // attribute
-        add(
-                AEAttributes.COOLDOWN_DURATION
-                        .unwrapKey()
-                        .orElseThrow()
-                        .location()
-                        .toLanguageKey("attribute"),
-                "Cooldown Duration");
-        add(
-                AEAttributes.COOLDOWN_DURATION
-                        .unwrapKey()
-                        .orElseThrow()
-                        .location()
-                        .toLanguageKey("attribute", "desc"),
+        // Attribute
+        addAttribute(
+                AEAttributes.COOLDOWN_DURATION,
+                "Cooldown Duration",
                 "Multiplier applied to item use cooldown duration");
-
         // アイテム
-        add(AEItems.ENCHANTMENT_SHARD.getKey().location().toLanguageKey("item"), "Enchantment Shard");
-        add(AEItems.ARCANE_QUARTZ.getKey().location().toLanguageKey("item"), "Arcane Quartz");
-        add(AEItems.ARCANIUM_INGOT.getKey().location().toLanguageKey("item"), "Arcanium Ingot");
-        add(AEItems.BUDDING_ARCANIUM_INGOT.getKey().location().toLanguageKey("item"), "Budding Arcanium Ingot");
+        addItem(AEItems.ENCHANTMENT_SHARD, "Enchantment Shard");
+        addItem(AEItems.ARCANE_QUARTZ, "Arcane Quartz");
+        addItem(AEItems.ARCANIUM_INGOT, "Arcanium Ingot");
+        addItem(AEItems.BUDDING_ARCANIUM_INGOT, "Budding Arcanium Ingot");
 
         // ブロック
-        add(AEBlocks.ARCANIUM_BLOCK.getKey().location().toLanguageKey("block"), "Arcanium Block");
+        addBlock(AEBlocks.ARCANIUM_BLOCK, "Arcanium Block");
 
         // 　設定画面
         add(AstralEnchant.MOD_ID + ".configuration.title", "Config");
@@ -152,14 +136,6 @@ public class AEEnglishLangProvider extends LanguageProvider {
                 "Instant Teleport maximum distance",
                 "Specifies the maximum teleport distance provided by this enchantment.");
         addConfigWithDesc(
-                AEConfig.MITIGATION_PIERCING_ADDED_DAMAGE_TYPE_TAGS,
-                "Damage type tags added by Mitigation Piercing",
-                "Configures the damage type tags added by Mitigation Piercing. These take priority over Reactive Armor.");
-        addConfigWithDesc(
-                AEConfig.REACTIVE_ARMOR_DISABLED_DAMAGE_TYPE_TAGS,
-                "Damage type tags disabled by Reactive Armor",
-                "Configures the damage type tags that are disabled by Reactive Armor.");
-        addConfigWithDesc(
                 AEConfig.DISTORTION_ANGLE_PER_LEVEL,
                 "Allowed angle increase per Distortion level",
                 "Specifies how many degrees the allowed difference between the entity's facing direction and the player's line of sight increases for each level of Distortion.");
@@ -175,17 +151,5 @@ public class AEEnglishLangProvider extends LanguageProvider {
                 "Enables recipes for vanilla items that may be required for game progression (such as bundles).");
 
         add(AstralEnchant.MOD_ID + ".configuration.enchantment_toggling", "Enchantment Toggling");
-    }
-
-    private void addEnchantWithDesc(ResourceKey<Enchantment> key, String name, String desc) {
-        add(key.location().toLanguageKey("enchantment"), name);
-        add(key.location().toLanguageKey("enchantment", "desc"), desc);
-        // configのidはエンチャントpath参照なのでここもpath参照でええやろ
-        add(AstralEnchant.MOD_ID + ".configuration." + key.location().getPath(), name);
-    }
-
-    private void addConfigWithDesc(ModConfigSpec.ConfigValue<?> key, String name, String desc) {
-        add(AstralEnchant.MOD_ID + ".configuration." + key.getPath().getLast(), name);
-        add(AstralEnchant.MOD_ID + ".configuration." + key.getPath().getLast() + ".tooltip", desc);
     }
 }

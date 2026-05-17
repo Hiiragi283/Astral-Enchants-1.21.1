@@ -1,9 +1,11 @@
 package net.scratch221171.astralenchant.common;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -18,6 +20,16 @@ public final class AstralEnchantmentTags {
     public static final class Blocks {
         public static final TagKey<Block> STORAGE_BLOCKS_ARCANIUM =
                 BlockTags.create(commonId("storage_blocks/arcanium"));
+    }
+
+    // Damage Type
+    public static final class DamageTypes {
+        public static final TagKey<DamageType> DISABLE_REACTIVE_ARMOR = create("disable_reactive_armor");
+        public static final TagKey<DamageType> ENABLE_MITIGATION_PIERCING = create("enable_mitigation_piercing");
+
+        private static TagKey<DamageType> create(String path) {
+            return TagKey.create(Registries.DAMAGE_TYPE, AstralEnchant.id(path));
+        }
     }
 
     // Item

@@ -12,9 +12,9 @@ public class AEAttributes {
     public static final DeferredRegister<Attribute> REGISTER =
             DeferredRegister.create(Registries.ATTRIBUTE, AstralEnchant.MOD_ID);
 
-    public static final Holder<Attribute> COOLDOWN_DURATION =
-            REGISTER.register("cooldown_duration", () -> new RangedAttribute(
-                            "attribute.astralenchant.cooldown_duration", 1.0, 0.0, 1024.0)
+    public static final Holder<Attribute> COOLDOWN_DURATION = REGISTER.register(
+            "cooldown_duration",
+            () -> new RangedAttribute("attribute.astralenchant.cooldown_duration", 1.0, 0.0, 1024.0)
                     .setSentiment(Attribute.Sentiment.NEGATIVE)
                     .setSyncable(true));
 
