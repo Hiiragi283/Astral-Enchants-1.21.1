@@ -6,10 +6,10 @@
       "item": "minecraft:budding_amethyst"
     },
     "2": {
-      "item": "astralenchant:arcanium_ingot"
+      "tag": "c:ingots/arcanium"
     },
     "3": {
-      "item": "astralenchant:arcane_quartz"
+      "tag": "c:gems/arcane_quartz"
     }
   },
   "pattern": [

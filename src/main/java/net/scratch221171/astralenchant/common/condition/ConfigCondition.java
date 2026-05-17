@@ -3,6 +3,7 @@ package net.scratch221171.astralenchant.common.condition;
 import com.mojang.serialization.MapCodec;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.conditions.ICondition;
+import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.config.AEConfig;
 import org.jetbrains.annotations.NotNull;
 
@@ -12,7 +13,12 @@ public record ConfigCondition(ModConfigSpec.BooleanValue config) implements ICon
 
     @Override
     public boolean test(@NotNull IContext context) {
-        return config.getAsBoolean();
+        try {
+            return config.getAsBoolean();
+        } catch (Exception e) {
+            AstralEnchant.LOGGER.error(e.getLocalizedMessage());
+            return true;
+        }
     }
 
     @Override

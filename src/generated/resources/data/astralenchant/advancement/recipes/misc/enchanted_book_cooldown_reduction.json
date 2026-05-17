@@ -1,51 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:arcane_quartz]}": {
+    "has_efficiency": {
       "conditions": {
         "items": [
           {
-            "items": "astralenchant:arcane_quartz"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:chorus_fruit": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:chorus_fruit"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:ender_pearl": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:ender_pearl"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:shield": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:shield"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:wind_charge": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:wind_charge"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:efficiency",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -61,11 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:chorus_fruit",
-      "has_minecraft:ender_pearl",
-      "has_minecraft:shield",
-      "has_minecraft:wind_charge",
-      "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:arcane_quartz]}"
+      "has_efficiency"
     ]
   ],
   "rewards": {

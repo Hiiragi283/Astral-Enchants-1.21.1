@@ -1,31 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_minecraft:dragon_head": {
+    "has_protection": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:dragon_head"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:experience_bottle": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:experience_bottle"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:totem_of_undying": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:totem_of_undying"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:protection",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -41,9 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:experience_bottle",
-      "has_minecraft:totem_of_undying",
-      "has_minecraft:dragon_head"
+      "has_protection"
     ]
   ],
   "rewards": {

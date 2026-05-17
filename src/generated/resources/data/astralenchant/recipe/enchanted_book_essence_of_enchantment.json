@@ -12,7 +12,7 @@
       "item": "minecraft:bookshelf"
     },
     "4": {
-      "item": "minecraft:lapis_block"
+      "tag": "c:storage_blocks/lapis"
     },
     "5": {
       "item": "minecraft:beacon"

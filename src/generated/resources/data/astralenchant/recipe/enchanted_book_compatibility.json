@@ -15,7 +15,7 @@
       "item": "astralenchant:budding_arcanium_ingot"
     },
     "5": {
-      "item": "astralenchant:arcanium_block"
+      "tag": "c:storage_blocks/arcanium"
     }
   },
   "pattern": [

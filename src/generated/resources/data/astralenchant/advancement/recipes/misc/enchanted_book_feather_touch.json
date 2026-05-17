@@ -1,51 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_minecraft:amethyst_shard": {
+    "has_silk_touch": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:amethyst_shard"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:deepslate": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:deepslate"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:echo_shard": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:echo_shard"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:feather": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:feather"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:mossy_cobblestone": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:mossy_cobblestone"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:silk_touch",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -61,11 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:amethyst_shard",
-      "has_minecraft:deepslate",
-      "has_minecraft:echo_shard",
-      "has_minecraft:feather",
-      "has_minecraft:mossy_cobblestone"
+      "has_silk_touch"
     ]
   ],
   "rewards": {

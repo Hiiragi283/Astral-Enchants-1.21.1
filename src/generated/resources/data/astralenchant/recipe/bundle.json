@@ -9,7 +9,7 @@
   "category": "misc",
   "key": {
     "1": {
-      "item": "minecraft:string"
+      "tag": "c:strings"
     },
     "2": {
       "item": "minecraft:rabbit_hide"

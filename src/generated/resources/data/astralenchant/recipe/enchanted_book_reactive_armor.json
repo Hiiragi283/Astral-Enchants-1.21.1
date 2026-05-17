@@ -12,8 +12,7 @@
           "potion": "minecraft:strong_harming"
         }
       },
-      "items": "minecraft:splash_potion",
-      "strict": true
+      "items": "minecraft:splash_potion"
     },
     "3": {
       "item": "minecraft:sculk_catalyst"
@@ -30,7 +29,7 @@
       "items": "minecraft:enchanted_book"
     },
     "5": {
-      "item": "astralenchant:arcane_quartz"
+      "tag": "c:gems/arcane_quartz"
     },
     "6": {
       "type": "neoforge:components",

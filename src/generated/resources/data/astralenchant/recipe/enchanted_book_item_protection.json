@@ -20,7 +20,7 @@
       "items": "minecraft:enchanted_book"
     },
     "2": {
-      "item": "minecraft:ender_chest"
+      "tag": "c:chests/ender"
     },
     "3": {
       "item": "astralenchant:budding_arcanium_ingot"

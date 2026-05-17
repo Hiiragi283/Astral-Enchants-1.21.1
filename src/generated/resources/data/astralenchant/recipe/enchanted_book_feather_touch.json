@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "1": {
-      "item": "minecraft:amethyst_shard"
+      "tag": "c:gems/amethyst"
     },
     "2": {
       "type": "neoforge:components",
@@ -23,10 +23,10 @@
       "item": "minecraft:echo_shard"
     },
     "5": {
-      "item": "minecraft:feather"
+      "tag": "c:feathers"
     },
     "6": {
-      "item": "minecraft:mossy_cobblestone"
+      "tag": "c:cobblestones/mossy"
     }
   },
   "pattern": [

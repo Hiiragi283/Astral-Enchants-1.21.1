@@ -7,51 +7,21 @@
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:budding_arcanium_ingot]}": {
+    "has_mending": {
       "conditions": {
         "items": [
           {
-            "items": "astralenchant:budding_arcanium_ingot"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_l2hostility:dispell": {
-      "conditions": {
-        "items": [
-          {
-            "items": "l2hostility:dispell"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_l2hostility:hostility_essence": {
-      "conditions": {
-        "items": [
-          {
-            "items": "l2hostility:hostility_essence"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_l2hostility:reprint": {
-      "conditions": {
-        "items": [
-          {
-            "items": "l2hostility:reprint"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:ender_chest": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:ender_chest"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:mending",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -67,11 +37,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:ender_chest",
-      "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:budding_arcanium_ingot]}",
-      "has_l2hostility:reprint",
-      "has_l2hostility:dispell",
-      "has_l2hostility:hostility_essence"
+      "has_mending"
     ]
   ],
   "rewards": {

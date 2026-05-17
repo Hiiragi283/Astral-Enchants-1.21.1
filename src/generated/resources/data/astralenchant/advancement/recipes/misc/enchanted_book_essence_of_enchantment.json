@@ -1,51 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_minecraft:beacon": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:beacon"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:book": {
+    "has_book": {
       "conditions": {
         "items": [
           {
             "items": "minecraft:book"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:bookshelf": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:bookshelf"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:enchanting_table": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:enchanting_table"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:lapis_block": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:lapis_block"
           }
         ]
       },
@@ -61,11 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:book",
-      "has_minecraft:enchanting_table",
-      "has_minecraft:bookshelf",
-      "has_minecraft:lapis_block",
-      "has_minecraft:beacon"
+      "has_book"
     ]
   ],
   "rewards": {

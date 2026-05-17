@@ -1,51 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:budding_arcanium_ingot]}": {
+    "has_riptide": {
       "conditions": {
         "items": [
           {
-            "items": "astralenchant:budding_arcanium_ingot"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:amethyst_shard": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:amethyst_shard"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:end_crystal": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:end_crystal"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:ender_eye": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:ender_eye"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:ender_pearl": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:ender_pearl"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:riptide",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -61,11 +31,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:amethyst_shard",
-      "has_minecraft:ender_pearl",
-      "has_minecraft:end_crystal",
-      "has_minecraft:ender_eye",
-      "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:budding_arcanium_ingot]}"
+      "has_riptide"
     ]
   ],
   "rewards": {

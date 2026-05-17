@@ -11,96 +11,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_minecraft:baked_potato": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:baked_potato"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:book": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:book"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:enchanted_golden_apple": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:enchanted_golden_apple"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:glistering_melon_slice": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:glistering_melon_slice"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:glow_berries": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:glow_berries"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:golden_apple": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:golden_apple"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:golden_carrot": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:golden_carrot"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:mushroom_stew": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:mushroom_stew"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:rabbit_stew": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:rabbit_stew"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_the_recipe": {
       "conditions": {
         "recipe": "astralenchant:enchanted_book_endless_appetite"
@@ -111,15 +21,6 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:golden_apple",
-      "has_minecraft:book",
-      "has_minecraft:golden_carrot",
-      "has_minecraft:enchanted_golden_apple",
-      "has_minecraft:glow_berries",
-      "has_minecraft:baked_potato",
-      "has_minecraft:mushroom_stew",
-      "has_minecraft:rabbit_stew",
-      "has_minecraft:glistering_melon_slice",
       "has_book"
     ]
   ],

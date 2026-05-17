@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "astralenchant:arcanium_block"
+            "items": "#c:storage_blocks/arcanium"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "astralenchant:arcanium_ingot_from_arcanium_block"
+        "recipe": "astralenchant:arcanium_ingot_from_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "astralenchant:arcanium_ingot_from_arcanium_block"
+      "astralenchant:arcanium_ingot_from_block"
     ]
   }
 }

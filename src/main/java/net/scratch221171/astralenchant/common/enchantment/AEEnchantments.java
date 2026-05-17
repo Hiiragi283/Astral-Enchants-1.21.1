@@ -133,7 +133,7 @@ public class AEEnchantments {
     /**
      * 与えられた攻撃から防具貫通ダメージタイプタグを削除し、ダメージ貫通を無効化する。{@link #MITIGATION_PIERCING} より権限が低い。
      *
-     * <p>Handler : {@link ReactiveArmorHandler}
+     * <p>Handler : none
      *
      * <p>Mixin : none
      */
@@ -142,7 +142,7 @@ public class AEEnchantments {
     /**
      * 敵を倒した際に稀にエンチャントの本をドロップするようになる。
      *
-     * <p>Handler : AELootModifierProvider
+     * <p>Handler : {@link AELootModifierProvider}
      *
      * <p>Mixin : none
      */

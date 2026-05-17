@@ -6,13 +6,13 @@
       "tag": "c:gems"
     },
     "2": {
-      "item": "minecraft:amethyst_shard"
+      "tag": "c:gems/amethyst"
     },
     "3": {
       "item": "minecraft:book"
     },
     "4": {
-      "item": "astralenchant:arcane_quartz"
+      "tag": "c:gems/arcane_quartz"
     }
   },
   "pattern": [

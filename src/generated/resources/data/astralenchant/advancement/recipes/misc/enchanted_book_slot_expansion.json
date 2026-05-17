@@ -1,42 +1,27 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:and",
-      "values": [
-        {
-          "type": "neoforge:mod_loaded",
-          "modid": "accessories"
-        }
-      ]
+      "type": "neoforge:mod_loaded",
+      "modid": "accessories"
     }
   ],
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_minecraft:bundle": {
+    "has_binding_curse": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:bundle"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:chain": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:chain"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "has_minecraft:shulker_shell": {
-      "conditions": {
-        "items": [
-          {
-            "items": "minecraft:shulker_shell"
+            "items": "minecraft:enchanted_book",
+            "predicates": {
+              "minecraft:stored_enchantments": [
+                {
+                  "enchantments": "minecraft:binding_curse",
+                  "levels": {
+                    "min": 1
+                  }
+                }
+              ]
+            }
           }
         ]
       },
@@ -52,9 +37,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_minecraft:shulker_shell",
-      "has_minecraft:bundle",
-      "has_minecraft:chain"
+      "has_binding_curse"
     ]
   ],
   "rewards": {

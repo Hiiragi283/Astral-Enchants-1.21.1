@@ -7,15 +7,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
-import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.AstralEnchantmentTags;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
-@EventBusSubscriber(modid = AstralEnchant.MOD_ID)
 public class MitigationPiercingHandler {
 
     @SubscribeEvent
@@ -26,10 +23,10 @@ public class MitigationPiercingHandler {
         if (source.getEntity() instanceof LivingEntity attacker) {
             AEUtils.getEnchantmentHolder(AEEnchantments.MITIGATION_PIERCING, attacker)
                     .ifPresent(holder -> {
-                        if ((source.getWeaponItem() instanceof ItemStack weapon)
-                                && weapon.getEnchantmentLevel(holder) > 0) {
+                        var weapon = source.getWeaponItem();
+                        if (weapon != null && weapon.getEnchantmentLevel(holder) > 0) {
                             if (source.is(AstralEnchantmentTags.DamageTypes.ENABLE_MITIGATION_PIERCING)) {
-                                event.setInvulnerable(true);
+                                event.setInvulnerable(false);
                             }
                         }
                     });

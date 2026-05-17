@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:arcanium_ingot]}": {
+    "has_arcanium_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "astralenchant:arcanium_ingot"
+            "items": "#c:ingots/arcanium"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "astralenchant:arcanium_block"
+        "recipe": "astralenchant:arcanium_block_from_ingot"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_DeferredHolder{ResourceKey[minecraft:item / astralenchant:arcanium_ingot]}"
+      "has_arcanium_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "astralenchant:arcanium_block"
+      "astralenchant:arcanium_block_from_ingot"
     ]
   }
 }

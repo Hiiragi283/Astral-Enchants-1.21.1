@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "1": {
-      "item": "minecraft:fishing_rod"
+      "tag": "c:tools/fishing_rod"
     },
     "2": {
-      "item": "minecraft:feather"
+      "tag": "c:feathers"
     },
     "3": {
       "item": "minecraft:wind_charge"

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(EnchantmentHelper.class)
-public class EnchantmentHelperMixin {
+public abstract class EnchantmentHelperMixin {
     /** * {@link AEEnchantments#OVERLOAD} が付いている場合にパッシブエフェクト（ダメージ増加など）のエンチャントのレベルを変更する、 */
     @Inject(
             method =
