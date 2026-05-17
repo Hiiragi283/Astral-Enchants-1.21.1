@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.IItemDecorator;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -25,7 +24,6 @@ public class XPBarDecorator implements IItemDecorator {
     @Override
     public boolean render(
             @NotNull GuiGraphics guiGraphics, @NotNull Font font, @NotNull ItemStack stack, int xOffset, int yOffset) {
-        if (!(AEConfig.isEnabled(AEEnchantments.OVER_MENDING))) return false;
         int progress = stack.getOrDefault(AEDataComponents.OVER_MENDING, 0);
         if (progress > 0 || AEUtils.getEnchantmentLevel(stack, AEEnchantments.OVER_MENDING) > 0) {
             // Calculate positions based on whether the power bar is visible

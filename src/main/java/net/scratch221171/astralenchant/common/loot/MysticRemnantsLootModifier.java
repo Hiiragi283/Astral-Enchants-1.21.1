@@ -43,8 +43,6 @@ public class MysticRemnantsLootModifier extends LootModifier {
     @Override
     protected @NotNull ObjectArrayList<ItemStack> doApply(
             @NotNull ObjectArrayList<ItemStack> generatedLoot, @NotNull LootContext context) {
-        if (!AEConfig.isEnabled(AEEnchantments.MYSTIC_REMNANTS)) return generatedLoot;
-
         Entity attacker = context.getParamOrNull(LootContextParams.ATTACKING_ENTITY);
         Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 

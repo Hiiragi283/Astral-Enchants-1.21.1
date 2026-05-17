@@ -26,7 +26,6 @@ public class EssenceOfEnchantmentAccessoriesCompatHandler {
 
     public static void onAdjustAttributeModifier(
             ItemStack stack, SlotReference reference, AccessoryAttributeBuilder builder) {
-        if (!AEConfig.isEnabled(AEEnchantments.ESSENCE_OF_ENCHANTMENT)) return;
         LivingEntity entity = reference.entity();
         AEUtils.getEnchantmentHolder(AEEnchantments.ESSENCE_OF_ENCHANTMENT, entity)
                 .map(stack::getEnchantmentLevel)

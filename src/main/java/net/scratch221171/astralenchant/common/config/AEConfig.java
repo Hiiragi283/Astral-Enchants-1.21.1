@@ -204,8 +204,15 @@ public class AEConfig {
         return false;
     }
 
+    public static String getEnchConfigKey(ResourceKey<Enchantment> key) {
+        return key.location().getPath();
+    }
+
     private static ModConfigSpec.BooleanValue registerEnchantment(ResourceKey<Enchantment> key) {
-        return registerBool(key.location().getPath(), true);
+        var path = getEnchConfigKey(key);
+        ModConfigSpec.BooleanValue bool = BUILDER.worldRestart().define(path, true);
+        BOOL_CONFIG_ENTRIES.put(path, bool);
+        return bool;
     }
 
     public static final ModConfigSpec CONFIG_SPEC = BUILDER.build();

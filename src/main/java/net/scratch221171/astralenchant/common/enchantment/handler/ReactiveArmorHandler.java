@@ -21,7 +21,6 @@ public class ReactiveArmorHandler {
 
     @SubscribeEvent
     private static void addDisabledDamageTag(EntityInvulnerabilityCheckEvent event) {
-        if (!AEConfig.isEnabled(AEEnchantments.REACTIVE_ARMOR)) return;
         DamageSource source = event.getSource();
         if (event.getEntity() instanceof LivingEntity entity) {
             if (AEUtils.getEnchantmentLevel(AEEnchantments.REACTIVE_ARMOR, entity) > 0) {

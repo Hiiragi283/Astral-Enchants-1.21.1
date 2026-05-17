@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "astralenchant:config_condition",
+      "key": "distortion"
+    }
+  ],
   "anvil_cost": 16,
   "description": {
     "translate": "enchantment.astralenchant.distortion"

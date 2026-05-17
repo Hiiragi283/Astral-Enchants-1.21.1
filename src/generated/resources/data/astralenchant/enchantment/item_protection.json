@@ -1,8 +1,17 @@
 {
   "neoforge:conditions": [
     {
-      "type": "neoforge:mod_loaded",
-      "modid": "l2hostility"
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "neoforge:mod_loaded",
+          "modid": "l2hostility"
+        },
+        {
+          "type": "astralenchant:config_condition",
+          "key": "item_protection"
+        }
+      ]
     }
   ],
   "anvil_cost": 16,

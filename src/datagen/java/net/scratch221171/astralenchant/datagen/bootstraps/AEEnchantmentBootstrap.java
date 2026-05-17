@@ -1,5 +1,6 @@
 package net.scratch221171.astralenchant.datagen.bootstraps;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
@@ -15,19 +16,47 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.EnchantmentAttributeEffect;
+import net.neoforged.neoforge.common.conditions.AndCondition;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.ModLoadedCondition;
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet;
 import net.scratch221171.astralenchant.common.AstralEnchant;
 import net.scratch221171.astralenchant.common.AstralEnchantmentTags;
+import net.scratch221171.astralenchant.common.condition.ConfigCondition;
+import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.enchantment.effect.OverMendingEffect;
 import net.scratch221171.astralenchant.common.registries.AEAttributes;
 
 public class AEEnchantmentBootstrap {
     public static void applyConditions(BiConsumer<ResourceKey<?>, ICondition> consumer) {
-        consumer.accept(AEEnchantments.SLOT_EXPANSION, new ModLoadedCondition("accessories"));
-        consumer.accept(AEEnchantments.ITEM_PROTECTION, new ModLoadedCondition("l2hostility"));
+        consumer.accept(AEEnchantments.MITIGATION_PIERCING, new ConfigCondition(AEConfig.MITIGATION_PIERCING));
+        consumer.accept(AEEnchantments.LAST_STAND, new ConfigCondition(AEConfig.LAST_STAND));
+        consumer.accept(AEEnchantments.ESSENCE_OF_ENCHANTMENT, new ConfigCondition(AEConfig.ESSENCE_OF_ENCHANTMENT));
+        consumer.accept(AEEnchantments.COOLDOWN_REDUCTION, new ConfigCondition(AEConfig.COOLDOWN_REDUCTION));
+        consumer.accept(AEEnchantments.FEATHER_TOUCH, new ConfigCondition(AEConfig.FEATHER_TOUCH));
+        consumer.accept(AEEnchantments.ADVENTURERS_LORE, new ConfigCondition(AEConfig.ADVENTURERS_LORE));
+        consumer.accept(AEEnchantments.COMPATIBILITY, new ConfigCondition(AEConfig.COMPATIBILITY));
+        consumer.accept(AEEnchantments.ENDLESS_APPETITE, new ConfigCondition(AEConfig.ENDLESS_APPETITE));
+        consumer.accept(AEEnchantments.MOMENTUM, new ConfigCondition(AEConfig.MOMENTUM));
+        consumer.accept(AEEnchantments.INSTANT_TELEPORT, new ConfigCondition(AEConfig.INSTANT_TELEPORT));
+        consumer.accept(AEEnchantments.OVERLOAD, new ConfigCondition(AEConfig.OVERLOAD));
+        consumer.accept(AEEnchantments.REACTIVE_ARMOR, new ConfigCondition(AEConfig.REACTIVE_ARMOR));
+        consumer.accept(AEEnchantments.MYSTIC_REMNANTS, new ConfigCondition(AEConfig.MYSTIC_REMNANTS));
+        consumer.accept(AEEnchantments.CURSE_OF_IGNORANCE, new ConfigCondition(AEConfig.CURSE_OF_IGNORANCE));
+        consumer.accept(AEEnchantments.CURSE_OF_ENCHANTMENT, new ConfigCondition(AEConfig.CURSE_OF_ENCHANTMENT));
+        consumer.accept(AEEnchantments.DISTORTION, new ConfigCondition(AEConfig.DISTORTION));
+        consumer.accept(AEEnchantments.OVER_MENDING, new ConfigCondition(AEConfig.OVER_MENDING));
+        ;
+        // Compat
+        consumer.accept(
+                AEEnchantments.SLOT_EXPANSION,
+                new AndCondition(
+                        List.of(new ModLoadedCondition("accessories"), new ConfigCondition(AEConfig.SLOT_EXPANSION))));
+        consumer.accept(
+                AEEnchantments.ITEM_PROTECTION,
+                new AndCondition(
+                        List.of(new ModLoadedCondition("l2hostility"), new ConfigCondition(AEConfig.ITEM_PROTECTION))));
     }
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {

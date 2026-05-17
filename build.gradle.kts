@@ -216,7 +216,7 @@ java {
 
 spotless {
     java {
-        palantirJavaFormat().style("PALANTIR").formatJavadoc(true)
+        palantirJavaFormat("2.90.0").formatJavadoc(true)
         endWithNewline()
         formatAnnotations()
         importOrder()

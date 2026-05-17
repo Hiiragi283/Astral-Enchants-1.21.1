@@ -16,7 +16,6 @@ public class RagnarokTraitMixin {
 
     @Inject(method = "allowSeal", at = @At("HEAD"), cancellable = true)
     private static void preventBeingSealed(EntitySlotAccess access, CallbackInfoReturnable<Boolean> cir) {
-        if (!AEConfig.isEnabled(AEEnchantments.ITEM_PROTECTION)) return;
         ItemStack stack = access.get();
         if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.ITEM_PROTECTION) > 0) {
             cir.setReturnValue(false);

@@ -8,16 +8,12 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.scratch221171.astralenchant.common.AstralEnchant;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
 public class AccessoriesCompat {
     public static void register(IEventBus eventBus) {
-        if (AEConfig.isEnabled(AEEnchantments.SLOT_EXPANSION)) {
-            AdjustAttributeModifierCallback.EVENT.register(AccessoriesCompat::expandSlot);
-        }
-
+        AdjustAttributeModifierCallback.EVENT.register(AccessoriesCompat::expandSlot);
         AdjustAttributeModifierCallback.EVENT.register(
                 EssenceOfEnchantmentAccessoriesCompatHandler::onAdjustAttributeModifier);
     }

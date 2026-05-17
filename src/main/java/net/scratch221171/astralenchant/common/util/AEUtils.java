@@ -20,6 +20,22 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class AEUtils {
+    private static Optional<RegistryAccess> getRegistryAccess() {
+        Optional<RegistryAccess> access = Optional.empty();
+        switch (FMLEnvironment.dist) {
+            case CLIENT ->
+                access = Optional.ofNullable(Minecraft.getInstance().level).map(Level::registryAccess);
+            case DEDICATED_SERVER ->
+                access = Optional.ofNullable(ServerLifecycleHooks.getCurrentServer())
+                        .map(MinecraftServer::registryAccess);
+        }
+        return access;
+    }
+
+    public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder(ResourceKey<Enchantment> key) {
+        return getRegistryAccess().flatMap(access -> getEnchantmentHolder(key, access));
+    }
+
     public static Optional<Holder.Reference<Enchantment>> getEnchantmentHolder(
             ResourceKey<Enchantment> key, Entity entity) {
         return getEnchantmentHolder(key, entity.level());
@@ -39,18 +55,6 @@ public class AEUtils {
         return getEnchantmentHolder(key, entity.level())
                 .map(holder -> EnchantmentHelper.getEnchantmentLevel(holder, entity))
                 .orElse(0);
-    }
-
-    private static Optional<RegistryAccess> getRegistryAccess() {
-        Optional<RegistryAccess> access = Optional.empty();
-        switch (FMLEnvironment.dist) {
-            case CLIENT ->
-                access = Optional.ofNullable(Minecraft.getInstance().level).map(Level::registryAccess);
-            case DEDICATED_SERVER ->
-                access = Optional.ofNullable(ServerLifecycleHooks.getCurrentServer())
-                        .map(MinecraftServer::registryAccess);
-        }
-        return access;
     }
 
     // ServerLifecycleHooks.getCurrentServerからレジストリを取得し，エンチャントレベルを取得する

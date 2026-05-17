@@ -1,7 +1,6 @@
 package net.scratch221171.astralenchant.common.mixin.minecraft;
 
 import net.minecraft.client.player.LocalPlayer;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,9 +14,6 @@ public class LocalPlayerMixin {
             method = {"aiStep", "canStartSprinting"},
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z"))
     private boolean astralenchant$disableUsingItemSlowdown(LocalPlayer instance) {
-        if (AEConfig.isEnabled(AEEnchantments.MOMENTUM)) {
-            if (AEUtils.getEnchantmentLevel(AEEnchantments.MOMENTUM, instance) > 0) return false;
-        }
-        return instance.isUsingItem();
+        return AEUtils.getEnchantmentLevel(AEEnchantments.MOMENTUM, instance) <= 0 && instance.isUsingItem();
     }
 }

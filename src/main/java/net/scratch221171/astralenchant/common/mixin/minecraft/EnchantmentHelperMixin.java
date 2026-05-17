@@ -10,9 +10,9 @@ import net.minecraft.world.item.enchantment.EnchantedItemInUse;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
+import net.scratch221171.astralenchant.common.util.AEUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,7 +28,7 @@ public class EnchantmentHelperMixin {
             cancellable = true)
     private static void astralenchant$modifyLevel(
             ItemStack stack, EnchantmentHelper.EnchantmentVisitor visitor, CallbackInfo ci) {
-        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
+        if (AEUtils.getEnchantmentHolder(AEEnchantments.OVERLOAD).isEmpty()) return;
         ItemEnchantments itemenchantments = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
 
         var lookup = net.neoforged.neoforge.common.CommonHooks.resolveLookup(
@@ -56,7 +56,7 @@ public class EnchantmentHelperMixin {
             LivingEntity entity,
             EnchantmentHelper.EnchantmentInSlotVisitor visitor,
             CallbackInfo ci) {
-        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
+        if (AEUtils.getEnchantmentHolder(AEEnchantments.OVERLOAD, entity).isEmpty()) return;
         if (!stack.isEmpty()) {
             ItemEnchantments itemenchantments = stack.getAllEnchantments(
                     entity.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT));

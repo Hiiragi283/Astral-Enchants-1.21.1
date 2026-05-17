@@ -7,7 +7,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.extensions.IItemExtension;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.registries.AEDataComponents;
 import net.scratch221171.astralenchant.common.util.AEUtils;
@@ -22,11 +21,10 @@ public interface IItemExtensionMixin {
     @Inject(method = "supportsEnchantment", at = @At("RETURN"), cancellable = true)
     private void astralenchant$bundleSupportsEnchantment(
             ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Boolean> cir) {
-        if (!AEConfig.isEnabled(AEEnchantments.COMPATIBILITY)) return;
-        if (stack.is(Items.BUNDLE)
-                && !stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
-                        .isEmpty()
-                && AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
+        if (!stack.is(Items.BUNDLE)) return;
+        if (stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY)
+                .isEmpty()) return;
+        if (AEUtils.getEnchantmentLevel(stack, AEEnchantments.COMPATIBILITY) > 0) {
             stack.set(DataComponents.REPAIR_COST, 0);
             cir.setReturnValue(true);
         }
@@ -39,8 +37,8 @@ public interface IItemExtensionMixin {
     @Inject(method = "getEnchantmentLevel", at = @At("RETURN"), cancellable = true)
     private void astralenchant$getEnchantmentLevel(
             ItemStack stack, Holder<Enchantment> enchantment, CallbackInfoReturnable<Integer> cir) {
-        if (!AEConfig.isEnabled(AEEnchantments.OVERLOAD)) return;
-        if (enchantment.getKey() == AEEnchantments.OVERLOAD) return;
+        if (AEUtils.getEnchantmentHolder(AEEnchantments.OVERLOAD).isEmpty()) return;
+        if (enchantment.is(AEEnchantments.OVERLOAD)) return;
         int level = cir.getReturnValue();
         if (level > 0) {
             cir.setReturnValue(level + stack.getOrDefault(AEDataComponents.OVERLOAD, 0));

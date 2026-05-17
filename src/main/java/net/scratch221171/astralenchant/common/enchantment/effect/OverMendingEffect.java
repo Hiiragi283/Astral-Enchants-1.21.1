@@ -24,7 +24,7 @@ public record OverMendingEffect() implements EnchantmentEntityEffect {
             @NotNull EnchantedItemInUse item,
             @NotNull Entity entity,
             @NotNull Vec3 origin) {
-        if (!(AEConfig.isEnabled(AEEnchantments.OVER_MENDING))) return;
+        if (AEUtils.getEnchantmentHolder(AEEnchantments.OVER_MENDING, level).isEmpty()) return;
         if (!(entity instanceof Player player)) return;
 
         ItemStack stack = item.itemStack();

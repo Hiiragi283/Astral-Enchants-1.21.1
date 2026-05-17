@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "astralenchant:config_condition",
+      "key": "mystic_remnants"
+    }
+  ],
   "anvil_cost": 4,
   "description": {
     "translate": "enchantment.astralenchant.mystic_remnants"

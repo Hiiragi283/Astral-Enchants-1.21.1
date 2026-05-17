@@ -16,7 +16,6 @@ import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent;
 import net.neoforged.neoforge.event.level.BlockDropsEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.scratch221171.astralenchant.common.AstralEnchant;
-import net.scratch221171.astralenchant.common.config.AEConfig;
 import net.scratch221171.astralenchant.common.enchantment.AEEnchantments;
 import net.scratch221171.astralenchant.common.util.AEUtils;
 
@@ -25,7 +24,6 @@ public class AdventurersLoreHandler {
 
     @SubscribeEvent
     private static void onTick(PlayerTickEvent.Pre event) {
-        if (!AEConfig.ADVENTURERS_LORE.getAsBoolean()) return;
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (!(player.level() instanceof ServerLevel serverLevel)) return;
 
@@ -41,7 +39,6 @@ public class AdventurersLoreHandler {
 
     @SubscribeEvent
     private static void onDrops(BlockDropsEvent event) {
-        if (!AEConfig.ADVENTURERS_LORE.getAsBoolean()) return;
         if (!(event.getBreaker() instanceof ServerPlayer player)) return;
         if (!(player.level() instanceof ServerLevel serverLevel)) return;
 
@@ -52,7 +49,6 @@ public class AdventurersLoreHandler {
 
     @SubscribeEvent
     private static void onLoot(LivingExperienceDropEvent event) {
-        if (!AEConfig.ADVENTURERS_LORE.getAsBoolean()) return;
         if (!(event.getAttackingPlayer() instanceof ServerPlayer player)) return;
         if (!(player.level() instanceof ServerLevel serverLevel)) return;
 
